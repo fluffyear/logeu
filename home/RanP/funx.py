@@ -1,7 +1,7 @@
 import random
 import os
-import sys
-with open(os.path.join(sys.path[0], "pp.txt"), "r", encoding="utf8") as f_hand:
+__location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+with open(os.path.join(__location__, "pp.txt"), encoding="utf8") as f_hand:
     count1 = 0
     lst = []
     temp = []
