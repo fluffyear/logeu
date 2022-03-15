@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Answer</title>
+    <link rel="stylesheet" href="{% static 'home/style.css' %}" />
+    <style>
+        html, body { width: 100%; height: 100%; }
+        a { display: block; width: 100%; height: 100%; }
+    </style>
+</head>
+<body>
+<p>The answer was: {{ word_answer }}</p>
+<a href='/home/verbs'></a>
+</body>
+</html>
