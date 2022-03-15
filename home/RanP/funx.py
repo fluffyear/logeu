@@ -1,5 +1,7 @@
 import random
-with open(r'C:\Users\james\PycharmProjects\websiteA\home\RanP\pp.txt', encoding="utf8") as f_hand:
+import os
+import sys
+with open(os.path.join(sys.path[0], "pp.txt"), "r", encoding="utf8") as f_hand:
     count1 = 0
     lst = []
     temp = []
