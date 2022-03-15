@@ -95,7 +95,7 @@ color: #83e848;
 font-size: 18px
 }
 
-a.button {
+.button {
     -webkit-appearance: button;
     -moz-appearance: button;
     appearance: button;

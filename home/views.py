@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from home.RanP import funx as funx
+from home.RanP import RandomNoun as ranoun
 import random
 
 
@@ -26,4 +27,20 @@ def verbs(request):
 
 
 def nouns(request):
-    return render(request, 'nouns.html')
+    count = 1
+    context = {}
+    dct = {}
+    while count < 5:
+        val = ranoun.rand_all()
+        if val in dct.values():
+            continue
+        dct['word' + str(count)] = val
+        count += 1
+    choix = random.choice(list(dct.keys()))
+    context['ans_case'] = dct[choix][0]
+    context['ans_word'] = dct[choix][1]
+    for num, value in enumerate(dct.values(), start=1):
+        context['word' + str(num)] = value[1]
+    print(dct)
+    print(context)
+    return render(request, 'nouns.html', context)
