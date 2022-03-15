@@ -5,10 +5,36 @@
     <meta charset="UTF-8">
     <title>Logeu: Verbs</title>
     <link rel="stylesheet" href="{% static 'home/style.css' %}" />
+    <style>
+    #div_1 {
+        width: 100%;
+        }
+    #div_2 {
+        width: 100%;
+        display: none;
+        }
+    </style>
 </head>
 <body>
-<p><a href="/home/verbs/answer/" class="button">{{ word1 }}</a><br><a href="/home/verbs/answer/" class="button">{{ word2 }}</a><br><a href="/home/verbs/answer/" class="button">{{ word3 }}</a><br><a href="/home/verbs/answer/" class="button">{{ word4 }}</a><br><a href="/home/verbs/answer/" class="button">{{ word5 }}</a></p>
-<p>{{ ans_word }}</p>
-<p><a href="/home">Home</a></p>
+    <div id="div_1">
+        <p><button onclick="disappear();appear();">{{ word1 }}</button><br><button onclick="disappear();appear();">{{ word2 }}</button><br><button onclick="disappear();appear();">{{ word3 }}</button><br><button onclick="disappear();appear();">{{ word4 }}</button><br><button onclick="disappear();appear();">{{ word5 }}</button></p>
+        <p>{{ ans_word }}</p>
+        <p><a href="/home">Home</a></p>
+    </div>
+    <div id="div_2">
+        <p>The answer was:</p>
+        <p>{{ ans_greek }}<br>{{ ans_word }}</p>
+        <a href='/home/verbs'>nice</a><br><br><br><a href="/home">Home</a>
+    </div>
+    <script>
+        function appear() {
+          var x = document.getElementById("div_2");
+          x.style.display = "block"
+        }
+        function disappear() {
+          var x = document.getElementById("div_1");
+          x.style.display = "none"
+        }
+    </script>
 </body>
 </html>

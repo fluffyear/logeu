@@ -19,7 +19,7 @@ def verbs(request):
         dct['word' + str(count)] = val
         count += 1
     choix = random.choice(list(dct.keys()))
-    context['ans_word'] = dct[choix][0]
+    context['ans_greek'] = dct[choix][0]
     context['ans_word'] = dct[choix][1]
     global word_answer
     word_answer = dct[choix][0]
@@ -30,8 +30,3 @@ def verbs(request):
 
 def nouns(request):
     return render(request, 'nouns.html')
-
-
-def v_answer(request):
-    context = {'word_answer': word_answer}
-    return render(request, 'verb_answer.html', context)
