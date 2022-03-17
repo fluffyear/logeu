@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from home.RanP import funx as funx
-from home.RanP import RandomNoun as ranoun
+from home.RanP import RandomNoun as RaNoun
 import random
 
 
@@ -28,8 +28,8 @@ def verbs(request):
 
 def nouns(request):
     context = {}
-    imp = ranoun.rand_all()
-    rest = ranoun.rand_exc_case(imp[0])
+    imp = RaNoun.rand_all()
+    rest = RaNoun.rand_exc_case(imp)
     lst = []
     for k in rest:
         lst.append(k)

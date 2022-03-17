@@ -38,6 +38,12 @@ def choose(pp):
     return random.choice(pp.split("/")).strip()
 
 
+def remove_crud(contents):
+    if isinstance(contents, tuple):
+        return contents[0]
+    return contents
+
+
 def get_pp(key_, type_):  # type_ is int 1 to 6, or a "principal p. keyword"
     verb = dct.get(key_)
     if isinstance(type_, int):
@@ -64,9 +70,9 @@ def type_get_pp(type_):
             try:
                 part = dct[verb][type_-1]
                 if part != "-" and isinstance(part, str):
-                    return choose(part), verb, type_
+                    return choose(part), remove_crud(verb), type_
                 elif part != "-" and isinstance(part, tuple):
-                    return choose(part[0]), verb[0], type_
+                    return choose(part[0]), remove_crud(verb[0]), type_
                 else:
                     continue
             except IndexError:
@@ -88,7 +94,7 @@ def type_get_pp(type_):
                 count3 = 0
                 for v in verb:
                     if v.find(type_) > -1:
-                        return choose(verb[count3]), f_key[0], type_
+                        return choose(verb[count3]), remove_crud(f_key[0]), type_
                     count3 += 1
             except IndexError:
                 continue
@@ -105,8 +111,8 @@ def rand_pp():
         if typ == "-":
             continue
         elif isinstance(key, str):
-            return choose(typ), key, num+1
+            return choose(typ), remove_crud(key), num+1
         elif typ.find(".") == -1 and key[-1].find(".") > -1:
-            return choose(typ), key[0], num+1
+            return choose(typ), remove_crud(key[0]), num+1
         else:
-            return choose(typ), key[0], typ[:typ.find(".")+1]
+            return choose(typ), remove_crud(key[0]), typ[:typ.find(".")+1]

@@ -3,7 +3,7 @@ body {
   margin: 40px auto;
   max-width: 650px;
   line-height: 1.6;
-  font-size: 18px;
+  font-size: 25px;
   color: #444;
   padding: 0 10px;
 }
@@ -37,7 +37,7 @@ pre {
   overflow: auto;
   font-size: 85%;
   line-height: 1.45;
-  background-color: #f6f8fa;
+  background-color: #3d3e40;
   border-radius: 3px;
   margin-bottom: 0;
   word-break: normal;
@@ -92,19 +92,19 @@ table td, table th {
 
 a {
 color: #a8eb34;
-font-size: 18px
+font-size: 27px
 }
 
 .button {
-  background-color: #4CAF50;
+  background-color: #f7d640;
   border: none;
   color: white;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 24px;
-  margin: 4px 2px;
+  font-size: 22px;
+  margin: 2px 1px;
   cursor: pointer;
-  width: 260px;
-  height: 60px;
+  width: 235px;
+  height: 55px;
 }

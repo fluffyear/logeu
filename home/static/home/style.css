@@ -91,7 +91,7 @@ table td, table th {
 }
 
 a {
-color: #83e848;
+color: #a8eb34;
 font-size: 18px
 }
 
@@ -102,9 +102,9 @@ font-size: 18px
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 24px;
   margin: 4px 2px;
   cursor: pointer;
-  width: 175px;
-  height: 40px;
+  width: 260px;
+  height: 60px;
 }
