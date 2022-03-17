@@ -80,3 +80,14 @@ def rand_all():
         return correlation[part], noun_type[randint(0, len(noun_type)-1)][:-3] + dct_all.get(noun_type).get(part)
     else:
         return correlation[part], noun_type[randint(0, len(noun_type)-1)][:-1] + dct_all.get(noun_type).get(part)
+
+
+def rand_exc_case(exclude):
+    lst = list(correlation.values())
+    lst.remove(exclude)
+    ans = []
+    for i in range(3):
+        temp = choice(lst)
+        ans.append(temp)
+        lst.remove(temp)
+    return tuple(ans)
