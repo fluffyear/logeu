@@ -96,15 +96,15 @@ font-size: 27px
 }
 
 .button {
-  background-color: #f7d640;
+  background-color: #f7d034;
   border: none;
   color: white;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 22px;
+  font-size: 30px;
   margin: 2px 1px;
   cursor: pointer;
-  width: 235px;
-  height: 55px;
+  width: 260px;
+  height: 60px;
 }
