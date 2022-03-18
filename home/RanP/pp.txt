@@ -408,7 +408,7 @@ pluck, cull; gain possession of
 be able, be strong enough; signify, mean
 δύω, -δύσω (transitive), -έδῡσα (transitive), δέδῡκα (intransitive) BUT -δέδῦκα (transitive), -δέδυμαι, -εδύθην, 2-aor. ἔδῡν (intransitive)
 enter, go down, sink; cause to sink
-ἰάπτω (?),-,-,-,-,-, aor-pass. ἑάφθη
+ἰάπτω,-,-,-,-,-, aor-pass. ἑάφθη
 send forth, hurry; (possibly in the passive) was hurled
 ἐάω, ἐάσω, εἴᾱσα, εἴᾱκα, εἴᾱμαι, εἰάθην
 permit, concede, let be
@@ -466,7 +466,7 @@ slay, kill, destroy; disfigure
 line in wait for, lay snares for; line in ambush
 ἐνέπω, ἐνισπήσω/ἐνίψω, ἔνισπον
 tell (of), speak; call, address
-ἐνήνοθε (defective)
+ἐνήνοθε
 sit on, be on, grow on, lie on
 ἐνίπτω, ἐνίσσω, ἐνένῑπον/ἠνίπαπον
 reprove, upbraid, chide; announce
@@ -562,7 +562,7 @@ reach puberty, be in one's prime; be vigorous
 lead, command; be governor
 ἡγέομαι, ἡγήσομαι, ἡγησάμην,-, ἥγημαι, ἡγήθην
 believe, think; lead, command
-ἠγερέθομαι (ἀγείρω)
+ἠγερέθομαι
 gather together, assemble, be collected
 ἥδομαι, ἡσθήσομαι,-,-,-, ἥσθην
 enjoy oneself, be pleased, delight
@@ -1411,7 +1411,7 @@ reply, answer; intepret, explain; act in a play
 ὑποπτεύω/ὑποτοπέω,-, ὑπώπτευσα
 be suspicious, suspect, suppose; observe, notice
 ὑστερέω, ὑστερήσω, ὑστερήθην
-be behind, come lat; lag behing, fall below, fail
+be behind, come late; lag behing, fall below, fail
 ὑφαίνω/ὑφάω, ὑφανῶ,-, ὕφηνα, ὕφασμαι, ὑφάνθην
 weave (on a loom); contrive/concoct (a plan), create, compose
 ὕω, ὕσω, ὗσα,-, ἐφῦσμαι, ὕσθην
