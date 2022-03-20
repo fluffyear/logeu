@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from home.RanP import funx as funx
 from home.RanP import RandomNoun as RaNoun
+from home.RanP import as_vocab_func as asv
 import random
 
 
@@ -40,3 +41,19 @@ def nouns(request):
     context['ans_word'] = imp[1]
     context['ans_case'] = imp[0]
     return render(request, 'nouns.html', context)
+
+
+def vocab(request):
+    ch = asv.selection()
+    words = [asv.shave(ch[0][1]), ch[1], ch[2], ch[3], ch[4]]
+    random.shuffle(words)
+    context = {
+        'word1': words[0],
+        'word2': words[1],
+        'word3': words[2],
+        'word4': words[3],
+        'word5': words[4],
+        'ans_greek': ch[0][1],
+        'ans_word': ch[0][0]
+    }
+    return render(request, 'vocab.html', context)
