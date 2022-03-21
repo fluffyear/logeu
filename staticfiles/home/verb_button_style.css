@@ -1,9 +1,9 @@
 body {
-  font-family: 'Catamaran', 'Droid Sans', 'DejaVu Sans', 'Tahoma', 'Verdana', 'sans-serif';
+  font-family: 'Catamaran', sans-serif;
   margin: 40px auto;
   max-width: 650px;
-  line-height: 1.6;
-  font-size: 25px;
+  line-height: 1.3;
+  font-size: 30px;
   color: #444;
   padding: 0 10px;
 }

@@ -21,27 +21,27 @@ def choose(word):
     return word
 
 
-def shave(word):
+def shave(word):  # shave definition to max 2 parts
     lst = word.split(', ')
     if len(lst) < 3:
         return word
     return f"{lst[0]}, {lst[1]}"
 
 
-def selection():
+def gre_selection():
     key = list(dct.keys())
     ans = rn.choice(key)
     verb = dct[ans][0] == 'I'
     ans_tup = (choose(ans), shave(dct[ans]))
     ind = g_lst.index(ans)
-    alpha = g_lst[ind-6:ind+6]
+    alpha = g_lst[ind-7:ind+7]
     if not alpha:
-        if ind < 6:
-            alpha = g_lst[:13-ind]
+        if ind < 7:
+            alpha = g_lst[:15-ind]
         else:
-            alpha = g_lst[752+ind:]
+            alpha = g_lst[len(key)-15+ind:]
     else:
-        alpha.pop(6)
+        alpha.pop(7)
     non_verbs = []
     verbs = []
     for i in alpha:
@@ -71,6 +71,41 @@ def selection():
         cho2 = rn.choice(alpha)
         alpha.remove(cho2)
         cho3 = rn.choice(alpha)
-        alpha.remove(cho3)
-    cho4 = rn.choice(list(set(dct.keys()) - {ans, cho1, cho2, cho3}))
+    cho4 = rn.choice(verbs+non_verbs)
     return ans_tup, shave(dct[cho1]), shave(dct[cho2]), shave(dct[cho3]), shave(dct[cho4])
+
+
+def eng_selection():
+    key = list(dct.keys())
+    num = rn.randint(0, len(key)-1)
+    ans = key.pop(num)
+    ans_tup = (ans, dct[ans])
+    verb = ans[0] == 'I'
+    temp = []
+    for _ in range(6):
+        ind = rn.randint(0, len(key)-1)
+        if (key[ind][0] == 'I') != verb:
+            continue
+        temp.append(key.pop(ind))
+    if num < 6:
+        rain = key[:12+num]  # rain = range over which to pick words
+    elif num > len(key)-6:
+        rain = key[len(key)-12-num:]
+    else:
+        rain = key[num-6:num+5]
+    rn.shuffle(rain)
+    v_pick = ''
+    nv_pick = ''
+    for item in rain:
+        if not v_pick and item[0] == 'I':
+            v_pick = item
+            continue
+        if not nv_pick and item[0] != 'I':
+            nv_pick = item
+            continue
+        break
+    temp.append(v_pick) if verb else temp.append(nv_pick)
+    len_r = len(rain)-1
+    temp.append(rain.pop(rn.randint(0, len_r)))
+    rn.shuffle(temp)
+    return ans_tup, choose(temp[0]), choose(temp[1]), choose(temp[2]), choose(temp[3])

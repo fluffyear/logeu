@@ -9,6 +9,10 @@ def index(request):
     return render(request, 'index.html')
 
 
+def about(request):
+    return render(request, 'about.html')
+
+
 def verbs(request):
     count = 1
     context = {}
@@ -43,8 +47,8 @@ def nouns(request):
     return render(request, 'nouns.html', context)
 
 
-def vocab(request):
-    ch = asv.selection()
+def gre_vocab(request):
+    ch = asv.gre_selection()
     words = [asv.shave(ch[0][1]), ch[1], ch[2], ch[3], ch[4]]
     random.shuffle(words)
     context = {
@@ -56,4 +60,20 @@ def vocab(request):
         'ans_greek': ch[0][1],
         'ans_word': ch[0][0]
     }
-    return render(request, 'vocab.html', context)
+    return render(request, 'vocab_greek.html', context)
+
+
+def eng_vocab(request):
+    ch = asv.eng_selection()
+    words = [asv.choose(asv.shave(ch[0][0])), ch[1], ch[2], ch[3], ch[4]]
+    random.shuffle(words)
+    context = {
+        'word1': words[0],
+        'word2': words[1],
+        'word3': words[2],
+        'word4': words[3],
+        'word5': words[4],
+        'ans_greek': ch[0][0],
+        'ans_word': ch[0][1]
+    }
+    return render(request, 'vocab_english.html', context)

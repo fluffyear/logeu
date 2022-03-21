@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logeu: About</title>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap')</style>
+<link rel="stylesheet" href="{% static 'home/style.css' %}" />
+</head>
+<body>
+    <h1>About Logeu</h1>
+    <a href="/home">home</a>
+    <h2>general stuff</h2>
+    <p>Logeu tests your knowledge of Attic/Classical Greek vocabulary and grammar. Right now, it works only with noun endings, vocabulary from the OCR AS list, and irregular verb vocabulary <i>(which I stole and modified from <a class="in_text" href="https://app.memrise.com/course/2146259/ancient-greek-all-irregular-verbs/">this page</a>)</i> : it's a WIP with more features to come.</p>
+    <p>I made this tool, because the fact that Eton had a monopoly on such programmes with the <a class="in_text" href="https://www.etoncollege.com/eton-greek/index.html">greek software project</a> really annoyed me, and I thought I could do a better job (turns out this is not so easy).</p>
+    <h2>explaining stuff</h2>
+    <p><a href="/home/vocab_greek">AS Gre -> Eng Vocab</a> <b>--</b> Multiple choice of English words, OCR AS DVL.
+    <br><a href="/home/vocab_english">AS Eng -> Gre Vocab</a> <b>--</b> Multiple choice of Greek words, OCR AS DVL.
+    <br><a href="/home/verbs">Irregular Verb Vocab</a> <b>--</b> Multiple choice of irregular Greek verbs, from <a class="in_text" href="https://app.memrise.com/course/2146259/ancient-greek-all-irregular-verbs/">this set</a>.
+    <br><a href="/home/nouns">Noun Endings</a> <b>--</b> Multiple choice of noun cases.</p>
+    <h2>boring stuff</h2>
+    <p>The project was written in the Django framework with Python, hosted for free by <a class="in_text" href="https://www.heroku.com">Heroku</a>. <i>Please do not mention my html/css/javascript practices I especially do not know what I am doing with those languages.</i></p>
+    <p>If you have any suggestions/queries, please contact me at loguequeries@gmail.com, or via Discord, at CEO of meow#0360.</p>
+    <a href="/home">home</a>
+</body>
+</html>

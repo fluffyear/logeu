@@ -77,7 +77,8 @@ I blame, I accuse
 ἄλλος
 ἅμα
 ἁμαρτάνω
-ἀμύνω
+ἀμύνω + acc
+ἀμύνω + dat
 ἀμύνομαι
 ἀμφί + acc
 ἀμφότερος
@@ -96,7 +97,8 @@ each other
 other, another
 at the same time, together with
 I make a mistake, I miss, I fail
-I ward off + acc, I defend + dat
+I ward off
+I defend
 I resist
 around, about
 both
@@ -591,12 +593,15 @@ ready
 ἐφʹ ᾧτε
 ἐχθρός
 ἔχω
+ἔχω + adverb
+ἔχω + infinitive
 ἕως
 ζάω
 Ζεύς, Δίος
 ζητέω
 ἤ, ἤ…ἤ…
 ἡγεμών, ἡγεμόνος
+ἡγέομαι + dat
 ἡγέομαι
 ἤδη
 ἥδομαι
@@ -641,14 +646,17 @@ fortunate, lucky
 I pray
 on condition that
 hostile
-I have, I hold, be + adverb, can + infinitive
+I have, I hold
+be
+can
 while, until
 I live
 Zeus
 I seek
 than, or, either … or …
 leader, guide
-I lead + dat, I consider
+I lead
+I consider
 (by) now, already
 I enjoy, I am glad
 pleasant, sweet
@@ -1212,6 +1220,8 @@ I march
 προθυμία
 πρόθυμος
 πρός
+πρός + acc
+πρός + dat
 προσβάλλω + dat
 πρόσθεν, ἔμπροσθεν
 προτεραία
@@ -1262,7 +1272,9 @@ I betray
 I am eager
 eagerness, zeal
 eager, ready
-to, towards, against + acc, in addition to + dat
+to, towards
+against
+in addition to
 I attack
 before
 the day before
@@ -1310,7 +1322,8 @@ treaty
 συγγενής
 συγχωρέω
 συλλέγω
-συμβουλεύω
+συμβουλεύω + dat
+συμβουλεύω (middle)
 συμμαχία
 σύμμαχος
 συμφορά
@@ -1361,7 +1374,8 @@ you, yourself
 related, kin
 I agree
 I collect, I assemble
-I advise + dat, I consult (middle)
+I advise
+I consult (middle)
 alliance
 ally
 disaster, event, misfortune
@@ -1413,7 +1427,8 @@ who?
 τριήρης
 τροπαῖον
 τρόπος
-τυγχάνω
+τυγχάνω + participle
+τυγχάνω + gen
 τύπτω
 τύχη
 ὑβρίζω
@@ -1426,7 +1441,8 @@ who?
 ὑπέρ + gen
 ὑπισχνέομαι
 ὕπνος
-ὑπό
+ὑπό + gen
+ὑπό + acc/dat
 ὑστεραία
 ὕστερος, ὕστερον
 ὑψηλός
@@ -1464,7 +1480,8 @@ I run
 trireme
 trophy
 way, manner, custom
-I happen to be + participle, I get + genitive
+I happen to be
+I get
 I strike
 chance, luck, fortune
 I assault, I maltreat
@@ -1477,7 +1494,8 @@ above, beyond, over
 on behalf of
 I promise
 sleep
-by + gen, under + acc/dat
+by
+under
 the next day
 later
 high
