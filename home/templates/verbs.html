@@ -7,34 +7,40 @@
     <link rel="stylesheet" href="{% static 'home/verb_button_style.css' %}" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap')
-        #div_1 {
-            width: 100%;
-            }
+        #div_1 {}
         #div_2 {
-            width: 100%;
-            display: none;
+            display: none
             }
     </style>
 </head>
 <body>
     <div id="div_1">
-        <p><button class="button" onclick="disappear();appear();">{{ word1 }}</button><br><button class="button" onclick="disappear();appear();">{{ word2 }}</button><br><button class="button" onclick="disappear();appear();">{{ word3 }}</button><br><button class="button" onclick="disappear();appear();">{{ word4 }}</button><br><button class="button" onclick="disappear();appear();">{{ word5 }}</button></p>
+        <p><button class="button" id="b1" onclick="app(this.id)">{{ word1 }}</button><br>
+            <button class="button" id="b2" onclick="app(this.id)">{{ word2 }}</button><br>
+            <button class="button" id="b3" onclick="app(this.id)">{{ word3 }}</button><br>
+            <button class="button" id="b4" onclick="app(this.id)">{{ word4 }}</button><br>
+            <button class="button" id="b5" onclick="app(this.id)">{{ word5 }}</button></p>
         <p>{{ ans_word }}</p>
         <p><a href="/home">Home</a></p>
     </div>
     <div id="div_2">
-        <p>The answer was:</p>
-        <p>{{ ans_greek }}</p><p>{{ ans_word }}</p>
-        <br><br><a href='/home/verbs'>nice</a><br><br><a href="/home">Home</a>
+        <p> <span id="wrong" style="color:#f7510a">Incorrect!</span><br>The answer was:<br><br>{{ ans_greek }}<br>{{ ans_word }}</p>
+        <br><a href='/home/verbs'>nice</a><br><br><a href="/home">Home</a>
     </div>
-    <script>
-        function appear() {
-          var x = document.getElementById("div_2");
-          x.style.display = "block"
-        }
-        function disappear() {
-          var x = document.getElementById("div_1");
-          x.style.display = "none"
+    <script type="text/javascript">
+        function app(id) {
+          document.getElementById("div_1").style.display = "none"
+          document.getElementById("div_2").style.display = "block"
+          var target = document.getElementById("wrong")
+          var lst = "{{ ans_greek }}".split(",")
+          if (lst.length > 2) {
+            lst = lst.slice(0, 2)
+          }
+          var sub = lst.join(',')
+          if (document.getElementById(id).innerHTML == sub) {
+            target.innerHTML = "Correct!"
+            target.style.color = "#72d61a"
+          }
         }
     </script>
 </body>

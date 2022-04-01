@@ -28,51 +28,43 @@ def shave(word):  # shave definition to max 2 parts
     return f"{lst[0]}, {lst[1]}"
 
 
-def gre_selection():
+def gre_selection():  # this is broken now
     key = list(dct.keys())
-    ans = rn.choice(key)
-    verb = dct[ans][0] == 'I'
-    ans_tup = (choose(ans), shave(dct[ans]))
-    ind = g_lst.index(ans)
-    alpha = g_lst[ind-7:ind+7]
-    if not alpha:
-        if ind < 7:
-            alpha = g_lst[:15-ind]
-        else:
-            alpha = g_lst[len(key)-15+ind:]
+    num = rn.randint(0, len(key)-1)
+    ans = key[num]
+    verb = ans[0] == 'I'
+    ans_tup = (choose(ans), dct[ans])
+    if num < 6:
+        rain = g_lst[:13]  # rain = range over which to pick words
+    elif num > len(key) - 7:
+        rain = g_lst[len(key) - 12:]
     else:
-        alpha.pop(7)
-    non_verbs = []
-    verbs = []
-    for i in alpha:
-        if i[0] != 'I':
-            non_verbs.append(i)
-        else:
-            verbs.append(i)
+        rain = g_lst[num - 6:num + 7]
+    rain.remove(ans)
+    v_pick = []
+    nv_pick = []
+    for item in rain:
+        if len(v_pick) < 2 and item[0] == 'I':
+            v_pick.append(item)
+            rain.remove(item)
+            continue
+        if len(nv_pick) < 2 and item[0] != 'I':
+            nv_pick.append(item)
+            rain.remove(item)
+            continue
+        break
     if verb:
-        alpha = verbs
+        temp = v_pick
     else:
-        alpha = non_verbs
-    if not alpha:
-        cho1 = rn.choice(key)
-        cho2 = rn.choice(key)
-        cho3 = rn.choice(key)
-    elif len(alpha) == 1:
-        cho1 = alpha[0]
-        cho2 = rn.choice(key)
-        cho3 = rn.choice(key)
-    elif len(alpha) == 2:
-        cho1 = alpha[0]
-        cho2 = alpha[1]
-        cho3 = rn.choice(key)
-    else:
-        cho1 = rn.choice(alpha)
-        alpha.remove(cho1)
-        cho2 = rn.choice(alpha)
-        alpha.remove(cho2)
-        cho3 = rn.choice(alpha)
-    cho4 = rn.choice(verbs+non_verbs)
-    return ans_tup, shave(dct[cho1]), shave(dct[cho2]), shave(dct[cho3]), shave(dct[cho4])
+        temp = nv_pick
+    while len(temp) < 4:
+        poss = rn.choice(key)
+        if poss in set(temp) and (poss[0] == 'I') != verb:
+            continue
+        temp.append(poss)
+    temp.append(rain.pop(rn.randint(0, len(rain) - 1)))
+    rn.shuffle(temp)
+    return ans_tup, shave(dct[temp[0]]), shave(dct[temp[1]]), shave(dct[temp[2]]), shave(dct[temp[3]])
 
 
 def eng_selection():
@@ -109,3 +101,6 @@ def eng_selection():
     temp.append(rain.pop(rn.randint(0, len_r)))
     rn.shuffle(temp)
     return ans_tup, choose(temp[0]), choose(temp[1]), choose(temp[2]), choose(temp[3])
+
+
+gre_selection()
