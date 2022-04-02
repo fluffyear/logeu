@@ -7,5 +7,6 @@ urlpatterns = [
     path('nouns/', views.nouns),
     path('verbs/', views.verbs),
     path('vocab_greek/', views.gre_vocab),
-    path('vocab_english/', views.eng_vocab)
+    path('vocab_english/', views.eng_vocab),
+    path('noun_input/', views.noun_input)
 ]

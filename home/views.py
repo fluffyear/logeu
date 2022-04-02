@@ -77,3 +77,24 @@ def eng_vocab(request):
         'ans_word': ch[0][1]
     }
     return render(request, 'vocab_english.html', context)
+
+
+def noun_input(request):
+    context = {}
+    imp = RaNoun.rand_all()
+    print("imp", imp)
+    rest = RaNoun.rand_exc_case(imp)
+    lst = []
+    for k in rest:
+        lst.append(k)
+    lst.append(imp[0])
+    random.shuffle(lst)
+    for num, value in enumerate(lst, start=1):
+        context['word' + str(num)] = value
+    context['ans_word'] = imp[1]
+    context['ans_case'] = imp[0]
+    table = imp[1].maketrans("ἀἙἐἱἰὀὑἡἠῥ", "αΕειιουηηρ")
+    simp = imp[1].translate(table)
+    context['ans_simp'] = simp
+    context['ans_base'] = imp[4]
+    return render(request, 'noun_input.html', context)

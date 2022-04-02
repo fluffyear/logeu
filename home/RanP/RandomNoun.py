@@ -9,6 +9,7 @@ corr = {
     7: "genitive plural",
     8: "dative plural"
 }
+yes = '[ἀ, Ἑ, ἐ, ἱ, ἰ, ὀ, ὑ, ἡ, ἠ, ῥ]'
 n1_fwvn = ("φωνη", "κεφαλη", "ἡδονη", "εἰρηνη")
 n1_tolma = ("τολμα", "θαλασσα")
 n1_xwra = ("χωρα", "ἀπορια")
@@ -224,13 +225,13 @@ def rand_all():
     n_type = choice(list(dct_all.keys()))
     part = randint(1, 8)
     di = dct_all.get(n_type)
+    base = n_type[randint(0, len(n_type)-1)]
     if n_type in [n3_swma, n1_fwvn, n1_tolma, n1_xwra, n3_dakru, n3_vuks]:
-        return corr[part], n_type[randint(0, len(n_type)-1)][:-1] + di.get(part), di, part
+        return corr[part], base[:-1] + di.get(part), di, part, base
     elif n_type in [n2_vous, n2_ostouv, n3_vaus]:
-        return corr[part], n_type[randint(0, len(n_type)-1)][:-3] + di.get(part), di, part
+        return corr[part], base[:-3] + di.get(part), di, part, base
     else:
-        print(n_type)
-        return corr[part], n_type[randint(0, len(n_type)-1)][:-2] + di.get(part), di, part
+        return corr[part], base[:-2] + di.get(part), di, part, base
 # e.g.(nominative plural, ναυται, d1_vautns, 1)
 
 
@@ -248,3 +249,4 @@ def rand_exc_case(exclude):
         lst.remove(temp)
         count -= 1
     return tuple(ans)
+

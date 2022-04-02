@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Logeu: Nouns Typed</title>
+    <link rel="stylesheet" href="{% static 'home/noun_button_style.css' %}" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap')
+        #div_1 {}
+        #div_2 {
+            display: none
+            }
+    </style>
+</head>
+<body>
+<div id="div_1">
+    <p>What is {{ ans_base }} in the {{ ans_case }}?</p>
+    <br><input id="userInput" type="text" placeholder="Case" style="width: 300px; font-size: 25pt;" >
+    <button id="pogBtn" onclick="app()" style="width: 120px; height: 45px; font-size: 22pt;">Submit</button>
+    <p><br><br><br><br><a href="/home">Home</a></p>
+</div>
+<div id="div_2">
+    <p> <span id="wrong" style="color:#f7510a">Incorrect!</span><br>The answer was:</p>
+    <p>{{ ans_word }} is {{ ans_case }}</p>
+    <br><br><a href='/home/noun_input'>nice</a><br><br><a href="/home">Home</a>
+</div>
+    <script type="text/javascript">
+        var input = document.getElementById("userInput")
+        input.addEventListener("keyup", function(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault()
+                document.getElementById("pogBtn").click()
+            }
+        })
+        function app() {
+          document.getElementById("div_1").style.display = "none"
+          document.getElementById("div_2").style.display = "block"
+          var target = document.getElementById("wrong")
+          if (input.value == "{{ans_word}}" || input.value == "{{ans_simp}}") {
+            target.innerHTML = "Correct!"
+            target.style.color = "#72d61a"
+          }
+        }
+    </script>
+</body>
+</html>
