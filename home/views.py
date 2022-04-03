@@ -1,8 +1,21 @@
 from django.shortcuts import render
-from home.RanP import funx as funx
+from home.RanP import funx
 from home.RanP import RandomNoun as RaNoun
 from home.RanP import as_vocab_func as asv
 import random
+word_key = {
+    "θ": "th",
+    "ξ": "ks",
+    "φ": "ph",
+    "ψ": "ps",
+    "Ἑ": "'E",
+    "ἱ": "'i",
+    "ὑ": "'u",
+    "ἡ": "'n",
+    "ῥ": "'r",
+    "ᾳ": "a!",
+    "ῃ": "n!"
+}
 
 
 def index(request):
@@ -44,6 +57,9 @@ def nouns(request):
         context['word' + str(num)] = value
     context['ans_word'] = imp[1]
     context['ans_case'] = imp[0]
+    context['ans_base'] = imp[4] + imp[2][1]
+    for num, value in enumerate(list(imp[2].values()), start=1):
+        context['table' + str(num)] = imp[4] + value
     return render(request, 'nouns.html', context)
 
 
@@ -82,7 +98,6 @@ def eng_vocab(request):
 def noun_input(request):
     context = {}
     imp = RaNoun.rand_all()
-    print("imp", imp)
     rest = RaNoun.rand_exc_case(imp)
     lst = []
     for k in rest:
@@ -93,8 +108,21 @@ def noun_input(request):
         context['word' + str(num)] = value
     context['ans_word'] = imp[1]
     context['ans_case'] = imp[0]
-    table = imp[1].maketrans("ἀἙἐἱἰὀὑἡἠῥ", "αΕειιουηηρ")
-    simp = imp[1].translate(table)
-    context['ans_simp'] = simp
-    context['ans_base'] = imp[4]
+    context['ans_base'] = imp[4] + imp[2][1]
+    proto_eng = imp[1].translate(imp[1].maketrans("αἀβγδεἐζηἠιἰκλμνοὀπρσςτυχω", "aabgdeeznniiklmvooprsstuxw"))
+    ans_eng = ""
+    for i in proto_eng:
+        if i in set(word_key):
+            ans_eng += word_key[i]
+        else:
+            ans_eng += i
+    simp1 = imp[1].translate(imp[1].maketrans("ἀἙἐἱἰὀὑἡἠῥᾳῃ", "αΕειιουηηραη"))
+    simp2 = imp[1].translate(imp[1].maketrans("ἀἙἐἱἰὀὑἡἠῥ", "αΕειιουηηρ"))
+    simp3 = imp[1].translate(imp[1].maketrans("ᾳῃ", "αη"))
+    context['ans_simp1'] = simp1
+    context['ans_simp2'] = simp2
+    context['ans_simp3'] = simp3
+    context['ans_eng'] = ans_eng
+    for num, value in enumerate(list(imp[2].values()), start=1):
+        context['table' + str(num)] = imp[4] + value
     return render(request, 'noun_input.html', context)

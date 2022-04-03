@@ -36,8 +36,7 @@
           if (lst.length > 2) {
             lst = lst.slice(0, 2)
           }
-          var sub = lst.join(',')
-          if (document.getElementById(id).innerHTML == sub) {
+          if (document.getElementById(id).innerHTML == lst.join(',')) {
             target.innerHTML = "Correct!"
             target.style.color = "#72d61a"
           }
