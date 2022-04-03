@@ -123,6 +123,10 @@ def noun_input(request):
     context['ans_simp2'] = simp2
     context['ans_simp3'] = simp3
     context['ans_eng'] = ans_eng
+    if ans_eng[-1] == ")":
+        context['ans_eng_nu'] = ans_eng[:-3]
+    else:
+        context["ans_eng_nu"] = ans_eng
     for num, value in enumerate(list(imp[2].values()), start=1):
         context['table' + str(num)] = imp[4] + value
     return render(request, 'noun_input.html', context)
