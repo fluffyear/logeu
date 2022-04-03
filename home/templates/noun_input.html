@@ -84,7 +84,7 @@
           document.getElementById("div_1").style.display = "none"
           document.getElementById("div_2").style.display = "block"
           var target = document.getElementById("wrong")
-          const members = ["{{ans_word}}", "{{ans_simp1}}", "{{ans_simp2}}", "{{ans_simp3}}", "{{ans_eng}}"]
+          const members = ["{{ans_word}}", "{{ans_simp1}}", "{{ans_simp2}}", "{{ans_simp3}}", "{{ans_eng}}".replace("&#x27;", "'")]
           if (members.includes(input.value)) {
             target.innerHTML = "Correct!"
             target.style.color = "#72d61a"

@@ -21,10 +21,6 @@ header {
   top: -.5em;
 }
 
-.breadcrumbs {
-  font-size: 80%;
-}
-
 code, tt {
   padding: .2em .4em;
   margin: 0;
@@ -49,10 +45,11 @@ table {
   display: block;
   width: 100%;
   overflow: auto;
-  margin-top: 0;
-  margin-bottom: 16px;
+  margin-top: 15px;
+  margin-bottom: 15px;
   border-spacing: 0;
   border-collapse: collapse;
+  text-align: center;
 }
 
 table tr {
@@ -64,7 +61,7 @@ table th {
 }
 
 table td, table th {
-  padding: 6px 13px;
+  padding: 4px 25px;
   border: 1px solid #dfe2e5;
 }
 
@@ -107,4 +104,14 @@ font-size: 27px
   cursor: pointer;
   width: 350px;
   height: 70px;
+}
+
+.keyTable {
+  font-size: 25px;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+.keyTable td, .keyTable th {
+  padding: 3px 15px;
 }
