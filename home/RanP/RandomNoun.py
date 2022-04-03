@@ -248,4 +248,4 @@ def rand_exc_case(exclude):
         ans.append(corr[temp])
         lst.remove(temp)
         count -= 1
-    return tuple(ans)
+    return ans
