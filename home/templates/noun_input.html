@@ -157,6 +157,7 @@
           }
           if (ind == 'ς') {
             document.getElementById("userInput").value = content.slice(0, pos-1) + 'σ' + letter + content.slice(pos)
+            pos += 1
           } else if (modify) {
             document.getElementById("userInput").value = content.slice(0, pos-1) + letter + content.slice(pos)
           } else {
