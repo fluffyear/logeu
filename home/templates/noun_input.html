@@ -120,7 +120,7 @@
         function back() {
           var content = document.getElementById("userInput").value
           document.getElementById("userInput").value = content.slice(0, pos-1) + content.slice(pos)
-          pos -= 1
+          if (pos != 0) { pos -= 1 }
         }
         function app() {
           document.getElementById("div_1").style.display = "none"
