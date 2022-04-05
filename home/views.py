@@ -16,6 +16,14 @@ word_key = {
     "ᾳ": "a!",
     "ῃ": "n!"
 }
+key_lst1 = ['α', 'ἁ', 'ᾳ', 'β', 'γ', 'δ', 'ε', 'ζ', 'η', 'θ', 'ι', 'κ', 'λ']
+key_lst2 = ['a', '\'a', 'a!', 'b', 'g', 'd', 'e', 'z', 'n', 'th', 'i', 'k', 'l']
+key_lst3 = ['μ', 'ν', 'ξ', 'ο', 'π', 'ρ', 'σ', 'τ', 'υ', 'φ', 'χ', 'ψ', 'ω']
+key_lst4 = ['m', 'v', 'ks', 'o', 'p', 'r', 's', 't', 'u', 'ph', 'x', 'ps', 'w']
+up_key_lst1 = ['Α', 'Ἁ', 'ᾼ', 'Β', 'Γ', 'Δ', 'Ε', 'Ζ', 'Η', 'Θ', 'Ι', 'Κ', 'Λ']
+up_key_lst2 = ['A', '\'A', 'A!', 'B', 'G', 'D', 'E', 'Z', 'N', 'TH', 'I', 'K', 'L']
+up_key_lst3 = ['Μ', 'Ν', 'Ξ', 'Ο', 'Π', 'Ρ', 'Σ', 'Τ', 'Υ', 'Φ', 'Χ', 'Ψ', 'Ω']
+up_key_lst4 = ['M', 'V', 'KS', 'O', 'P', 'R', 'S', 'T', 'U', 'PH', 'X', 'PS', 'W']
 
 
 def index(request):
@@ -94,7 +102,18 @@ def eng_vocab(request):
 def noun_input(request):
     imp = RaNoun.rand_all()
     ans_eng = ""
-    context = {'ans_word': imp[1], 'ans_case': imp[0]}
+    context = {'ans_word': imp[1],
+               'ans_case': imp[0],
+               'num_case': imp[3],
+               'key_lst1': key_lst1,
+               'key_lst2': key_lst2,
+               'key_lst3': key_lst3,
+               'key_lst4': key_lst4,
+               'up_key_lst1': up_key_lst1,
+               'up_key_lst2': up_key_lst2,
+               'up_key_lst3': up_key_lst3,
+               'up_key_lst4': up_key_lst4
+               }
     for num, value in enumerate(list(imp[2].values()), start=1):
         context['table' + str(num)] = imp[4] + value
     if imp[3] == 1:
@@ -114,8 +133,4 @@ def noun_input(request):
     context['ans_simp2'] = imp[1].translate(imp[1].maketrans("ἀἙἐἱἰὀὑἡἠῥ", "αΕειιουηηρ"))
     context['ans_simp3'] = imp[1].translate(imp[1].maketrans("ᾳῃ", "αη"))
     context['ans_eng'] = ans_eng
-    if ans_eng[-1] == ")":
-        context['ans_eng_nu'] = ans_eng[:-3]
-    else:
-        context['ans_eng_nu'] = "nobodyWillEverGuessThis"
     return render(request, 'noun_input.html', context)

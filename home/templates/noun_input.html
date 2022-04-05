@@ -18,24 +18,40 @@
     What is {{ ans_base }} in the {{ ans_case }}?<br>
     <input id="userInput" type="text" placeholder="Greek" style="width: 300px; font-size: 25pt; margin-top: 15px; margin-bottom: 15px;" >
     <button id="pogBtn" onclick="app()" style="width: 150px; height: 45px; font-size: 22pt;">Submit</button><br>
-    <span style="font-size: 22px;">Answer using a Greek keyboard (no accents), or with the below key.</span>
-    <table class="keyTable">
+    <span style="font-size: 21px;">Answer with a Greek keyboard (no accents), or with the below key(board).</span>
+    <table id="lower" class="keyTable">
       <tbody>
         <tr>
-          <td>α</td><td>ἁ</td><td>ᾳ</td><td>β</td><td>γ</td><td>δ</td><td>ε</td><td>ζ</td><td>η</td><td>θ</td><td>ι</td><td>κ</td><td>λ</td>
+            {% for i in key_lst1 %}<td><input class="inTable" type="submit" onclick="typing(this.value)" value="{{ i }}" /></td>{% endfor %}
         </tr>
         <tr>
-          <td>a</td><td>'a</td><td>a!</td><td>b</td><td>g</td><td>d</td><td>e</td><td>z</td><td>n</td><td>th</td><td>i</td><td>k</td><td>l</td>
+            {% for i in key_lst2 %}<td><input class="inTable" type="submit" onclick="typing(this.value)" value="{{ i }}" /></td>{% endfor %}
         </tr>
         <tr>
-          <td>μ</td><td>ν</td><td>ξ</td><td>ο</td><td>π</td><td>ρ</td><td>σ</td><td>τ</td><td>υ</td><td>φ</td><td>χ</td><td>ψ</td><td>ω</td>
+            {% for i in key_lst3 %}<td><input class="inTable" type="submit" onclick="typing(this.value)" value="{{ i }}" /></td>{% endfor %}
         </tr>
         <tr>
-          <td>m</td><td>v</td><td>ks</td><td>o</td><td>p</td><td>r</td><td>s</td><td>t</td><td>u</td><td>ph</td><td>x</td><td>ps</td><td>w</td>
+            {% for i in key_lst4 %}<td><input class="inTable" type="submit" onclick="typing(this.value)" value="{{ i }}" /></td>{% endfor %}
         </tr>
       </tbody>
     </table>
-    <a href="/home">Home</a>
+    <table id="upper" class="keyTable" style="display: none;">
+      <tbody>
+        <tr>
+            {% for i in up_key_lst1 %}<td><input class="inTable" type="submit" onclick="typing(this.value)" value="{{ i }}" style="margin: 0px 3.375px;"/></td>{% endfor %}
+        </tr>
+        <tr>
+            {% for i in up_key_lst2 %}<td><input class="inTable" type="submit" onclick="typing(this.value)" value="{{ i }}" style="margin: 0px 3.375px;"/></td>{% endfor %}
+        </tr>
+        <tr>
+            {% for i in up_key_lst3 %}<td><input class="inTable" type="submit" onclick="typing(this.value)" value="{{ i }}" style="margin: 0px 3.375px;"/></td>{% endfor %}
+        </tr>
+        <tr>
+            {% for i in up_key_lst4 %}<td><input class="inTable" type="submit" onclick="typing(this.value)" value="{{ i }}" style="margin: 0px 3.375px;"/></td>{% endfor %}
+        </tr>
+      </tbody>
+    </table>
+    <button onclick="back()" style="width: 150px; height: 45px; font-size: 22pt;">backspace</button><label class="switch" style="margin-right:3px;margin-left:30px;"><input id="capsLock" type="checkbox" onclick="caps()"><span class="slider"></span></label>caps&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="/home">Home</a>
 </div>
 <div id="div_2">
     <span id="wrong" style="color:#f7510a">Incorrect!</span><br><span id="corrected">{{ ans_word }} is the {{ ans_case }} of {{ ans_base }}</span>
@@ -50,47 +66,102 @@
       <tbody>
         <tr>
           <td style="font-weight: 600">Nominative</td>
-          <td>{{ table1 }}</td>
-          <td>{{ table5 }}</td>
+          <td id="t1">{{ table1 }}</td>
+          <td id="t5">{{ table5 }}</td>
         </tr>
         <tr>
           <td style="font-weight: 600">Accusative</td>
-          <td>{{ table2 }}</td>
-          <td>{{ table6 }}</td>
+          <td id="t2">{{ table2 }}</td>
+          <td id="t6">{{ table6 }}</td>
         </tr>
         <tr>
           <td style="font-weight: 600">Genitive</td>
-          <td>{{ table3 }}</td>
-          <td>{{ table7 }}</td>
+          <td id="t3">{{ table3 }}</td>
+          <td id="t7">{{ table7 }}</td>
         </tr>
         <tr>
           <td style="font-weight: 600">Dative</td>
-          <td>{{ table4 }}</td>
-          <td>{{ table8 }}</td>
+          <td id="t4">{{ table4 }}</td>
+          <td id="t8">{{ table8 }}</td>
         </tr>
       </tbody>
     </table>
     <a href='/home/noun_input'>nice</a>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="/home">Home</a>
 </div>
     <script type="text/javascript">
-        const members = ["{{ans_word}}", "{{ans_simp1}}", "{{ans_simp2}}", "{{ans_simp3}}", "{{ans_eng}}".replace("&#x27;", "'"), "{{ans_eng_nu}}".replace("&#x27;", "'")]
-        var input = document.getElementById("userInput")
+        const members = ["{{ans_word}}", "{{ans_simp1}}", "{{ans_simp2}}", "{{ans_simp3}}", "{{ans_eng}}".replace("&#x27;", "'")]
+        const membersNu = members.filter(nuFilter).map(nuFunction)
+        const iotaDict = {'Η': 'ᾘ', 'Α': 'ᾈ', 'Ω': 'ᾨ', 'Ἡ': 'ᾙ', 'Ὡ': 'ᾩ', 'Ἁ': 'ᾉ', 'α': 'ᾳ', 'η': 'ῃ', 'ω': 'ῳ', 'ὡ': 'ᾡ', 'ἁ': 'ᾁ', 'ἡ': 'ᾑ'}
+        const roughDict = {'Ε': 'Ἑ', 'Α': 'Ἁ', 'Ι': 'Ἱ', 'Υ': 'Ὑ', 'Η': 'Ἡ', 'Ρ': 'Ῥ', 'Ο': 'Ό', 'Ω': 'Ὡ', 'ᾨ': 'ᾩ', 'ᾈ': 'ᾉ', 'ᾘ': 'ᾙ', 'ι': 'ἱ', 'υ': 'ὑ', 'η': 'ἡ', 'ρ': 'ῥ', 'ο': 'ὁ', 'ε': 'ἑ', 'α': 'ἁ', 'ω': 'ὡ', 'ῳ': 'ᾡ', 'ᾳ': 'ᾁ', 'ῃ': 'ᾑ'}
+        const convKey = {'A': 'Α', '\'A': 'Ἁ', 'A!': 'ᾼ', 'B': 'Β', 'G': 'Γ', 'D': 'Δ', 'E': 'Ε', 'Z': 'Ζ', 'N': 'Η', 'TH': 'Θ', 'I': 'Ι', 'K': 'Κ', 'L': 'Λ', 'M': 'Μ', 'V': 'Ν', 'KS': 'Ξ', 'O': 'Ο', 'P': 'Π', 'R': 'Ρ', 'S': 'Σ', 'T': 'Τ', 'U': 'Υ', 'PH': 'Φ', 'X': 'Χ', 'PS': 'Ψ', 'W': 'Ω', 'a': 'α', '\'a': 'ἁ', 'a!': 'ᾳ', 'b': 'β', 'g': 'γ', 'd': 'δ', 'e': 'ε', 'z': 'ζ', 'n': 'η', 'th': 'θ', 'i': 'ι', 'k': 'κ', 'l': 'λ', 'm': 'μ', 'v': 'ν', 'ks': 'ξ', 'o': 'ο', 'p': 'π', 'r': 'ρ', 's': 'ς', 't': 'τ', 'u': 'υ', 'ph': 'φ', 'x': 'χ', 'ps': 'ψ', 'w': 'ω', 'σ': 'ς'}
+        const input = document.getElementById("userInput")
+        var pos = 0
         input.addEventListener("keyup", function(event) {
-            if (event.keyCode === 13) {
-                event.preventDefault()
-                document.getElementById("pogBtn").click()
-            }
+          if (event.keyCode === 13) {
+            document.getElementById("pogBtn").click()
+          } else { pos += 1 }
         })
+        input.addEventListener('click', e => { pos = e.target.selectionEnd })
+        function nuFilter(value, index, array) { return value.length > 3 }
+        function nuFunction(value, index, array) { return value.slice(0, -3) }
+        function caps() {
+          document.getElementById("upper").style.display = "block"
+          document.getElementById("lower").style.display = "none"
+        }
+        function caps() {
+          if (document.getElementById("capsLock").checked) {
+            document.getElementById("lower").style.display = "none"
+            document.getElementById("upper").style.display = "block"
+          } else {
+            document.getElementById("upper").style.display = "none"
+            document.getElementById("lower").style.display = "block"
+          }
+        }
+        function back() {
+          var content = document.getElementById("userInput").value
+          document.getElementById("userInput").value = content.slice(0, pos-1) + content.slice(pos)
+          pos -= 1
+        }
         function app() {
           document.getElementById("div_1").style.display = "none"
           document.getElementById("div_2").style.display = "block"
-          var target = document.getElementById("wrong")
-          if (members.includes(input.value)) {
-            target.innerHTML = "Correct!"
-            target.style.color = "#72d61a"
+          var targeted = document.getElementById("wrong")
+          if (members.concat(membersNu).includes(input.value)) {
+            targeted.innerHTML = "Correct!"
+            targeted.style.color = "#72d61a"
             document.getElementById("corrected").style.display = "none"
-          } else if (input.value !== "") {
-            target.innerHTML = input.value + " is incorrect:"
+          } else if (input.value !== "") { targeted.innerHTML = input.value + " is incorrect:" }
+          document.getElementById("t" + "{{num_case}}").style.backgroundColor = targeted.style.color
+        }
+        function typing(val) {
+          var content = document.getElementById("userInput").value
+          var ind = content.slice(pos-1, pos)
+          var posBool = false
+          var modify = false
+          if (['ᾳ', 'a!', 'ᾼ', 'A!'].includes(val)) {
+            if (Object.keys(iotaDict).includes(ind)) {
+              letter = iotaDict[ind]
+              modify = true
+            } else { return }
+          } else if (['ἁ', '\'a', 'Ἁ', '\'A'].includes(val)) {
+            if (Object.keys(roughDict).includes(ind)) {
+              letter = roughDict[ind]
+              modify = true
+            } else { return }
+          } else if (convKey[val] === undefined) {
+            letter = val
+            posBool = true
+          } else {
+            letter = convKey[val]
+            posBool = true
+          }
+          if (ind == 'ς') {
+            document.getElementById("userInput").value = content.slice(0, pos-1) + 'σ' + letter + content.slice(pos)
+          } else if (modify) {
+            document.getElementById("userInput").value = content.slice(0, pos-1) + letter + content.slice(pos)
+          } else {
+            document.getElementById("userInput").value = content.slice(0, pos) + letter + content.slice(pos)
+            if (posBool) { pos += 1 }
           }
         }
     </script>
