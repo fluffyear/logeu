@@ -35,23 +35,23 @@
       <tbody>
         <tr>
           <td style="font-weight: 600">Nominative</td>
-          <td>{{ table1 }}</td>
-          <td>{{ table5 }}</td>
+          <td id="t1">{{ table1 }}</td>
+          <td id="t5">{{ table5 }}</td>
         </tr>
         <tr>
           <td style="font-weight: 600">Accusative</td>
-          <td>{{ table2 }}</td>
-          <td>{{ table6 }}</td>
+          <td id="t2">{{ table2 }}</td>
+          <td id="t6">{{ table6 }}</td>
         </tr>
         <tr>
           <td style="font-weight: 600">Genitive</td>
-          <td>{{ table3 }}</td>
-          <td>{{ table7 }}</td>
+          <td id="t3">{{ table3 }}</td>
+          <td id="t7">{{ table7 }}</td>
         </tr>
         <tr>
           <td style="font-weight: 600">Dative</td>
-          <td>{{ table4 }}</td>
-          <td>{{ table8 }}</td>
+          <td id="t4">{{ table4 }}</td>
+          <td id="t8">{{ table8 }}</td>
         </tr>
       </tbody>
     </table>
@@ -61,14 +61,15 @@
         function app(id) {
           document.getElementById("div_1").style.display = "none"
           document.getElementById("div_2").style.display = "block"
-          var target = document.getElementById("wrong")
+          var targeted = document.getElementById("wrong")
           var guess = document.getElementById(id).innerHTML
           if (guess == "{{ans_case}}") {
-            target.innerHTML = "Correct!"
-            target.style.color = "#72d61a"
+            targeted.innerHTML = "Correct!"
+            targeted.style.color = "#72d61a"
           } else {
-            target.innerHTML = guess + " is incorrect:"
+            targeted.innerHTML = guess + " is incorrect:"
           }
+          document.getElementById("t" + "{{num_case}}").style.backgroundColor = targeted.style.color
         }
     </script>
 </body>

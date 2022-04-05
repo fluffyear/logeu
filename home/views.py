@@ -62,6 +62,7 @@ def nouns(request):
     context['ans_word'] = imp[1]
     context['ans_case'] = imp[0]
     context['ans_base'] = imp[4] + imp[2][1]
+    context['num_case'] = imp[3]
     for num, value in enumerate(list(imp[2].values()), start=1):
         context['table' + str(num)] = imp[4] + value
     return render(request, 'nouns.html', context)
