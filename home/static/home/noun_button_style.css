@@ -187,3 +187,19 @@ input:checked + .slider:before {
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
+
+.hint {
+  color: #02c3e0;
+  font-size: 19px;
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.hint:disabled {
+  color: #444;
+  cursor: text;
+  text-decoration: none;
+}

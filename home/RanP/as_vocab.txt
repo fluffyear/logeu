@@ -166,7 +166,7 @@ perplexity, difficulty
 I deprive
 unexpected
 I lay hold of
-… then …
+...then...
 (a question)
 money
 
@@ -316,7 +316,7 @@ altar
 διά + acc
 διά + gen
 διὰ τί
-διʹ ὀλίγου
+δι' ὀλίγου
 διαβαίνω
 διαλέγομαι
 διαφθείρω
@@ -410,7 +410,7 @@ upright, just, fair
 εἰς + acc
 εἰσβάλλω
 εἰσβολή
-εἴτε … εἴτε …
+εἴτε...εἴτε...
 ἐκ + gen, ἐξ + gen
 ἐξ οὑ
 ἔξω + gen
@@ -461,7 +461,7 @@ peace
 into, to
 I invade, I throw into
 invasion, pass
-whether … or …
+whether...or...
 out of, from
 since the time when
 outside
@@ -590,7 +590,7 @@ ready
 εὐσεβής
 εὐτυχής
 εὔχομαι
-ἐφʹ ᾧτε
+ἐφ' ᾧτε
 ἐχθρός
 ἔχω
 ἔχω + adverb
@@ -599,7 +599,7 @@ ready
 ζάω
 Ζεύς, Δίος
 ζητέω
-ἤ, ἤ…ἤ…
+ἤ, ἤ...ἤ...
 ἡγεμών, ἡγεμόνος
 ἡγέομαι + dat
 ἡγέομαι
@@ -611,7 +611,7 @@ ready
 ἥλιος
 ἥμεις, ἡμᾶς αὐτούς
 ἡμέρα
-ἁμʹ ἡμέρᾳ
+ἁμ' ἡμέρᾳ
 ἡμέτερος
 ἤπειρος
 ἡσυχάζω
@@ -653,7 +653,7 @@ while, until
 I live
 Zeus
 I seek
-than, or, either … or …
+than, or, either...or...
 leader, guide
 I lead
 I consider
@@ -756,7 +756,7 @@ I stand
 strong
 I sleep
 I make to sit down, I sit down
-I make, appoint, put (into state of…)
+I make, appoint, put (into state of...)
 I am appointed, I get
 and, even, also, actually
 although
@@ -830,7 +830,7 @@ might, force
 μέγας
 μέλλω
 μέμνημαι
-… μέν … δέ
+...μέν...δέ
 μέντοι
 μένω
 μέρος
@@ -939,7 +939,7 @@ not, lest, that
 οἰκτείρω
 οἶνος
 οἷος
-οἷος τʹ εἰμί
+οἷος τ' εἰμί
 ὀλίγος
 ὄμνυμι
 
@@ -999,7 +999,7 @@ I swear
 ὅμως
 ὄνομα
 ὀξύς
-ὄπισθε(ν)
+ὄπισθε
 ὅπλα
 ὁπλίζω
 ὁπλίτης
@@ -1028,7 +1028,7 @@ I swear
 οὐκοῦν
 οὖν
 οὐρανός
-οὔτε ... οὔτε, μήτε ... μήτε
+οὔτε...οὔτε..., μήτε...μήτε...
 οὗτος
 οὕτω, οὕτως
 ὀφθαλμός
@@ -1079,7 +1079,7 @@ not
 therefore, then
 and so, therefore
 sky, heaven
-neither ... nor
+neither...nor...
 this
 thus, so
 eye
@@ -1202,7 +1202,7 @@ I march
 πόσος, ὁπόσος
 ποταμός
 πότε, ὁπότε, ποτε
-πότερον … ἤ …
+πότερον...ἤ...
 πότερος, ὁπότερος
 πόθεν, ὅποθεν
 ποῖ, ὅποι
@@ -1211,7 +1211,7 @@ I march
 πούς
 πρᾶγμα
 πράσσω
-πρέσβυςπρέσβεις (plural)
+πρέσβυς
 πρίν
 πρό + gen
 πρόγονος
@@ -1255,7 +1255,7 @@ forwards, far away
 how great, how much, how many,
 river
 when, at some time
-(whether) … or …
+(whether)...or...
 which (of two)
 whence?
 whither?
@@ -1304,7 +1304,7 @@ cleverness, wisdom
 clever, wise
 treaty
 
-στάδιον, στάδιοι (plural)
+στάδιον
 στέλλω
 στενός
 στόλος
@@ -1323,7 +1323,7 @@ treaty
 συγχωρέω
 συλλέγω
 συμβουλεύω + dat
-συμβουλεύω (middle)
+συμβουλεύω + middle
 συμμαχία
 σύμμαχος
 συμφορά
@@ -1340,9 +1340,9 @@ treaty
 ταράσσω
 τάσσω
 τάφος
-τάχα, ταχʹ ἄν
+τάχα, ταχ' ἄν
 ταχύς
-τε, τε … τε
+τε, τε...τε...
 τειχίζω
 τείχισμα
 τεῖχος
@@ -1394,7 +1394,7 @@ I draw up, I arrange
 tomb
 quickly, perhaps
 quick, fast
-and, both … and …
+and, both...and...
 I fortify
 fortification
 wall
@@ -1577,7 +1577,7 @@ I vote
 thus
 time
 as, when, that, because, how
-as ... as possible
+as...as possible
 as if
 so that
 I benefit, I help

@@ -28,7 +28,7 @@ def shave(word):  # shave definition to max 2 parts
     return f"{lst[0]}, {lst[1]}"
 
 
-def gre_selection():  # this is broken now
+def gre_selection():
     key = list(dct.keys())
     num = rn.randint(0, len(key)-1)
     ans = key[num]
@@ -103,4 +103,8 @@ def eng_selection():
     return ans_tup, choose(temp[0]), choose(temp[1]), choose(temp[2]), choose(temp[3])
 
 
-gre_selection()
+def gre_word():
+    key = list(dct.keys())
+    num = rn.randint(0, len(key)-1)
+    ans = key[num]
+    return choose(ans), dct[ans]

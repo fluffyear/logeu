@@ -3,22 +3,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Logeu: Nouns Typed</title>
+    <title>Logeu: AS Vocab English Typed</title>
     <link rel="stylesheet" href="{% static 'home/noun_button_style.css' %}" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap')
         #div_1 {}
-        #div_2 {
-            display: none
-            }
+        #div_2 { display: none }
     </style>
 </head>
 <body>
 <div id="div_1">
-    What is <span style="color:#02c3e0">{{ ans_base }}</span> in the {{ ans_case }}?<br>
+    Translate <span style="color:#02c3e0;">{{ ans_word_shaven }}</span><br>
     <input id="userInput" type="text" placeholder="Greek" maxlength="32" style="width: 300px; font-size: 25pt; margin-top: 15px; margin-bottom: 15px;" >
     <button id="pogBtn" onclick="app()" style="width: 150px; height: 45px; font-size: 22pt;">Submit</button><br>
-    <p style="font-size:21px;margin:0px 0px;line-height:1.5;">Answer with a Greek keyboard (no accents), or by using the below keyboard/key: to view the key, toggle 'showKey' on.</p>
+    <p style="font-size:21px;margin:0px 0px;line-height:1.5;">Answer with a Greek keyboard (no accents), or by using the below keyboard/key: to view the key, toggle 'showKey' on. &nbsp;<input id="hintButton" type="button" class="hint" value="Hint" onclick="revHint()"><span id="letter1" style="display:none;">: {{ letter1 }}...</span></p>
     <table id="lowerKey" class="keyTable" style="display:none;">
       <tbody>
         <tr>
@@ -74,43 +72,12 @@
     <label class="switch" style="margin-right:3px;margin-left:0px;"><input id="capsLock" type="checkbox" onclick="caps()"><span class="slider"></span></label>caps<label class="switch" style="margin-right:3px;margin-left:12px;"><input id="showKey" type="checkbox" onclick="showKey()"><span class="slider"></span></label>showKey<button id="backSpace" onclick="back()" style="padding:0px 16px;height:45px;font-size:22pt;margin-left:12px;">delete</button><span id="spaceBack" style="display:none;">&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;</span>&nbsp;&emsp;&emsp;&emsp;<a href="/home">Home</a>
 </div>
 <div id="div_2">
-    <span id="wrong" style="color:#f7510a">Incorrect!</span><br><span id="corrected">{{ ans_word }} is the {{ ans_case }} of {{ ans_base }}</span>
-    <table>
-      <thead>
-        <tr>
-          <th></th>
-          <th>Singular</th>
-          <th>Plural</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="font-weight: 600">Nominative</td>
-          <td id="t1">{{ table1 }}</td>
-          <td id="t5">{{ table5 }}</td>
-        </tr>
-        <tr>
-          <td style="font-weight: 600">Accusative</td>
-          <td id="t2">{{ table2 }}</td>
-          <td id="t6">{{ table6 }}</td>
-        </tr>
-        <tr>
-          <td style="font-weight: 600">Genitive</td>
-          <td id="t3">{{ table3 }}</td>
-          <td id="t7">{{ table7 }}</td>
-        </tr>
-        <tr>
-          <td style="font-weight: 600">Dative</td>
-          <td id="t4">{{ table4 }}</td>
-          <td id="t8">{{ table8 }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <a href='/home/noun_input'>nice</a>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="/home">Home</a>
+    <p><span id="wrong" style="color:#f7510a">Incorrect!</span></p><span id="corrected" style="color:#f7510a;">{{ ans_greek_full }}:<br>{{ ans_word }}</span>
+        <br><br><br><a href='/home/vocab_english_input'>nice</a>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="/home">Home</a>
 </div>
     <script type="text/javascript">
-        const members = ["{{ans_word}}", "{{ans_simp1}}", "{{ans_simp2}}", "{{ans_simp3}}", "{{ans_eng}}".replace("&#x27;", "'")]
-        const membersNu = members.filter(nuFilter).map(nuFunction)
+        const members = ["{{ans_greek}}", "{{ans_greek_full}}", "{{ans_simp1}}", "{{ans_simp2}}", "{{ans_simp3}}", "{{ans_eng}}".replace("&#x27;", "'")]
+        const membersPlus = members.filter(plusFilter).map(plusFunction)
         const iotaDict = {'Η': 'ᾘ', 'Α': 'ᾈ', 'Ω': 'ᾨ', 'Ἡ': 'ᾙ', 'Ὡ': 'ᾩ', 'Ἁ': 'ᾉ', 'α': 'ᾳ', 'η': 'ῃ', 'ω': 'ῳ', 'ὡ': 'ᾡ', 'ἁ': 'ᾁ', 'ἡ': 'ᾑ'}
         const roughDict = {'Ε': 'Ἑ', 'Α': 'Ἁ', 'Ι': 'Ἱ', 'Υ': 'Ὑ', 'Η': 'Ἡ', 'Ρ': 'Ῥ', 'Ο': 'Ό', 'Ω': 'Ὡ', 'ᾨ': 'ᾩ', 'ᾈ': 'ᾉ', 'ᾘ': 'ᾙ', 'ι': 'ἱ', 'υ': 'ὑ', 'η': 'ἡ', 'ρ': 'ῥ', 'ο': 'ὁ', 'ε': 'ἑ', 'α': 'ἁ', 'ω': 'ὡ', 'ῳ': 'ᾡ', 'ᾳ': 'ᾁ', 'ῃ': 'ᾑ'}
         const convKey = {'A': 'Α', '\'A': 'Ἁ', 'A!': 'ᾼ', 'B': 'Β', 'G': 'Γ', 'D': 'Δ', 'E': 'Ε', 'Z': 'Ζ', 'N': 'Η', 'TH': 'Θ', 'I': 'Ι', 'K': 'Κ', 'L': 'Λ', 'M': 'Μ', 'V': 'Ν', 'KS': 'Ξ', 'O': 'Ο', 'P': 'Π', 'R': 'Ρ', 'S': 'Σ', 'T': 'Τ', 'U': 'Υ', 'PH': 'Φ', 'X': 'Χ', 'PS': 'Ψ', 'W': 'Ω', 'a': 'α', '\'a': 'ἁ', 'a!': 'ᾳ', 'b': 'β', 'g': 'γ', 'd': 'δ', 'e': 'ε', 'z': 'ζ', 'n': 'η', 'th': 'θ', 'i': 'ι', 'k': 'κ', 'l': 'λ', 'm': 'μ', 'v': 'ν', 'ks': 'ξ', 'o': 'ο', 'p': 'π', 'r': 'ρ', 's': 'ς', 't': 'τ', 'u': 'υ', 'ph': 'φ', 'x': 'χ', 'ps': 'ψ', 'w': 'ω', 'σ': 'ς'}
@@ -124,8 +91,11 @@
           } else { pos += 1 }
         })
         input.addEventListener('click', e => { pos = e.target.selectionEnd })
-        function nuFilter(value, index, array) { return (value.slice(-3) == "(ν)" || value.slice(-3) == "(v)") }
-        function nuFunction(value, index, array) { return value.slice(0, -3) }
+        function plusFunction(value) {
+          var ind = value.indexOf("+")
+          return value.slice(0, ind-1)
+        }
+        function plusFilter(value) { return value.includes("+") }
         function displayNone(value) { document.getElementById(value).style.display = "none" }
         function setDisplay(val) {
           console.log(val)
@@ -159,12 +129,12 @@
           document.getElementById("div_1").style.display = "none"
           document.getElementById("div_2").style.display = "block"
           var targeted = document.getElementById("wrong")
-          if (members.concat(membersNu).includes(input.value)) {
+          if (members.concat(membersPlus).includes(input.value)) {
             targeted.innerHTML = "Correct!"
             targeted.style.color = "#72d61a"
-            document.getElementById("corrected").style.display = "none"
+            document.getElementById("corrected").style.color = "#72d61a"
           } else if (input.value !== "") { targeted.innerHTML = input.value + " is incorrect:" }
-          document.getElementById("t" + "{{num_case}}").style.backgroundColor = targeted.style.color
+          console.log(members.concat(membersPlus))
         }
         function typing(val) {
           var content = document.getElementById("userInput").value
@@ -197,6 +167,10 @@
             document.getElementById("userInput").value = content.slice(0, pos) + letter + content.slice(pos)
             if (posBool) { pos += 1 }
           }
+        }
+        function revHint() {
+          document.getElementById("letter1").style.display = "inline"
+          document.getElementById("hintButton").disabled = true
         }
     </script>
 </body>
