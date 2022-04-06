@@ -18,20 +18,46 @@
     What is {{ ans_base }} in the {{ ans_case }}?<br>
     <input id="userInput" type="text" placeholder="Greek" style="width: 300px; font-size: 25pt; margin-top: 15px; margin-bottom: 15px;" >
     <button id="pogBtn" onclick="app()" style="width: 150px; height: 45px; font-size: 22pt;">Submit</button><br>
-    <span style="font-size: 21px;">Answer with a Greek keyboard (no accents), or with the below key(board).</span>
+    <p style="font-size:21px;margin:0px 0px;line-height:1.5;">Answer with a Greek keyboard (no accents), or by using the below keyboard/key: to view the key, toggle 'showKey' on.</p>
+    <table id="lowerKey" class="keyTable" style="display:none;">
+      <tbody>
+        <tr>
+            {% for i in key_lst1 %}<td style="padding: 3px 15px;">{{ i }}</td>{% endfor %}
+        </tr>
+        <tr>
+            {% for i in key_lst2 %}<td style="padding: 3px 15px;">{{ i }}</td>{% endfor %}
+        </tr>
+        <tr>
+            {% for i in key_lst3 %}<td style="padding: 3px 15px;">{{ i }}</td>{% endfor %}
+        </tr>
+        <tr>
+            {% for i in key_lst4 %}<td style="padding: 3px 15px;">{{ i }}</td>{% endfor %}
+        </tr>
+      </tbody>
+    </table>
+    <table id="upperKey" class="keyTable" style="display:none;">
+      <tbody>
+        <tr>
+            {% for i in up_key_lst1 %}<td style="padding: 3px 13.375px;">{{ i }}</td>{% endfor %}
+        </tr>
+        <tr>
+            {% for i in up_key_lst2 %}<td style="padding: 3px 13.375px;">{{ i }}</td>{% endfor %}
+        </tr>
+        <tr>
+            {% for i in up_key_lst3 %}<td style="padding: 3px 13.375px;">{{ i }}</td>{% endfor %}
+        </tr>
+        <tr>
+            {% for i in up_key_lst4 %}<td style="padding: 3px 13.375px;">{{ i }}</td>{% endfor %}
+        </tr>
+      </tbody>
+    </table>
     <table id="lower" class="keyTable">
       <tbody>
         <tr>
             {% for i in key_lst1 %}<td><input class="inTable" type="submit" onclick="typing(this.value)" value="{{ i }}" /></td>{% endfor %}
         </tr>
         <tr>
-            {% for i in key_lst2 %}<td><input class="inTable" type="submit" onclick="typing(this.value)" value="{{ i }}" /></td>{% endfor %}
-        </tr>
-        <tr>
             {% for i in key_lst3 %}<td><input class="inTable" type="submit" onclick="typing(this.value)" value="{{ i }}" /></td>{% endfor %}
-        </tr>
-        <tr>
-            {% for i in key_lst4 %}<td><input class="inTable" type="submit" onclick="typing(this.value)" value="{{ i }}" /></td>{% endfor %}
         </tr>
       </tbody>
     </table>
@@ -41,17 +67,11 @@
             {% for i in up_key_lst1 %}<td><input class="inTable" type="submit" onclick="typing(this.value)" value="{{ i }}" style="margin: 0px 3.375px;"/></td>{% endfor %}
         </tr>
         <tr>
-            {% for i in up_key_lst2 %}<td><input class="inTable" type="submit" onclick="typing(this.value)" value="{{ i }}" style="margin: 0px 3.375px;"/></td>{% endfor %}
-        </tr>
-        <tr>
             {% for i in up_key_lst3 %}<td><input class="inTable" type="submit" onclick="typing(this.value)" value="{{ i }}" style="margin: 0px 3.375px;"/></td>{% endfor %}
-        </tr>
-        <tr>
-            {% for i in up_key_lst4 %}<td><input class="inTable" type="submit" onclick="typing(this.value)" value="{{ i }}" style="margin: 0px 3.375px;"/></td>{% endfor %}
         </tr>
       </tbody>
     </table>
-    <button onclick="back()" style="width: 150px; height: 45px; font-size: 22pt;">backspace</button><label class="switch" style="margin-right:3px;margin-left:30px;"><input id="capsLock" type="checkbox" onclick="caps()"><span class="slider"></span></label>caps&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="/home">Home</a>
+    <label class="switch" style="margin-right:3px;margin-left:0px;"><input id="capsLock" type="checkbox" onclick="caps()"><span class="slider"></span></label>caps<label class="switch" style="margin-right:3px;margin-left:12px;"><input id="showKey" type="checkbox" onclick="showKey()"><span class="slider"></span></label>showKey<button id="backSpace" onclick="back()" style="padding:0px 16px;height:45px;font-size:22pt;margin-left:12px;">delete</button><span id="spaceBack" style="display:none;">&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;</span>&nbsp;&emsp;&emsp;&emsp;<a href="/home">Home</a>
 </div>
 <div id="div_2">
     <span id="wrong" style="color:#f7510a">Incorrect!</span><br><span id="corrected">{{ ans_word }} is the {{ ans_case }} of {{ ans_base }}</span>
@@ -96,26 +116,39 @@
         const convKey = {'A': 'Α', '\'A': 'Ἁ', 'A!': 'ᾼ', 'B': 'Β', 'G': 'Γ', 'D': 'Δ', 'E': 'Ε', 'Z': 'Ζ', 'N': 'Η', 'TH': 'Θ', 'I': 'Ι', 'K': 'Κ', 'L': 'Λ', 'M': 'Μ', 'V': 'Ν', 'KS': 'Ξ', 'O': 'Ο', 'P': 'Π', 'R': 'Ρ', 'S': 'Σ', 'T': 'Τ', 'U': 'Υ', 'PH': 'Φ', 'X': 'Χ', 'PS': 'Ψ', 'W': 'Ω', 'a': 'α', '\'a': 'ἁ', 'a!': 'ᾳ', 'b': 'β', 'g': 'γ', 'd': 'δ', 'e': 'ε', 'z': 'ζ', 'n': 'η', 'th': 'θ', 'i': 'ι', 'k': 'κ', 'l': 'λ', 'm': 'μ', 'v': 'ν', 'ks': 'ξ', 'o': 'ο', 'p': 'π', 'r': 'ρ', 's': 'ς', 't': 'τ', 'u': 'υ', 'ph': 'φ', 'x': 'χ', 'ps': 'ψ', 'w': 'ω', 'σ': 'ς'}
         const input = document.getElementById("userInput")
         var pos = 0
+        var capsBool = false
+        var keyBool = false
         input.addEventListener("keyup", function(event) {
           if (event.keyCode === 13) {
             document.getElementById("pogBtn").click()
           } else { pos += 1 }
         })
         input.addEventListener('click', e => { pos = e.target.selectionEnd })
-        function nuFilter(value, index, array) { return value.length > 3 }
+        function nuFilter(value, index, array) { return value.slice(-3) == "(ν)" }
         function nuFunction(value, index, array) { return value.slice(0, -3) }
-        function caps() {
-          document.getElementById("upper").style.display = "block"
-          document.getElementById("lower").style.display = "none"
+        function displayNone(value) { document.getElementById(value).style.display = "none" }
+        function setDisplay(val) {
+          console.log(val)
+          var choices = ["upper", "lower", "upperKey", "lowerKey"]
+          choices = choices.filter(item => item !== val)
+          document.getElementById(val).style.display = "block"
+          choices.forEach(displayNone)
         }
         function caps() {
-          if (document.getElementById("capsLock").checked) {
-            document.getElementById("lower").style.display = "none"
-            document.getElementById("upper").style.display = "block"
+          if (document.getElementById("capsLock").checked) { capsBool = true } else { capsBool = false }
+          if (keyBool && capsBool) { setDisplay("upperKey") } else if (keyBool && !capsBool) { setDisplay("lowerKey") } else if (!keyBool && capsBool) { setDisplay("upper") } else { setDisplay("lower") }
+        }
+        function showKey() {
+          if (document.getElementById("showKey").checked) {
+            keyBool = true
+            document.getElementById("backSpace").style.display = "none"
+            document.getElementById("spaceBack").style.display = "inline"
           } else {
-            document.getElementById("upper").style.display = "none"
-            document.getElementById("lower").style.display = "block"
+            keyBool = false
+            document.getElementById("backSpace").style.display = "inline"
+            document.getElementById("spaceBack").style.display = "none"
           }
+          if (keyBool && capsBool) { setDisplay("upperKey") } else if (keyBool && !capsBool) { setDisplay("lowerKey") } else if (!keyBool && capsBool) { setDisplay("upper") } else { setDisplay("lower") }
         }
         function back() {
           var content = document.getElementById("userInput").value
