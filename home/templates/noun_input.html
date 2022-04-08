@@ -140,7 +140,6 @@
         function nuFunction(value, index, array) { return value.slice(0, -3) }
         function displayNone(value) { document.getElementById(value).style.display = "none" }
         function setDisplay(val) {
-          console.log(val)
           var choices = ["upper", "lower", "upperKey", "lowerKey"]
           choices = choices.filter(item => item !== val)
           document.getElementById(val).style.display = "block"
@@ -229,6 +228,8 @@
             document.getElementById("starterCase").innerHTML = jsonDct['ans_case']
             document.getElementById("corrected").innerHTML = `${jsonDct['ans_word']} is the ${jsonDct['ans_case']} of ${jsonDct['ans_base']}`
             for (var key in relation) { document.getElementById(relation[key]).innerHTML = jsonDct[key] }
+            document.getElementById("wrong").style.color = "#f7510a"
+            document.getElementById("wrong").innerHTML = "Incorrect!"
             document.getElementById("userInput").value = ""
             inputVal = ""
             pos = 0

@@ -192,6 +192,9 @@
             membersPlus = members.filter(plusFilter).map(plusFunction)
             document.getElementById("starter").innerHTML = jsonDct['ans_word_shaven']
             document.getElementById("corrected").innerHTML = `${jsonDct['ans_greek_full']}:<br>${jsonDct['ans_word']}`
+            document.getElementById("wrong").style.color = "#f7510a"
+            document.getElementById("wrong").innerHTML = "Incorrect!"
+            document.getElementById("corrected").style.color = "#f7510a"
             document.getElementById("userInput").value = ""
             inputVal = ""
             pos = 0

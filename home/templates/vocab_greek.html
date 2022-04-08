@@ -60,6 +60,8 @@
             document.getElementById("starter").innerHTML = jsonDct['ans_word']
             document.getElementById("corrected").innerHTML = `${jsonDct['ans_word']}<br>${jsonDct['ans_greek']}`
             for (var key in relation) { document.getElementById(relation[key]).innerHTML = jsonDct[key] }
+            document.getElementById("wrong").style.color = "#f7510a"
+            document.getElementById("wrong").innerHTML = "Incorrect!"
             document.getElementById("div_1").style.display = "block"
             document.getElementById("div_2").style.display = "none"
           })
