@@ -18,26 +18,51 @@
             <button class="button" id="b3" onclick="app(this.id)">{{ word3 }}</button><br>
             <button class="button" id="b4" onclick="app(this.id)">{{ word4 }}</button><br>
             <button class="button" id="b5" onclick="app(this.id)">{{ word5 }}</button></p>
-        <p>{{ ans_word }}</p>
+        <p id="starter">{{ ans_word }}</p>
         <p><a href="/home">Home</a></p>
     </div>
     <div id="div_2">
-        <p> <span id="wrong" style="color:#f7510a">Incorrect!</span><br>The answer was:<br><br>{{ ans_word }}<br>{{ ans_greek }}</p>
-        <br><a href='/home/vocab_greek'>nice</a><br><br><a href="/home">Home</a>
+        <p> <span id="wrong" style="color:#f7510a">Incorrect!</span><br>The answer was:<br><br><span id="corrected">{{ ans_word }}<br>{{ ans_greek }}</span></p>
+        <br><input type="button" value="nice" onclick="updateContext()"><br><br><a href="/home">Home</a>
     </div>
     <script type="text/javascript">
+        const relation = {
+            'word1': 'b1',
+            'word2': 'b2',
+            'word3': 'b3',
+            'word4': 'b4',
+            'word5': 'b5'
+          }
+        var corrGreek = "{{ ans_greek }}"
         function app(id) {
           document.getElementById("div_1").style.display = "none"
           document.getElementById("div_2").style.display = "block"
           var target = document.getElementById("wrong")
-          var lst = "{{ ans_greek }}".split(",")
-          if (lst.length > 2) {
-            lst = lst.slice(0, 2)
-          }
+          var lst = corrGreek.split(",")
+          if (lst.length > 2) { lst = lst.slice(0, 2) }
           if (document.getElementById(id).innerHTML == lst.join(',')) {
             target.innerHTML = "Correct!"
             target.style.color = "#72d61a"
           }
+        }
+        function updateContext() {
+          fetch("{% url 'updateGreVocab' %}", {
+            method: "GET",
+            headers: {
+              "X-Requested-With": "XMLHttpRequest"
+            }
+          })
+          .then(res => res.json())
+          .then(data => {
+            const jsonDct = {}
+            data.context.forEach(([key, val]) => jsonDct[key] = val)
+            corrGreek = jsonDct['ans_greek']
+            document.getElementById("starter").innerHTML = jsonDct['ans_word']
+            document.getElementById("corrected").innerHTML = `${jsonDct['ans_word']}<br>${jsonDct['ans_greek']}`
+            for (var key in relation) { document.getElementById(relation[key]).innerHTML = jsonDct[key] }
+            document.getElementById("div_1").style.display = "block"
+            document.getElementById("div_2").style.display = "none"
+          })
         }
     </script>
 </body>

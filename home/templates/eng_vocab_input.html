@@ -13,7 +13,7 @@
 </head>
 <body>
 <div id="div_1">
-    Translate <span style="color:#02c3e0;">{{ ans_word_shaven }}</span><br>
+    Translate <span id="starter" style="color:#02c3e0;">{{ ans_word_shaven }}</span><br>
     <input id="userInput" type="text" placeholder="Greek" maxlength="32" style="width: 300px; font-size: 25pt; margin-top: 15px; margin-bottom: 15px;" >
     <button id="pogBtn" onclick="app()" style="width: 150px; height: 45px; font-size: 22pt;">Submit</button><br>
     <p style="font-size:21px;margin:0px 0px;line-height:1.5;">Answer with a Greek keyboard (no accents), or by using the below keyboard/key: to view the key, toggle 'showKey' on. &nbsp;<input id="hintButton" type="button" class="hint" value="Hint" onclick="revHint()"><span id="letter1" style="display:none;">: {{ letter1 }}...</span></p>
@@ -73,21 +73,24 @@
 </div>
 <div id="div_2">
     <p><span id="wrong" style="color:#f7510a">Incorrect!</span></p><span id="corrected" style="color:#f7510a;">{{ ans_greek_full }}:<br>{{ ans_word }}</span>
-        <br><br><br><a href='/home/vocab_english_input'>nice</a>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="/home">Home</a>
+        <br><br><br><input id="nice" type="button" value="nice" onclick="updateContext()">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="/home">Home</a>
 </div>
     <script type="text/javascript">
-        const members = ["{{ans_greek}}", "{{ans_greek_full}}", "{{ans_simp1}}", "{{ans_simp2}}", "{{ans_simp3}}", "{{ans_eng}}".replace("&#x27;", "'")]
-        const membersPlus = members.filter(plusFilter).map(plusFunction)
+        var members = "{{members_list}}".split(',').map(e => e.replace("&#x27;", "'"))
+        members.push("{{ans_eng}}".replace("&#x27;", "'"))
+        var membersPlus = members.filter(plusFilter).map(plusFunction)
         const iotaDict = {'Η': 'ᾘ', 'Α': 'ᾈ', 'Ω': 'ᾨ', 'Ἡ': 'ᾙ', 'Ὡ': 'ᾩ', 'Ἁ': 'ᾉ', 'α': 'ᾳ', 'η': 'ῃ', 'ω': 'ῳ', 'ὡ': 'ᾡ', 'ἁ': 'ᾁ', 'ἡ': 'ᾑ'}
         const roughDict = {'Ε': 'Ἑ', 'Α': 'Ἁ', 'Ι': 'Ἱ', 'Υ': 'Ὑ', 'Η': 'Ἡ', 'Ρ': 'Ῥ', 'Ο': 'Ό', 'Ω': 'Ὡ', 'ᾨ': 'ᾩ', 'ᾈ': 'ᾉ', 'ᾘ': 'ᾙ', 'ι': 'ἱ', 'υ': 'ὑ', 'η': 'ἡ', 'ρ': 'ῥ', 'ο': 'ὁ', 'ε': 'ἑ', 'α': 'ἁ', 'ω': 'ὡ', 'ῳ': 'ᾡ', 'ᾳ': 'ᾁ', 'ῃ': 'ᾑ'}
         const convKey = {'A': 'Α', '\'A': 'Ἁ', 'A!': 'ᾼ', 'B': 'Β', 'G': 'Γ', 'D': 'Δ', 'E': 'Ε', 'Z': 'Ζ', 'N': 'Η', 'TH': 'Θ', 'I': 'Ι', 'K': 'Κ', 'L': 'Λ', 'M': 'Μ', 'V': 'Ν', 'KS': 'Ξ', 'O': 'Ο', 'P': 'Π', 'R': 'Ρ', 'S': 'Σ', 'T': 'Τ', 'U': 'Υ', 'PH': 'Φ', 'X': 'Χ', 'PS': 'Ψ', 'W': 'Ω', 'a': 'α', '\'a': 'ἁ', 'a!': 'ᾳ', 'b': 'β', 'g': 'γ', 'd': 'δ', 'e': 'ε', 'z': 'ζ', 'n': 'η', 'th': 'θ', 'i': 'ι', 'k': 'κ', 'l': 'λ', 'm': 'μ', 'v': 'ν', 'ks': 'ξ', 'o': 'ο', 'p': 'π', 'r': 'ρ', 's': 'ς', 't': 'τ', 'u': 'υ', 'ph': 'φ', 'x': 'χ', 'ps': 'ψ', 'w': 'ω', 'σ': 'ς'}
-        const input = document.getElementById("userInput")
+        var input = document.getElementById("userInput")
+        var inputVal = ""
         var pos = 0
         var capsBool = false
         var keyBool = false
+        var div1Display = true
         input.addEventListener("keyup", function(event) {
           if (event.keyCode === 13) {
-            document.getElementById("pogBtn").click()
+            if (div1Display) { document.getElementById("pogBtn").click() } else { document.getElementById("nice").click() }
           } else { pos += 1 }
         })
         input.addEventListener('click', e => { pos = e.target.selectionEnd })
@@ -126,14 +129,16 @@
           if (pos != 0) { pos -= 1 }
         }
         function app() {
+          var inputVal = input.value
           document.getElementById("div_1").style.display = "none"
           document.getElementById("div_2").style.display = "block"
+          div1Display = false
           var targeted = document.getElementById("wrong")
-          if (members.concat(membersPlus).includes(input.value)) {
+          if (members.concat(membersPlus).includes(inputVal)) {
             targeted.innerHTML = "Correct!"
             targeted.style.color = "#72d61a"
             document.getElementById("corrected").style.color = "#72d61a"
-          } else if (input.value !== "") { targeted.innerHTML = input.value + " is incorrect:" }
+          } else if (inputVal !== "") { targeted.innerHTML = inputVal + " is incorrect:" }
           console.log(members.concat(membersPlus))
         }
         function typing(val) {
@@ -171,6 +176,29 @@
         function revHint() {
           document.getElementById("letter1").style.display = "inline"
           document.getElementById("hintButton").disabled = true
+        }
+        function updateContext() {
+          fetch("{% url 'updateEngVocabInput' %}", {
+            method: "GET",
+            headers: {"X-Requested-With": "XMLHttpRequest"}
+          })
+          .then(res => res.json())
+          .then(data => {
+            const jsonDct = {}
+            data.context.forEach(([key, val]) => jsonDct[key] = val)
+            corrNum = jsonDct['num_case']
+            members = jsonDct['members_list'].split(',').map(e => e.replace("&#x27;", "'"))
+            members.push(jsonDct['ans_eng'].replace("&#x27;", "'"))
+            membersPlus = members.filter(plusFilter).map(plusFunction)
+            document.getElementById("starter").innerHTML = jsonDct['ans_word_shaven']
+            document.getElementById("corrected").innerHTML = `${jsonDct['ans_greek_full']}:<br>${jsonDct['ans_word']}`
+            document.getElementById("userInput").value = ""
+            inputVal = ""
+            pos = 0
+            document.getElementById("div_1").style.display = "block"
+            document.getElementById("div_2").style.display = "none"
+            div1Display = true
+          })
         }
     </script>
 </body>

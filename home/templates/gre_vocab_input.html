@@ -13,17 +13,18 @@
 </head>
 <body>
 <div id="div_1">
-    Translate <span style="color:#02c3e0;">{{ ans_greek }}</span><br>
+    Translate <span id="starter" style="color:#02c3e0;">{{ ans_greek }}</span><br>
     <input id="userInput" type="text" placeholder="English" maxLength="64" style="width: 300px; font-size: 25pt; margin-top: 15px; margin-bottom: 15px;" >
     <button id="pogBtn" onclick="app()" style="padding: 0px 20px; height: 45px; font-size: 22pt;">Submit</button><br>
     <a href="/home">Home</a>
 </div>
 <div id="div_2">
     <p><span id="wrong" style="color:#f7510a">Incorrect!</span></p><span id="corrected" style="color:#f7510a;">{{ ans_greek }}:<br>{{ ans_word }}</span>
-        <br><br><br><a href='/home/vocab_greek_input'>nice</a>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="/home">Home</a>
+        <br><br><br><input type="button" value="nice" onclick="updateContext()">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="/home">Home</a>
 </div>
     <script type="text/javascript">
-        const members = {{ ans_word_list|safe }}.map(e => { return e.toLowerCase().replace(/\([^()]*\)/g, '') })
+        var wordLst = "{{ans_word_list}}".split(',')
+        var members = wordLst.map(e => { return e.toLowerCase().replace(/\([^()]*\)/g, '') })
         const input = document.getElementById("userInput")
         input.addEventListener("keyup", function(event) {
           if (event.keyCode === 13) {
@@ -36,8 +37,7 @@
           var targeted = document.getElementById("wrong")
           var ansBool = 2
           var input = document.getElementById("userInput").value
-          var ans = input.split(",").map(e => { return e.toLowerCase().trim().replace(/\([^()]*\)/g, '') })
-          console.log(ans)
+          var ans = input.split(",").map(e => { return e.toLowerCase().trim().replace(/\([^()]*\)/g, '').trim() })
           var ansFiltered = ans.filter(element => members.includes(element))
           if (ans.length != ansFiltered.length) { if (ansFiltered.length > 0) { ansBool = 1 } else { ansBool = 0 } }
           console.log(members, ans, ansFiltered)
@@ -56,6 +56,23 @@
             targeted.innerHTML = `${input} is incorrect`
             document.getElementById("corrected").style.color = "#f7510a"
           }
+        }
+        function updateContext() {
+          fetch("{% url 'updateGreVocabInput' %}", {
+            method: "GET",
+            headers: {"X-Requested-With": "XMLHttpRequest"}
+          })
+          .then(res => res.json())
+          .then(data => {
+            const jsonDct = {}
+            data.context.forEach(([key, val]) => jsonDct[key] = val)
+            members = jsonDct['ans_word_list'].split(',').map(e => { return e.toLowerCase().replace(/\([^()]*\)/g, '').trim() })
+            document.getElementById("starter").innerHTML = jsonDct['ans_greek']
+            document.getElementById("corrected").innerHTML = `${jsonDct['ans_greek']}:<br>${jsonDct['ans_word']}`
+            document.getElementById("userInput").value = ""
+            document.getElementById("div_1").style.display = "block"
+            document.getElementById("div_2").style.display = "none"
+          })
         }
     </script>
 </body>

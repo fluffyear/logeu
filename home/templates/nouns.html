@@ -8,9 +8,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap')
         #div_1 {}
-        #div_2 {
-            display: none
-            }
+        #div_2 { display: none }
     </style>
 </head>
 <body>
@@ -19,11 +17,11 @@
         <button class="button" id="b2" onclick="app(this.id)">{{ word2 }}</button><br>
         <button class="button" id="b3" onclick="app(this.id)">{{ word3 }}</button><br>
         <button class="button" id="b4" onclick="app(this.id)">{{ word4 }}</button></p>
-    <font size="+3">{{ ans_word }}</font>
+    <font id="starter" size="+3">{{ ans_word }}</font>
     <p><a href="/home">Home</a></p>
 </div>
 <div id="div_2">
-    <span id="wrong" style="color:#f7510a">Incorrect!</span><br>{{ ans_word }} is {{ ans_case }}
+    <span id="wrong" style="color:#f7510a">Incorrect!</span><br><span id="corrected">{{ ans_word }} is {{ ans_case }}</span>
     <table>
       <thead>
         <tr>
@@ -55,21 +53,54 @@
         </tr>
       </tbody>
     </table>
-    <a href='/home/nouns'>nice</a>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="/home">Home</a>
+    <input type="button" value="nice" onclick="updateContext()">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="/home">Home</a>
 </div>
     <script type="text/javascript">
+        const relation = {
+          'word1': 'b1',
+          'word2': 'b2',
+          'word3': 'b3',
+          'word4': 'b4',
+          'table1': 't1',
+          'table2': 't2',
+          'table3': 't3',
+          'table4': 't4',
+          'table5': 't5',
+          'table6': 't6',
+          'table7': 't7',
+          'table8': 't8'
+        }
+        var corrCase = "{{ans_case}}"
+        var numCase = "{{num_case}}"
         function app(id) {
           document.getElementById("div_1").style.display = "none"
           document.getElementById("div_2").style.display = "block"
           var targeted = document.getElementById("wrong")
           var guess = document.getElementById(id).innerHTML
-          if (guess == "{{ans_case}}") {
+          if (guess == corrCase) {
             targeted.innerHTML = "Correct!"
             targeted.style.color = "#72d61a"
-          } else {
-            targeted.innerHTML = guess + " is incorrect:"
-          }
-          document.getElementById("t" + "{{num_case}}").style.backgroundColor = targeted.style.color
+          } else { targeted.innerHTML = guess + " is incorrect:" }
+          document.getElementById("t" + numCase).style.backgroundColor = targeted.style.color
+        }
+        function updateContext() {
+          fetch("{% url 'updateNoun' %}", {
+            method: "GET",
+            headers: {
+              "X-Requested-With": "XMLHttpRequest"
+            }
+          })
+          .then(res => res.json())
+          .then(data => {
+            const jsonDct = {}
+            data.context.forEach(([key, val]) => jsonDct[key] = val)
+            corrCase = jsonDct['ans_case']
+            document.getElementById("starter").innerHTML = jsonDct['ans_word']
+            document.getElementById("corrected").innerHTML = `${jsonDct['ans_word']} is ${jsonDct['ans_case']}`
+            for (var key in relation) { document.getElementById(relation[key]).innerHTML = jsonDct[key] }
+            document.getElementById("div_1").style.display = "block"
+            document.getElementById("div_2").style.display = "none"
+          })
         }
     </script>
 </body>

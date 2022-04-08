@@ -8,14 +8,12 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap')
         #div_1 {}
-        #div_2 {
-            display: none
-            }
+        #div_2 { display: none }
     </style>
 </head>
 <body>
 <div id="div_1">
-    What is <span style="color:#02c3e0">{{ ans_base }}</span> in the {{ ans_case }}?<br>
+    What is <span id="starterBase" style="color:#02c3e0">{{ ans_base }}</span> in the <span id="starterCase">{{ ans_case }}?</span><br>
     <input id="userInput" type="text" placeholder="Greek" maxlength="32" style="width: 300px; font-size: 25pt; margin-top: 15px; margin-bottom: 15px;" >
     <button id="pogBtn" onclick="app()" style="width: 150px; height: 45px; font-size: 22pt;">Submit</button><br>
     <p style="font-size:21px;margin:0px 0px;line-height:1.5;">Answer with a Greek keyboard (no accents), or by using the below keyboard/key: to view the key, toggle 'showKey' on.</p>
@@ -106,15 +104,29 @@
         </tr>
       </tbody>
     </table>
-    <a href='/home/noun_input'>nice</a>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="/home">Home</a>
+    <input type="button" value="nice" onclick="updateContext()">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="/home">Home</a>
 </div>
     <script type="text/javascript">
-        const members = ["{{ans_word}}", "{{ans_simp1}}", "{{ans_simp2}}", "{{ans_simp3}}", "{{ans_eng}}".replace("&#x27;", "'")]
-        const membersNu = members.filter(nuFilter).map(nuFunction)
+        // >spaghettiScript //
+        const relation = {
+          'table1': 't1',
+          'table2': 't2',
+          'table3': 't3',
+          'table4': 't4',
+          'table5': 't5',
+          'table6': 't6',
+          'table7': 't7',
+          'table8': 't8'
+        }
+        var corrNum = "{{num_case}}"
+        var members = "{{members_list}}".split(',')
+        members.push("{{ans_eng}}".replace("&#x27;", "'"))
+        var membersNu = members.filter(nuFilter).map(nuFunction)
         const iotaDict = {'Η': 'ᾘ', 'Α': 'ᾈ', 'Ω': 'ᾨ', 'Ἡ': 'ᾙ', 'Ὡ': 'ᾩ', 'Ἁ': 'ᾉ', 'α': 'ᾳ', 'η': 'ῃ', 'ω': 'ῳ', 'ὡ': 'ᾡ', 'ἁ': 'ᾁ', 'ἡ': 'ᾑ'}
         const roughDict = {'Ε': 'Ἑ', 'Α': 'Ἁ', 'Ι': 'Ἱ', 'Υ': 'Ὑ', 'Η': 'Ἡ', 'Ρ': 'Ῥ', 'Ο': 'Ό', 'Ω': 'Ὡ', 'ᾨ': 'ᾩ', 'ᾈ': 'ᾉ', 'ᾘ': 'ᾙ', 'ι': 'ἱ', 'υ': 'ὑ', 'η': 'ἡ', 'ρ': 'ῥ', 'ο': 'ὁ', 'ε': 'ἑ', 'α': 'ἁ', 'ω': 'ὡ', 'ῳ': 'ᾡ', 'ᾳ': 'ᾁ', 'ῃ': 'ᾑ'}
         const convKey = {'A': 'Α', '\'A': 'Ἁ', 'A!': 'ᾼ', 'B': 'Β', 'G': 'Γ', 'D': 'Δ', 'E': 'Ε', 'Z': 'Ζ', 'N': 'Η', 'TH': 'Θ', 'I': 'Ι', 'K': 'Κ', 'L': 'Λ', 'M': 'Μ', 'V': 'Ν', 'KS': 'Ξ', 'O': 'Ο', 'P': 'Π', 'R': 'Ρ', 'S': 'Σ', 'T': 'Τ', 'U': 'Υ', 'PH': 'Φ', 'X': 'Χ', 'PS': 'Ψ', 'W': 'Ω', 'a': 'α', '\'a': 'ἁ', 'a!': 'ᾳ', 'b': 'β', 'g': 'γ', 'd': 'δ', 'e': 'ε', 'z': 'ζ', 'n': 'η', 'th': 'θ', 'i': 'ι', 'k': 'κ', 'l': 'λ', 'm': 'μ', 'v': 'ν', 'ks': 'ξ', 'o': 'ο', 'p': 'π', 'r': 'ρ', 's': 'ς', 't': 'τ', 'u': 'υ', 'ph': 'φ', 'x': 'χ', 'ps': 'ψ', 'w': 'ω', 'σ': 'ς'}
-        const input = document.getElementById("userInput")
+        var input = document.getElementById("userInput")
+        var inputVal = ""
         var pos = 0
         var capsBool = false
         var keyBool = false
@@ -156,15 +168,16 @@
           if (pos != 0) { pos -= 1 }
         }
         function app() {
+          inputVal = input.value
           document.getElementById("div_1").style.display = "none"
           document.getElementById("div_2").style.display = "block"
           var targeted = document.getElementById("wrong")
-          if (members.concat(membersNu).includes(input.value)) {
+          if (members.concat(membersNu).includes(inputVal)) {
             targeted.innerHTML = "Correct!"
             targeted.style.color = "#72d61a"
             document.getElementById("corrected").style.display = "none"
-          } else if (input.value !== "") { targeted.innerHTML = input.value + " is incorrect:" }
-          document.getElementById("t" + "{{num_case}}").style.backgroundColor = targeted.style.color
+          } else if (inputVal !== "") { targeted.innerHTML = inputVal + " is incorrect:" }
+          document.getElementById("t" + corrNum).style.backgroundColor = targeted.style.color
         }
         function typing(val) {
           var content = document.getElementById("userInput").value
@@ -197,6 +210,31 @@
             document.getElementById("userInput").value = content.slice(0, pos) + letter + content.slice(pos)
             if (posBool) { pos += 1 }
           }
+        }
+        function updateContext() {
+          fetch("{% url 'updateNounInput' %}", {
+            method: "GET",
+            headers: {"X-Requested-With": "XMLHttpRequest"}
+          })
+          .then(res => res.json())
+          .then(data => {
+            const jsonDct = {}
+            data.context.forEach(([key, val]) => jsonDct[key] = val)
+            document.getElementById("t" + corrNum).style.backgroundColor = "transparent"
+            corrNum = jsonDct['num_case']
+            members = jsonDct['members_list'].split(',')
+            members.push(jsonDct['ans_eng'].replace("&#x27;", "'"))
+            membersNu = members.filter(nuFilter).map(nuFunction)
+            document.getElementById("starterBase").innerHTML = jsonDct['ans_base']
+            document.getElementById("starterCase").innerHTML = jsonDct['ans_case']
+            document.getElementById("corrected").innerHTML = `${jsonDct['ans_word']} is the ${jsonDct['ans_case']} of ${jsonDct['ans_base']}`
+            for (var key in relation) { document.getElementById(relation[key]).innerHTML = jsonDct[key] }
+            document.getElementById("userInput").value = ""
+            inputVal = ""
+            pos = 0
+            document.getElementById("div_1").style.display = "block"
+            document.getElementById("div_2").style.display = "none"
+          })
         }
     </script>
 </body>
