@@ -196,6 +196,9 @@
             document.getElementById("wrong").innerHTML = "Incorrect!"
             document.getElementById("corrected").style.color = "#f7510a"
             document.getElementById("userInput").value = ""
+            document.getElementById("letter1").style.display = "none"
+            document.getElementById("hintButton").disabled = false
+            document.getElementById("letter1").innerHTML = ` ${jsonDct['letter1']}...`
             inputVal = ""
             pos = 0
             document.getElementById("div_1").style.display = "block"
