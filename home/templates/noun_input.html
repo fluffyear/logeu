@@ -108,7 +108,7 @@
 </div>
     <script type="text/javascript">
         // >spaghettiScript //
-        if (localStorage.getItem("theme") == "dark-mode") { document.getElementById("styleSheet").href = '{% static 'home/appStyleDark.css' %}'; var modeRed = "#ed370e" } else { document.getElementById("styleSheet").href = '{% static 'home/appStyle.css' %}'; var modeRed = "#f7510a" }
+        (function () { if (localStorage.getItem("theme") == "dark-mode") { document.getElementById("styleSheet").href = '{% static 'home/appStyleDark.css' %}'; var modeRed = "#ed370e" } else { document.getElementById("styleSheet").href = '{% static 'home/appStyle.css' %}'; var modeRed = "#f7510a" } })()
         const relation = {
           'table1': 't1',
           'table2': 't2',
