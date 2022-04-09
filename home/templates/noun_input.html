@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <title>Logeu: Nouns Typed</title>
     <link rel="stylesheet" id="styleSheet" href="{% static 'home/appStyle.css' %}" />
+    <style type="text/javascript">
+        (function () { if (localStorage.getItem("theme") == "dark-mode") { document.getElementById("styleSheet").href = '{% static 'home/appStyleDark.css' %}'; var modeRed = "#ed370e" } else { document.getElementById("styleSheet").href = '{% static 'home/appStyle.css' %}'; var modeRed = "#f7510a" } })()
+    </style>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap')
         #div_1 {}
