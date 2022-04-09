@@ -4,8 +4,9 @@ body {
   max-width: 650px;
   line-height: 1.6;
   font-size: 30px;
-  color: #444;
+  color: #dedbd7;
   padding: 0 10px;
+  background-color: #393842;
 }
 
 h1, h2, h3 {
@@ -53,6 +54,7 @@ table {
 }
 
 table tr {
+  background-color: #54575e;
   border-top: 1px solid #c6cbd1;
 }
 
@@ -88,8 +90,8 @@ table td, table th {
 }
 
 a {
-color: #b0f03a;
-font-size: 27px
+  color: #f57f0a;
+  font-size: 27px
 }
 
 a.in_text {
@@ -97,7 +99,7 @@ a.in_text {
 }
 
 .button {
-  background-color: #f7d034;
+  background-color: #b2c456;
   border: none;
   color: white;
   text-align: center;
@@ -179,11 +181,7 @@ a.in_text {
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  background-color: #ff8324;
 }
 
 input:checked + .slider:before {
@@ -203,13 +201,13 @@ input:checked + .slider:before {
 }
 
 .hint:disabled {
-  color: #444;
+  color: #dedbd7;
   cursor: text;
   text-decoration: none;
 }
 
 .vocab {
-  background-color: #f7d034;
+  background-color: #b2c456;
   border: none;
   color: white;
   text-align: center;
@@ -224,4 +222,19 @@ input:checked + .slider:before {
 
 .questionWord {
   color: #02c3e0;
+}
+
+input[type=submit] {
+  color: #dedbd7;
+}
+
+input[type=text] {
+  background-color: #62676e;
+  border-color: #dedbd7;
+  color: #dedbd7;
+}
+
+::placeholder {
+  color: #dedbd7;
+  opacity: 1;
 }
