@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Logeu: Verbs</title>
-    <link rel="stylesheet" href="{% static 'home/verb_button_style.css' %}" />
+    <link rel="stylesheet" id="styleSheet" href="{% static 'home/appStyle.css' %}" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap')
         #div_1 {}
@@ -13,11 +13,11 @@
 </head>
 <body>
     <div id="div_1">
-        <p><button class="button" id="b1" onclick="app(this.id)">{{ word1 }}</button><br>
-            <button class="button" id="b2" onclick="app(this.id)">{{ word2 }}</button><br>
-            <button class="button" id="b3" onclick="app(this.id)">{{ word3 }}</button><br>
-            <button class="button" id="b4" onclick="app(this.id)">{{ word4 }}</button><br>
-            <button class="button" id="b5" onclick="app(this.id)">{{ word5 }}</button></p>
+        <p><button class="vocab" id="b1" onclick="app(this.id)">{{ word1 }}</button><br>
+            <button class="vocab" id="b2" onclick="app(this.id)">{{ word2 }}</button><br>
+            <button class="vocab" id="b3" onclick="app(this.id)">{{ word3 }}</button><br>
+            <button class="vocab" id="b4" onclick="app(this.id)">{{ word4 }}</button><br>
+            <button class="vocab" id="b5" onclick="app(this.id)">{{ word5 }}</button></p>
         <p id="starter">{{ ans_word }}</p>
         <p><a href="/home">Home</a></p>
     </div>
@@ -26,6 +26,7 @@
         <br><input type="button" value="nice" onclick="updateContext()"><br><br><a href="/home">Home</a>
     </div>
     <script type="text/javascript">
+        if (localStorage.getItem("theme") == "dark-mode") { document.getElementById("styleSheet").href = '{% static 'home/appStyleDark.css' %}' } else { document.getElementById("styleSheet").href = '{% static 'home/appStyle.css' %}' }
         const relation = {
             'word1': 'b1',
             'word2': 'b2',

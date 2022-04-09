@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Logeu: Nouns Typed</title>
-    <link rel="stylesheet" href="{% static 'home/noun_button_style.css' %}" />
+    <link rel="stylesheet" id="styleSheet" href="{% static 'home/appStyle.css' %}" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap')
         #div_1 {}
@@ -13,7 +13,7 @@
 </head>
 <body>
 <div id="div_1">
-    What is <span id="starterBase" style="color:#02c3e0">{{ ans_base }}</span> in the <span id="starterCase">{{ ans_case }}?</span><br>
+    What is <span id="starterBase" class="questionWord">{{ ans_base }}</span> in the <span id="starterCase">{{ ans_case }}?</span><br>
     <input id="userInput" type="text" placeholder="Greek" maxlength="32" style="width: 300px; font-size: 25pt; margin-top: 15px; margin-bottom: 15px;" >
     <button id="pogBtn" onclick="app()" style="width: 150px; height: 45px; font-size: 22pt;">Submit</button><br>
     <p style="font-size:21px;margin:0px 0px;line-height:1.5;">Answer with a Greek keyboard (no accents), or by using the below keyboard/key: to view the key, toggle 'showKey' on.</p>
@@ -72,11 +72,11 @@
     <label class="switch" style="margin-right:3px;margin-left:0px;"><input id="capsLock" type="checkbox" onclick="caps()"><span class="slider"></span></label>caps<label class="switch" style="margin-right:3px;margin-left:12px;"><input id="showKey" type="checkbox" onclick="showKey()"><span class="slider"></span></label>showKey<button id="backSpace" onclick="back()" style="padding:0px 16px;height:45px;font-size:22pt;margin-left:12px;">delete</button><span id="spaceBack" style="display:none;">&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;</span>&nbsp;&emsp;&emsp;&emsp;<a href="/home">Home</a>
 </div>
 <div id="div_2">
-    <span id="wrong" style="color:#f7510a">Incorrect!</span><br><span id="corrected">{{ ans_word }} is the {{ ans_case }} of {{ ans_base }}</span>
+    <span id="wrong" style="color:#72d61a">Incorrect!</span><br><span id="corrected">{{ ans_word }} is the {{ ans_case }} of {{ ans_base }}</span>
     <table>
       <thead>
         <tr>
-          <th></th>
+          <th style="background-color:#393842;"></th>
           <th>Singular</th>
           <th>Plural</th>
         </tr>
@@ -108,6 +108,7 @@
 </div>
     <script type="text/javascript">
         // >spaghettiScript //
+        if (localStorage.getItem("theme") == "dark-mode") { document.getElementById("styleSheet").href = '{% static 'home/appStyleDark.css' %}'; var modeRed = "#ed370e" } else { document.getElementById("styleSheet").href = '{% static 'home/appStyle.css' %}'; var modeRed = "#f7510a" }
         const relation = {
           'table1': 't1',
           'table2': 't2',
@@ -174,8 +175,7 @@
           if (members.concat(membersNu).includes(inputVal)) {
             targeted.innerHTML = "Correct!"
             targeted.style.color = "#72d61a"
-            document.getElementById("corrected").style.display = "none"
-          } else if (inputVal !== "") { targeted.innerHTML = inputVal + " is incorrect:" }
+          } else if (inputVal !== "") { targeted.innerHTML = inputVal + " is incorrect:"; targeted.style.color = modeRed } else { targeted.style.color = modeRed }
           document.getElementById("t" + corrNum).style.backgroundColor = targeted.style.color
         }
         function typing(val) {
@@ -225,10 +225,10 @@
             members.push(jsonDct['ans_eng'].replace("&#x27;", "'"))
             membersNu = members.filter(nuFilter).map(nuFunction)
             document.getElementById("starterBase").innerHTML = jsonDct['ans_base']
-            document.getElementById("starterCase").innerHTML = jsonDct['ans_case']
+            document.getElementById("starterCase").innerHTML = `${jsonDct['ans_case']}?`
             document.getElementById("corrected").innerHTML = `${jsonDct['ans_word']} is the ${jsonDct['ans_case']} of ${jsonDct['ans_base']}`
             for (var key in relation) { document.getElementById(relation[key]).innerHTML = jsonDct[key] }
-            document.getElementById("wrong").style.color = "#f7510a"
+            document.getElementById("wrong").style.color = modeRed
             document.getElementById("wrong").innerHTML = "Incorrect!"
             document.getElementById("userInput").value = ""
             inputVal = ""

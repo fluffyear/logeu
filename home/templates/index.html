@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-{% load static %}
 <html>
 <head>
+{% load static %}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Logeu</title>
-    <style>@import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap')</style>
-<link rel="stylesheet" href="{% static 'home/style.css' %}" />
+<style>@import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap')</style>
+<link id="styleSheet" rel="stylesheet" href="{% static 'home/style.css' %}" />
 </head>
 <body>
-    <h1>Logeu!</h1>
+    <h1>Logeu!<span style="float:right;"><label class="switch"><input id="displayMode" type="checkbox" onclick="displayMode()"><span class="slider"></span></label></span></h1>
     <p>Logeu is a language learning tool made to test your Ancient Greek grammar and vocabulary: <a class="in_text" href="/home/about">for more information</a>.</p>
     <h3>Vocabulary</h3>
     <ul>
@@ -24,5 +24,22 @@
         <li><a href="/home/nouns">Noun Endings</a></li>
         <li><a href="/home/noun_input">Noun Endings Typed</a></li>
     </ul>
+    <script type="text/javascript">
+        if (localStorage.getItem("theme") == "dark-mode") {
+            document.getElementById("displayMode").checked = "true"
+            document.getElementById("styleSheet").href = '{% static 'home/styleDark.css' %}'
+        } else {
+            document.getElementById("styleSheet").href = '{% static 'home/style.css' %}'
+        }
+        function displayMode() {
+            if (document.getElementById("displayMode").checked) {
+                document.getElementById("styleSheet").href = '{% static 'home/styleDark.css' %}'
+                localStorage.setItem("theme", "dark-mode")
+            } else {
+                document.getElementById("styleSheet").href = '{% static 'home/style.css' %}'
+                localStorage.setItem("theme", "")
+            }
+        }
+    </script>
 </body>
 </html>
