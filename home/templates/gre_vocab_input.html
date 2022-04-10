@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <title>Logeu: AS Vocab Greek Typed</title>
     <link rel="stylesheet" id="styleSheet" href="{% static 'home/appStyle.css' %}" />
+    <script type="text/javascript">
+        if (localStorage.getItem("theme") == "dark-mode") { document.write("<link rel='stylesheet' id='styleSheet' href='{% static 'home/AppStyleDark.css' %}'/>") }
+    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap')
         #div_1 {}
@@ -15,7 +18,7 @@
 <div id="div_1">
     Translate <span id="starter" style="color:#02c3e0;">{{ ans_greek }}</span><br>
     <input id="userInput" type="text" placeholder="English" maxLength="64" style="width: 300px; font-size: 25pt; margin-top: 15px; margin-bottom: 15px;" >
-    <button id="pogBtn" onclick="app()" style="padding: 0px 20px; height: 45px; font-size: 22pt;">Submit</button><br>
+    <button id="pogBtn" class="infoPut" onclick="app()" style="padding: 0px 20px; height: 45px; font-size: 22pt;">Submit</button><br>
     <a href="/home">Home</a>
 </div>
 <div id="div_2">
@@ -23,7 +26,6 @@
         <br><br><br><input type="button" value="nice" onclick="updateContext()">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="/home">Home</a>
 </div>
     <script type="text/javascript">
-        if (localStorage.getItem("theme") == "dark-mode") { document.getElementById("styleSheet").href = '{% static 'home/appStyleDark.css' %}' } else { document.getElementById("styleSheet").href = '{% static 'home/appStyle.css' %}' }
         var wordLst = "{{ans_word_list}}".split(',')
         var members = wordLst.map(e => { return e.toLowerCase().replace(/\([^()]*\)/g, '') })
         const input = document.getElementById("userInput")

@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <title>Logeu: AS Vocab Greek</title>
     <link rel="stylesheet" id="styleSheet" href="{% static 'home/appStyle.css' %}" />
+    <script type="text/javascript">
+        if (localStorage.getItem("theme") == "dark-mode") { document.write("<link rel='stylesheet' id='styleSheet' href='{% static 'home/AppStyleDark.css' %}'/>") }
+    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap')
         #div_1 {}
@@ -26,7 +29,6 @@
         <br><input type="button" value="nice" onclick="updateContext()"><br><br><a href="/home">Home</a>
     </div>
     <script type="text/javascript">
-        if (localStorage.getItem("theme") == "dark-mode") { document.getElementById("styleSheet").href = '{% static 'home/appStyleDark.css' %}' } else { document.getElementById("styleSheet").href = '{% static 'home/appStyle.css' %}' }
         const relation = {
             'word1': 'b1',
             'word2': 'b2',

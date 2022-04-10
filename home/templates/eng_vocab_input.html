@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <title>Logeu: AS Vocab English Typed</title>
     <link rel="stylesheet" id="styleSheet" href="{% static 'home/appStyle.css' %}" />
+    <script type="text/javascript">
+        if (localStorage.getItem("theme") == "dark-mode") { document.write("<link rel='stylesheet' id='styleSheet' href='{% static 'home/AppStyleDark.css' %}'/>") }
+    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap')
         #div_1 {}
@@ -15,7 +18,7 @@
 <div id="div_1">
     Translate <span id="starter" style="color:#02c3e0;">{{ ans_word_shaven }}</span><br>
     <input id="userInput" type="text" placeholder="Greek" maxlength="32" style="width: 300px; font-size: 25pt; margin-top: 15px; margin-bottom: 15px;" >
-    <button id="pogBtn" onclick="app()" style="width: 150px; height: 45px; font-size: 22pt;">Submit</button><br>
+    <button id="pogBtn" class="infoPut" onclick="app()" style="width: 150px; height: 45px; font-size: 22pt;">Submit</button><br>
     <p style="font-size:21px;margin:0px 0px;line-height:1.5;">Answer with a Greek keyboard (no accents), or by using the below keyboard/key: to view the key, toggle 'showKey' on. &nbsp;<input id="hintButton" type="button" class="hint" value="Hint" onclick="revHint()"><span id="letter1" style="display:none;">: {{ letter1 }}...</span></p>
     <table id="lowerKey" class="keyTable" style="display:none;">
       <tbody>
@@ -76,7 +79,6 @@
         <br><br><br><input id="nice" type="button" value="nice" onclick="updateContext()">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="/home">Home</a>
 </div>
     <script type="text/javascript">
-        if (localStorage.getItem("theme") == "dark-mode") { document.getElementById("styleSheet").href = '{% static 'home/appStyleDark.css' %}' } else { document.getElementById("styleSheet").href = '{% static 'home/appStyle.css' %}' }
         var members = "{{members_list}}".split(',').map(e => e.replace("&#x27;", "'"))
         members.push("{{ans_eng}}".replace("&#x27;", "'"))
         var membersPlus = members.filter(plusFilter).map(plusFunction)

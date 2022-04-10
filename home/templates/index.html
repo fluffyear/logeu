@@ -7,6 +7,9 @@
 <title>Logeu</title>
 <style>@import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap')</style>
 <link id="styleSheet" rel="stylesheet" href="{% static 'home/style.css' %}" />
+<script type="text/javascript">
+    if (localStorage.getItem("theme") == "dark-mode") { document.write("<link rel='stylesheet' id='styleSheet' href='{% static 'home/styleDark.css' %}'/>"); document.getElementById("styleSheet").id = "null" }
+</script>
 </head>
 <body>
     <h1>Logeu!<span style="float:right;"><label class="switch"><input id="displayMode" type="checkbox" onclick="displayMode()"><span class="slider"></span></label></span></h1>

@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <title>Logeu: Nouns</title>
     <link rel="stylesheet" id="styleSheet" href="{% static 'home/appStyle.css' %}" />
+    <script type="text/javascript">
+        if (localStorage.getItem("theme") == "dark-mode") { document.write("<link rel='stylesheet' id='styleSheet' href='{% static 'home/AppStyleDark.css' %}'/>") }
+    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap')
         #div_1 {}
@@ -25,7 +28,7 @@
     <table>
       <thead>
         <tr>
-          <th></th>
+          <th id="topLeft"></th>
           <th>Singular</th>
           <th>Plural</th>
         </tr>
@@ -56,7 +59,7 @@
     <input type="button" value="nice" onclick="updateContext()">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="/home">Home</a>
 </div>
     <script type="text/javascript">
-        if (localStorage.getItem("theme") == "dark-mode") { document.getElementById("styleSheet").href = '{% static 'home/appStyleDark.css' %}' } else { document.getElementById("styleSheet").href = '{% static 'home/appStyle.css' %}' }
+        if (localStorage.getItem("theme") == "dark-mode") { document.getElementById("topLeft").style.backgroundColor = "#393842" }
         const relation = {
           'word1': 'b1',
           'word2': 'b2',

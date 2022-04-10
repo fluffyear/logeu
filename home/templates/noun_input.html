@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <title>Logeu: Nouns Typed</title>
     <link rel="stylesheet" id="styleSheet" href="{% static 'home/appStyle.css' %}" />
-    <style type="text/javascript">
-        (function () { if (localStorage.getItem("theme") == "dark-mode") { document.getElementById("styleSheet").href = '{% static 'home/appStyleDark.css' %}'; var modeRed = "#ed370e" } else { document.getElementById("styleSheet").href = '{% static 'home/appStyle.css' %}'; var modeRed = "#f7510a" } })()
-    </style>
+    <script type="text/javascript">
+        if (localStorage.getItem("theme") == "dark-mode") { document.write("<link rel='stylesheet' id='styleSheet' href='{% static 'home/AppStyleDark.css' %}'/>"); var modeRed = "#ed370e"; } else { var modeRed = "#f7510a" }
+    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap')
         #div_1 {}
@@ -18,7 +18,7 @@
 <div id="div_1">
     What is <span id="starterBase" class="questionWord">{{ ans_base }}</span> in the <span id="starterCase">{{ ans_case }}?</span><br>
     <input id="userInput" type="text" placeholder="Greek" maxlength="32" style="width: 300px; font-size: 25pt; margin-top: 15px; margin-bottom: 15px;" >
-    <button id="pogBtn" onclick="app()" style="width: 150px; height: 45px; font-size: 22pt;">Submit</button><br>
+    <button id="pogBtn" onclick="app()" class="infoPut" style="width: 150px; height: 45px; font-size: 22pt;">Submit</button><br>
     <p style="font-size:21px;margin:0px 0px;line-height:1.5;">Answer with a Greek keyboard (no accents), or by using the below keyboard/key: to view the key, toggle 'showKey' on.</p>
     <table id="lowerKey" class="keyTable" style="display:none;">
       <tbody>
@@ -79,7 +79,7 @@
     <table>
       <thead>
         <tr>
-          <th style="background-color:#393842;"></th>
+          <th id="topLeft"></th>
           <th>Singular</th>
           <th>Plural</th>
         </tr>
@@ -111,7 +111,7 @@
 </div>
     <script type="text/javascript">
         // >spaghettiScript //
-        (function () { if (localStorage.getItem("theme") == "dark-mode") { document.getElementById("styleSheet").href = '{% static 'home/appStyleDark.css' %}'; var modeRed = "#ed370e" } else { document.getElementById("styleSheet").href = '{% static 'home/appStyle.css' %}'; var modeRed = "#f7510a" } })()
+        if (localStorage.getItem("theme") == "dark-mode") { document.getElementById("topLeft").style.backgroundColor = "#393842" }
         const relation = {
           'table1': 't1',
           'table2': 't2',

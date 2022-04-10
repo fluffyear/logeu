@@ -191,7 +191,7 @@ input:checked + .slider:before {
 }
 
 .hint {
-  color: #02c3e0;
+  color: #edad18;
   font-size: 19px;
   background: none!important;
   border: none;
@@ -230,11 +230,18 @@ input[type=submit] {
 
 input[type=text] {
   background-color: #62676e;
-  border-color: #dedbd7;
   color: #dedbd7;
+  border: 2px solid #edad18;
 }
 
 ::placeholder {
   color: #dedbd7;
   opacity: 1;
+  border: 2px solid transparent;
+}
+
+.infoPut {
+  color: #393842;
+  background-color: #edad18;
+  border: 1px solid transparent;
 }
