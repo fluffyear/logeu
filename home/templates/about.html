@@ -5,6 +5,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" id="styleSheet" href="{% static 'home/style.css' %}" />
+<script type="text/javascript">
+    if (localStorage.getItem("theme") == "dark-mode") { document.write("<link rel='stylesheet' id='styleSheet' href='{% static 'home/styleDark.css' %}'/>") }
+</script>
 <title>Logeu: About</title>
 <style>@import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap')</style>
 </head>
@@ -28,8 +31,5 @@
     <p>This project was written in the Django framework with Python, hosted for free by <a class="in_text" href="https://www.heroku.com">Heroku</a>. <i>Please do not mention my html/css/SpaghettiScript.</i></p>
     <p>If you have any suggestions/queries, please contact me at loguequeries@gmail.com, or via Discord, at CEO of meow#0360.</p>
     <a href="/home">home</a>
-    <script type="text/javascript">
-        if (localStorage.getItem("theme") == "dark-mode") { document.getElementById("styleSheet").href = '{% static 'home/styleDark.css' %}' } else { document.getElementById("styleSheet").href = '{% static 'home/style.css' %}' }
-    </script>
 </body>
 </html>
