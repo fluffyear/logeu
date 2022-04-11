@@ -8,10 +8,12 @@ from home.RanP import as_vocab_func as asv
 word_key = {"θ": "th", "ξ": "ks", "φ": "ph", "ψ": "ps", "Ἑ": "\'E", "ἱ": "\'i", "ὑ": "\'u", "ἡ": "\'n", "ῥ": "\'r",
             "ᾳ": "a!", "ῃ": "n!"}
 key_lst1 = ['α', 'ἁ', 'ᾳ', 'β', 'γ', 'δ', 'ε', 'ζ', 'η', 'θ', 'ι', 'κ', 'λ']
+alt_key_lst1 = ['α', 'ἁ', 'ᾳ', 'β', 'γ', 'δ', 'ε', 'ζ', 'η', 'θ', 'ι', 'κ', 'λ']
 key_lst2 = ['a', '\'a', 'a!', 'b', 'g', 'd', 'e', 'z', 'n', 'th', 'i', 'k', 'l']
 key_lst3 = ['μ', 'ν', 'ξ', 'ο', 'π', 'ρ', 'σ', 'τ', 'υ', 'φ', 'χ', 'ψ', 'ω']
 key_lst4 = ['m', 'v', 'ks', 'o', 'p', 'r', 's', 't', 'u', 'ph', 'x', 'ps', 'w']
 up_key_lst1 = ['Α', 'Ἁ', 'ᾼ', 'Β', 'Γ', 'Δ', 'Ε', 'Ζ', 'Η', 'Θ', 'Ι', 'Κ', 'Λ']
+alt_up_key_lst1 = ['Α', 'Ἁ', 'ᾼ', 'Β', 'Γ', 'Δ', 'Ε', 'Ζ', 'Η', 'Θ', 'Ι', 'Κ', 'Λ']
 up_key_lst2 = ['A', '\'A', 'A!', 'B', 'G', 'D', 'E', 'Z', 'N', 'TH', 'I', 'K', 'L']
 up_key_lst3 = ['Μ', 'Ν', 'Ξ', 'Ο', 'Π', 'Ρ', 'Σ', 'Τ', 'Υ', 'Φ', 'Χ', 'Ψ', 'Ω']
 up_key_lst4 = ['M', 'V', 'KS', 'O', 'P', 'R', 'S', 'T', 'U', 'PH', 'X', 'PS', 'W']
@@ -215,9 +217,9 @@ def context_eng_vocab_input():
             ans_eng += diphthong[i]
         else:
             ans_eng += i
-    s1 = norm('NFD', ans_greek).translate({'\u0314': None, '\u0345': None}).replace("\u0314", "").replace("\u0345", "")
-    s2 = norm('NFD', ans_greek).translate({'\u0314': None}).replace("\u0314", "")
-    s3 = norm('NFD', ans_greek).translate({'\u0345': None}).replace("\u0345", "")
+    s1 = norm('NFC', ans_greek).translate({'\u0314': None, '\u0345': None}).replace("\u0314", "").replace("\u0345", "")
+    s2 = norm('NFC', ans_greek).translate({'\u0314': None}).replace("\u0314", "")
+    s3 = norm('NFC', ans_greek).translate({'\u0345': None}).replace("\u0345", "")
     context['ans_eng'] = ans_eng
     context['ans_simp_plus'] = ''
     context['members_list'] = f"{s1},{s2},{s3},{ans_greek},{ch[0]}"

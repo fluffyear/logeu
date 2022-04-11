@@ -104,7 +104,6 @@
         function plusFilter(value) { return value.includes("+") }
         function displayNone(value) { document.getElementById(value).style.display = "none" }
         function setDisplay(val) {
-          console.log(val)
           var choices = ["upper", "lower", "upperKey", "lowerKey"]
           choices = choices.filter(item => item !== val)
           document.getElementById(val).style.display = "block"
@@ -142,7 +141,6 @@
             targeted.style.color = "#72d61a"
             document.getElementById("corrected").style.color = "#72d61a"
           } else if (inputVal !== "") { targeted.innerHTML = inputVal + " is incorrect:" }
-          console.log(members.concat(membersPlus))
         }
         function typing(val) {
           var content = document.getElementById("userInput").value
