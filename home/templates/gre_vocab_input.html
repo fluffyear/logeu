@@ -27,7 +27,7 @@
 </div>
     <script type="text/javascript">
         var wordLst = "{{ans_word_list}}".split(',')
-        var members = wordLst.map(e => { return e.toLowerCase().replace(/\([^()]*\)/g, '') })
+        var members = wordLst.map(e => { return e.toLowerCase().replace(/\([^()]*\)/g, '').trim() })
         const input = document.getElementById("userInput")
         input.addEventListener("keyup", function(event) {
           if (event.keyCode === 13) {
