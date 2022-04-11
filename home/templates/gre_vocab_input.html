@@ -72,6 +72,9 @@
             members = jsonDct['ans_word_list'].split(',').map(e => { return e.toLowerCase().replace(/\([^()]*\)/g, '').trim() })
             document.getElementById("starter").innerHTML = jsonDct['ans_greek']
             document.getElementById("corrected").innerHTML = `${jsonDct['ans_greek']}:<br>${jsonDct['ans_word']}`
+            document.getElementById("corrected").style.color = "#f7510a"
+            document.getElementById("wrong").innerHTML = "Incorrect!"
+            document.getElementById("wrong").style.color = "#f7510a"
             document.getElementById("userInput").value = ""
             document.getElementById("div_1").style.display = "block"
             document.getElementById("div_2").style.display = "none"
