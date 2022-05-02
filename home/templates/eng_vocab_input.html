@@ -108,7 +108,7 @@
         function setDisplay(val) {
           var choices = ["upper", "lower", "upperKey", "lowerKey"]
           choices = choices.filter(item => item !== val)
-          document.getElementById(val).style.display = "block"
+          document.getElementById(val).style.display = "table"
           choices.forEach(displayNone)
         }
         function caps() {
