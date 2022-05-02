@@ -76,7 +76,7 @@
     <label class="switch" style="margin-right:3px;margin-left:0px;"><input id="capsLock" type="checkbox" onclick="caps()"><span class="slider"></span></label>caps<label class="switch" style="margin-right:3px;margin-left:12px;"><input id="showKey" type="checkbox" onclick="showKey()"><span class="slider"></span></label>showKey<button id="backSpace" onclick="back()" style="padding:0px 16px;height:45px;font-size:22pt;margin-left:12px;">delete</button><span id="spaceBack" style="display:none;">&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;</span>
 </div>
 <div id="div_2">
-    <p><span id="wrong" style="color:#f7510a">Incorrect!</span></p><span id="corrected" style="color:#f7510a;">{{ ans_greek_full }}:<br>{{ ans_word }}</span>
+    <p><span id="wrong" style="color:#f7510a">Incorrect!</span></p><span id="corrected">{{ ans_greek_full }}<br>{{ ans_word }}</span>
         <br><br><br><input type="button" class="palin" value="πάλιν" onclick="updateContext()">
 </div>
     <script type="text/javascript">
@@ -141,7 +141,6 @@
           if (members.concat(membersPlus).includes(inputVal)) {
             targeted.innerHTML = "Correct!"
             targeted.style.color = "#72d61a"
-            document.getElementById("corrected").style.color = "#72d61a"
           } else if (inputVal !== "") { targeted.innerHTML = inputVal + " is incorrect:" }
         }
         function typing(val) {
@@ -194,10 +193,9 @@
             members.push(jsonDct['ans_eng'].replace("&#x27;", "'"))
             membersPlus = members.filter(plusFilter).map(plusFunction)
             document.getElementById("starter").innerHTML = jsonDct['ans_word_shaven']
-            document.getElementById("corrected").innerHTML = `${jsonDct['ans_greek_full']}:<br>${jsonDct['ans_word']}`
+            document.getElementById("corrected").innerHTML = `${jsonDct['ans_greek_full']}<br>${jsonDct['ans_word']}`
             document.getElementById("wrong").style.color = "#f7510a"
             document.getElementById("wrong").innerHTML = "Incorrect!"
-            document.getElementById("corrected").style.color = "#f7510a"
             document.getElementById("userInput").value = ""
             document.getElementById("letter1").style.display = "none"
             document.getElementById("hintButton").disabled = false

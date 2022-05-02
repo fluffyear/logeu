@@ -23,10 +23,10 @@
 <div id="div_1">
     Translate <span id="starter" style="color:#02c3e0;">{{ ans_greek }}</span><br>
     <input id="userInput" type="text" placeholder="English" maxLength="64" style="width: 300px; font-size: 25pt; margin-top: 15px; margin-bottom: 15px;" >
-    <button id="pogBtn" class="infoPut" onclick="app()" style="padding: 0px 20px; height: 45px; font-size: 22pt;">Submit</button><br>
+    <button id="pogBtn" class="infoPut" onclick="app()">Submit</button><br>
 </div>
 <div id="div_2">
-    <p><span id="wrong" style="color:#f7510a">Incorrect!</span></p><span id="corrected" style="color:#f7510a;">{{ ans_greek }}:<br>{{ ans_word }}</span>
+    <p><span id="wrong" style="color:#f7510a">Incorrect!</span></p><span id="corrected">{{ ans_greek }}<br>{{ ans_word }}</span>
         <br><br><br><input type="button" class="palin" value="πάλιν" onclick="updateContext()">
 </div>
     <script type="text/javascript">
@@ -57,19 +57,16 @@
           if (ansBool == 2) {
             targeted.innerHTML = "Correct!"
             targeted.style.color = "#72d61a"
-            document.getElementById("corrected").style.color = "#72d61a"
             correctness = true
           } else if (ansBool == 1) {
             targeted.style.color = "#f7510a"
             correct = ansFiltered.toString().replace(",", ", ")
             incorrect = ans.filter(e => !ansFiltered.includes(e)).toString().replace(",", ", ")
             targeted.innerHTML = `<span style='color:#ffbb00;'>${input}</span> is incorrect`
-            document.getElementById("corrected").style.color = "#f7510a"
             correctness = false
           } else if (input.length != 0) {
             targeted.style.color = "#f7510a"
             targeted.innerHTML = `${input} is incorrect`
-            document.getElementById("corrected").style.color = "#f7510a"
             correctness = false
           } else {
             correctness = false
@@ -122,8 +119,7 @@
             localStorage.setItem("fauxList", JSON.stringify(fLst))
             members = jsonDct['ans_word_list'].split(',').map(e => { return e.toLowerCase().replace(/\([^()]*\)/g, '').trim() })
             document.getElementById("starter").innerHTML = jsonDct['ans_greek']
-            document.getElementById("corrected").innerHTML = `${jsonDct['ans_greek']}:<br>${jsonDct['ans_word']}`
-            document.getElementById("corrected").style.color = "#f7510a"
+            document.getElementById("corrected").innerHTML = `${jsonDct['ans_greek']}<br>${jsonDct['ans_word']}`
             document.getElementById("wrong").innerHTML = "Incorrect!"
             document.getElementById("wrong").style.color = "#f7510a"
             document.getElementById("userInput").value = ""

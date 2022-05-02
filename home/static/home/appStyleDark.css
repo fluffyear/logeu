@@ -243,7 +243,7 @@ input[type=submit] {
 input[type=text] {
   background-color: #62676e;
   color: #dedbd7;
-  border: 2px solid #edad18;
+  border: 1.5px solid #02c3e0;
 }
 
 ::placeholder {
@@ -253,9 +253,16 @@ input[type=text] {
 }
 
 .infoPut {
-  color: #393842;
-  background-color: #edad18;
-  border: 1px solid transparent;
+  padding: 0px 20px;
+  height: 45px;
+  font-size: 30px;
+  color: #f57f0a;
+  border: 1.5px solid #f57f0a;
+  background-color: transparent;
+}
+
+.infoPut:hover {
+  border: 3px solid #f57f0a;
 }
 
 ul {
@@ -279,4 +286,16 @@ li a {
   display: inline-block;
   padding: 14px 16px;
   text-decoration: underline;
+}
+
+.palin {
+  padding: 2.5px 10px;
+  font-size: 27px;
+  color: #f57f0a;
+  border: 1.5px solid #f57f0a;
+  background-color: transparent;
+}
+
+.palin:hover {
+  border: 3px solid #f57f0a;
 }

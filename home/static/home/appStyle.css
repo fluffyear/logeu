@@ -239,6 +239,19 @@ input:checked + .slider:before {
   color: #02c3e0;
 }
 
+.infoPut {
+  padding: 0px 20px;
+  height: 45px;
+  font-size: 30px;
+  color: #02c3e0;
+  border: 1.5px solid #02c3e0;
+  background-color: transparent;
+}
+
+.infoPut:hover {
+  border: 3px solid #02c3e0;
+}
+
 ul {
   position: fixed;
   justify-content: space-between;
@@ -260,4 +273,16 @@ li a {
   display: inline-block;
   padding: 14px 16px;
   text-decoration: underline;
+}
+
+.palin {
+  padding: 2.5px 10px;
+  font-size: 27px;
+  color: #b0f03a;
+  border: 1.5px solid #b0f03a;
+  background-color: transparent;
+}
+
+.palin:hover {
+  border: 3px solid #b0f03a;
 }
