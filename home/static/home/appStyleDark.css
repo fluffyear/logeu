@@ -203,7 +203,7 @@ input:checked + .slider:before {
 }
 
 .hint {
-  color: #edad18;
+  color: #f57f0a;
   font-size: 19px;
   background: none!important;
   border: none;
