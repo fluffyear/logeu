@@ -15,15 +15,19 @@
     </style>
 </head>
 <body>
+<div id="div_0">
+    <ul>
+      <li><a href="/home">Home</a>&emsp; | &emsp;<a href="/home/about">About</a></li>
+    </ul>
+</div>
 <div id="div_1">
     Translate <span id="starter" style="color:#02c3e0;">{{ ans_greek }}</span><br>
     <input id="userInput" type="text" placeholder="English" maxLength="64" style="width: 300px; font-size: 25pt; margin-top: 15px; margin-bottom: 15px;" >
     <button id="pogBtn" class="infoPut" onclick="app()" style="padding: 0px 20px; height: 45px; font-size: 22pt;">Submit</button><br>
-    <a href="/home">Home</a>
 </div>
 <div id="div_2">
     <p><span id="wrong" style="color:#f7510a">Incorrect!</span></p><span id="corrected" style="color:#f7510a;">{{ ans_greek }}:<br>{{ ans_word }}</span>
-        <br><br><br><input type="button" value="nice" onclick="updateContext()">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="/home">Home</a>
+        <br><br><br><input type="button" value="nice" onclick="updateContext()">
 </div>
     <script type="text/javascript">
         var vLst = (JSON.parse(localStorage.getItem("vraiList"))||{{v_list}})

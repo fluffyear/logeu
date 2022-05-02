@@ -8,15 +8,16 @@
     <script type="text/javascript">
         if (localStorage.getItem("theme") == "dark-mode") { document.write("<link rel='stylesheet' id='styleSheet' href='{% static 'home/appStyleDark.css' %}'/>") }
     </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap')
-        #div_1 {}
-        #div_2 { display: none }
-    </style>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap')</style>
 </head>
 <body>
+<div id="div_0">
+    <ul>
+      <li><a href="/home">Home</a>&emsp; <span class="navColor">|</span> &emsp;<a href="/home/about">About</a></li>
+    </ul>
+</div>
 <div id="div_1">
-    Translate <span id="starter" style="color:#02c3e0;">{{ ans_word_shaven }}</span><br>
+    <span style="text-align: left;">Translate <span id="starter" style="color:#02c3e0;">{{ ans_word_shaven }}</span></span><br>
     <input id="userInput" type="text" placeholder="Greek" maxlength="32" style="width: 300px; font-size: 25pt; margin-top: 15px; margin-bottom: 15px;" >
     <button id="pogBtn" class="infoPut" onclick="app()" style="width: 150px; height: 45px; font-size: 22pt;">Submit</button><br>
     <p style="font-size:21px;margin:0px 0px;line-height:1.5;">Answer with a Greek keyboard (no accents), or by using the below keyboard/key: to view the key, toggle 'showKey' on. &nbsp;<input id="hintButton" type="button" class="hint" value="Hint" onclick="revHint()"><span id="letter1" style="display:none;">: {{ letter1 }}...</span></p>
@@ -72,11 +73,11 @@
         </tr>
       </tbody>
     </table>
-    <label class="switch" style="margin-right:3px;margin-left:0px;"><input id="capsLock" type="checkbox" onclick="caps()"><span class="slider"></span></label>caps<label class="switch" style="margin-right:3px;margin-left:12px;"><input id="showKey" type="checkbox" onclick="showKey()"><span class="slider"></span></label>showKey<button id="backSpace" onclick="back()" style="padding:0px 16px;height:45px;font-size:22pt;margin-left:12px;">delete</button><span id="spaceBack" style="display:none;">&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;</span>&nbsp;&emsp;&emsp;&emsp;<a href="/home">Home</a>
+    <label class="switch" style="margin-right:3px;margin-left:0px;"><input id="capsLock" type="checkbox" onclick="caps()"><span class="slider"></span></label>caps<label class="switch" style="margin-right:3px;margin-left:12px;"><input id="showKey" type="checkbox" onclick="showKey()"><span class="slider"></span></label>showKey<button id="backSpace" onclick="back()" style="padding:0px 16px;height:45px;font-size:22pt;margin-left:12px;">delete</button><span id="spaceBack" style="display:none;">&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;</span>
 </div>
 <div id="div_2">
     <p><span id="wrong" style="color:#f7510a">Incorrect!</span></p><span id="corrected" style="color:#f7510a;">{{ ans_greek_full }}:<br>{{ ans_word }}</span>
-        <br><br><br><input id="nice" type="button" value="nice" onclick="updateContext()">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="/home">Home</a>
+        <br><br><br><input id="nice" type="button" value="nice" onclick="updateContext()">
 </div>
     <script type="text/javascript">
         var members = "{{members_list}}".split(',').map(e => e.replace("&#x27;", "'"))

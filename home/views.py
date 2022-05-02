@@ -274,6 +274,7 @@ def update_gre_vocab_input(request):
         ind = greek_lst.index(dct["ans_full"])
         pmf = pmfs.Pmf(greek_lst, dct["v_list"], dct["f_list"])
         pmf.cache = dct['cache']
+        # cache still not fully working
         pmf.update(ind, dct["data"])
         context = context_gre_vocab_input(pmf, pmf.choose_norm(), pmf.cache)
         context['cache'] = ind

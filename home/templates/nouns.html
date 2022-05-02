@@ -15,13 +15,17 @@
     </style>
 </head>
 <body>
+<div id="div_0">
+    <ul>
+      <li><a href="/home">Home</a>&emsp; | &emsp;<a href="/home/about">About</a></li>
+    </ul>
+</div>
 <div id="div_1">
     <p><button class="button" id="b1" onclick="app(this.id)">{{ word1 }}</button><br>
         <button class="button" id="b2" onclick="app(this.id)">{{ word2 }}</button><br>
         <button class="button" id="b3" onclick="app(this.id)">{{ word3 }}</button><br>
         <button class="button" id="b4" onclick="app(this.id)">{{ word4 }}</button></p>
     <font id="starter" size="+3">{{ ans_word }}</font>
-    <p><a href="/home">Home</a></p>
 </div>
 <div id="div_2">
     <span id="wrong" style="color:#f7510a">Incorrect!</span><br><span id="corrected">{{ ans_word }} is {{ ans_case }}</span>
@@ -56,7 +60,7 @@
         </tr>
       </tbody>
     </table>
-    <input type="button" value="nice" onclick="updateContext()">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="/home">Home</a>
+    <input type="button" value="nice" onclick="updateContext()">
 </div>
     <script type="text/javascript">
         if (localStorage.getItem("theme") == "dark-mode") { document.getElementById("topLeft").style.backgroundColor = "#393842" }

@@ -14,6 +14,11 @@
         #div_2 { display: none }
     </style>
 </head>
+<div id="div_0">
+    <ul>
+      <li><a href="/home">Home</a>&emsp; | &emsp;<a href="/home/about">About</a></li>
+    </ul>
+</div>
 <body>
     <div id="div_1">
         <p><button class="vocab" id="b1" onclick="app(this.id)">{{ word1 }}</button><br>
@@ -22,11 +27,10 @@
             <button class="vocab" id="b4" onclick="app(this.id)">{{ word4 }}</button><br>
             <button class="vocab" id="b5" onclick="app(this.id)">{{ word5 }}</button></p>
         <p id="starter">{{ ans_word }}</p>
-        <p><a href="/home">Home</a></p>
     </div>
     <div id="div_2">
         <p> <span id="wrong" style="color:#f7510a">Incorrect!</span><br>The answer was:<br><br><span id="corrected">{{ ans_word }}<br>{{ ans_greek }}</span></p>
-        <br><input type="button" value="nice" onclick="updateContext()"><br><br><a href="/home">Home</a>
+        <br><input type="button" value="nice" onclick="updateContext()">
     </div>
     <script type="text/javascript">
         const relation = {

@@ -1,12 +1,27 @@
 body {
   font-family: 'Catamaran', sans-serif;
-  margin: 40px auto;
-  max-width: 650px;
+  margin: 0;
   line-height: 1.6;
+  text-align: center;
   font-size: 30px;
   color: #dedbd7;
-  padding: 0 10px;
   background-color: #393842;
+}
+
+#div_0 {
+  padding: 15px 0;
+  margin-left: 0;
+}
+
+#div_1 {
+  margin: 40px auto;
+  padding: 0 10em;
+}
+
+#div_2 {
+  display: none;
+  margin: 40px auto;
+  padding: 0 10em;
 }
 
 h1, h2, h3 {
@@ -43,7 +58,6 @@ pre {
 }
 
 table {
-  display: block;
   width: 100%;
   overflow: auto;
   margin-top: 15px;
@@ -115,7 +129,7 @@ a.in_text {
 .keyTable {
   font-size: 25px;
   margin-top: 20px;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 
 .keyTable td, .keyTable th {
@@ -133,9 +147,7 @@ a.in_text {
   font: inherit;
   height: 100%;
   padding: 10px;
-  perspective-origin: 0 0;
   text-align: center;
-  transform-origin: 0 0;
   width: 100%;
   -moz-appearance: none;
   -webkit-logical-height: 1em;
@@ -244,4 +256,27 @@ input[type=text] {
   color: #393842;
   background-color: #edad18;
   border: 1px solid transparent;
+}
+
+ul {
+  position: fixed;
+  justify-content: space-between;
+  list-style-type: none;
+  width: 100%;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  color: #f57f0a;
+  float: none;
+  text-align: center;
+}
+
+li a {
+  display: inline-block;
+  padding: 14px 16px;
+  text-decoration: underline;
 }
