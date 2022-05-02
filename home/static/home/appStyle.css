@@ -131,9 +131,7 @@ a.in_text {
   font: inherit;
   height: 100%;
   padding: 10px;
-  perspective-origin: 0 0;
   text-align: center;
-  transform-origin: 0 0;
   width: 100%;
   -moz-appearance: none;
   -webkit-logical-height: 1em;

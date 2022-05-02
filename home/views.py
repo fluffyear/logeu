@@ -2,9 +2,8 @@ from django.shortcuts import render
 from django.http import JsonResponse, HttpResponseBadRequest
 import random
 from unicodedata import normalize as norm
-from home.RanP import funx
-from home.RanP import RandomNoun as RaNoun
-from home.RanP import as_vocab_func as asv
+from home.RanP import funx, RandomNoun as RaNoun, as_vocab_func as asv, logeupmf as pmfs
+import json
 word_key = {"θ": "th", "ξ": "ks", "φ": "ph", "ψ": "ps", "Ἑ": "\'E", "ἱ": "\'i", "ὑ": "\'u", "ἡ": "\'n", "ῥ": "\'r",
             "ᾳ": "a!", "ῃ": "n!"}
 key_lst1 = ['α', 'ἁ', 'ᾳ', 'β', 'γ', 'δ', 'ε', 'ζ', 'η', 'θ', 'ι', 'κ', 'λ']
@@ -176,15 +175,31 @@ def noun_input(request):
     return render(request, 'noun_input.html', context_noun_input())
 
 
-def context_gre_vocab_input():
-    ch = asv.gre_word()
+def context_gre_vocab_input(obj=None, cho=None, exc=None):
+    if obj is None:
+        ch = asv.gre_word()
+        length = asv.get_len()
+        v_list = [1]*length
+        f_list = [0]*length
+    else:
+        ch = asv.gre_word(cho, exc)
+        v_list = obj.rights
+        f_list = obj.wrongs
     ans_word_list = ""
     ch1_lst = ch[1].split(",")
     for num, i in enumerate(ch1_lst, start=1):
         ans_word_list += f"{i},"
         if num == len(ch1_lst):
             ans_word_list = ans_word_list[:-1]
-    context = {'ans_greek': ch[0], 'ans_word': ch[1], 'ans_word_list': ans_word_list}
+    context = {
+        'ans_greek': ch[0],
+        'ans_word': ch[1],
+        'ans_full': ch[2],
+        'ans_word_list': ans_word_list,
+        'v_list': v_list,
+        'f_list': f_list,
+        'cache': None
+    }
     return context
 
 
@@ -217,12 +232,15 @@ def context_eng_vocab_input():
             ans_eng += diphthong[i]
         else:
             ans_eng += i
-    s1 = norm('NFC', ans_greek).translate({'\u0314': None, '\u0345': None}).replace("\u0314", "").replace("\u0345", "")
-    s2 = norm('NFC', ans_greek).translate({'\u0314': None}).replace("\u0314", "")
-    s3 = norm('NFC', ans_greek).translate({'\u0345': None}).replace("\u0345", "")
+    s1a = norm('NFD', ans_greek).translate({'\u0314': None, '\u0345': None}).replace("\u0314", "").replace("\u0345", "")
+    s2a = norm('NFD', ans_greek).translate({'\u0314': None}).replace("\u0314", "")
+    s3a = norm('NFD', ans_greek).translate({'\u0345': None}).replace("\u0345", "")
+    s1b = norm('NFC', s1a)
+    s2b = norm('NFC', s2a)
+    s3b = norm('NFC', s3a)
     context['ans_eng'] = ans_eng
     context['ans_simp_plus'] = ''
-    context['members_list'] = f"{s1},{s2},{s3},{ans_greek},{ch[0]}"
+    context['members_list'] = f"{s1a},{s2a},{s3a},{s1b},{s2b},{s3b},{ans_greek},{ch[0]}"
     return context
 
 
@@ -248,11 +266,18 @@ def update_verb(request):
         return HttpResponseBadRequest('Invalid request')
 
 
-def update_gre_vocab(request):
+def update_gre_vocab_input(request):
     is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
     if is_ajax:
-        context_data = list(context_gre_vocab().items())
-        return JsonResponse({'context': context_data})
+        dct = dict(json.load(request))
+        greek_lst = asv.get_greek()
+        ind = greek_lst.index(dct["ans_full"])
+        pmf = pmfs.Pmf(greek_lst, dct["v_list"], dct["f_list"])
+        pmf.cache = dct['cache']
+        pmf.update(ind, dct["data"])
+        context = context_gre_vocab_input(pmf, pmf.choose_norm(), pmf.cache)
+        context['cache'] = ind
+        return JsonResponse({'context': list(context.items())})
     else:
         return HttpResponseBadRequest('Invalid request')
 
@@ -284,10 +309,10 @@ def update_eng_vocab_input(request):
         return HttpResponseBadRequest('Invalid request')
 
 
-def update_gre_vocab_input(request):
+def update_gre_vocab(request):
     is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
     if is_ajax:
-        context_data = list(context_gre_vocab_input().items())
+        context_data = list(context_gre_vocab().items())
         return JsonResponse({'context': context_data})
     else:
         return HttpResponseBadRequest('Invalid request')

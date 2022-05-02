@@ -51,9 +51,7 @@
         function updateContext() {
           fetch("{% url 'updateGreVocab' %}", {
             method: "GET",
-            headers: {
-              "X-Requested-With": "XMLHttpRequest"
-            }
+            headers: {"X-Requested-With": "XMLHttpRequest"}
           })
           .then(res => res.json())
           .then(data => {

@@ -80,6 +80,7 @@
 </div>
     <script type="text/javascript">
         var members = "{{members_list}}".split(',').map(e => e.replace("&#x27;", "'"))
+        console.log(members[members.length-1])
         members.push("{{ans_eng}}".replace("&#x27;", "'"))
         var membersPlus = members.filter(plusFilter).map(plusFunction)
         const iotaDict = {'Η': 'ᾘ', 'Α': 'ᾈ', 'Ω': 'ᾨ', 'Ἡ': 'ᾙ', 'Ὡ': 'ᾩ', 'Ἁ': 'ᾉ', 'α': 'ᾳ', 'η': 'ῃ', 'ω': 'ῳ', 'ὡ': 'ᾡ', 'ἁ': 'ᾁ', 'ἡ': 'ᾑ'}

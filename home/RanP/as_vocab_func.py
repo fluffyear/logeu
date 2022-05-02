@@ -1,4 +1,5 @@
 import random as rn
+from random import choices
 import os
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 with open(os.path.join(__location__, 'as_vocab.txt'), encoding='utf8') as f_hand:
@@ -28,9 +29,12 @@ def shave(word):  # shave definition to max 2 parts
     return f"{lst[0]}, {lst[1]}"
 
 
-def gre_selection():
+def gre_selection(dist=None):  # this
     key = list(dct.keys())
-    num = rn.randint(0, len(key)-1)
+    if dist is None:
+        num = rn.randint(0, len(key)-1)
+    else:
+        num = choices(list(range(0, len(key)-1)), dist)
     ans = key[num]
     verb = ans[0] == 'I'
     ans_tup = (choose(ans), dct[ans])
@@ -103,8 +107,26 @@ def eng_selection():
     return ans_tup, choose(temp[0]), choose(temp[1]), choose(temp[2]), choose(temp[3])
 
 
-def gre_word():
+def gre_word(dist=None, exc=None):  # dist is a probability distribution, exc is a value to reject.
     key = list(dct.keys())
-    num = rn.randint(0, len(key)-1)
+    none = [None, 'None']
+    if (exc not in none) and (dist not in none):
+        num = choices(range(0, len(key)), dist)[0]
+        count = 0
+        while num == exc:
+            num = choices(range(0, len(key)), weights=dist)[0]
+            count += 1
+            if count > 100:
+                raise Exception("Infinite Loop Error")
+    else:
+        num = rn.randint(0, len(key))
     ans = key[num]
-    return choose(ans), dct[ans]
+    return choose(ans), dct[ans], ans
+
+
+def get_len():
+    return len(g_lst)
+
+
+def get_greek():
+    return g_lst

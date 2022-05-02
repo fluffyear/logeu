@@ -26,6 +26,12 @@
         <br><br><br><input type="button" value="nice" onclick="updateContext()">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="/home">Home</a>
 </div>
     <script type="text/javascript">
+        var vLst = (JSON.parse(localStorage.getItem("vraiList"))||{{v_list}})
+        var fLst = (JSON.parse(localStorage.getItem("fauxList"))||{{f_list}})
+        var cache = "{{cache}}"
+        var ansFull = "{{ans_full}}"
+        var ansGreek = "{{ans_greek}}"
+        var correctness = false
         var wordLst = "{{ans_word_list}}".split(',')
         var members = wordLst.map(e => { return e.toLowerCase().replace(/\([^()]*\)/g, '').trim() })
         const input = document.getElementById("userInput")
@@ -48,27 +54,68 @@
             targeted.innerHTML = "Correct!"
             targeted.style.color = "#72d61a"
             document.getElementById("corrected").style.color = "#72d61a"
+            correctness = true
           } else if (ansBool == 1) {
             targeted.style.color = "#f7510a"
             correct = ansFiltered.toString().replace(",", ", ")
             incorrect = ans.filter(e => !ansFiltered.includes(e)).toString().replace(",", ", ")
             targeted.innerHTML = `<span style='color:#ffbb00;'>${input}</span> is incorrect`
             document.getElementById("corrected").style.color = "#f7510a"
+            correctness = false
           } else if (input.length != 0) {
             targeted.style.color = "#f7510a"
             targeted.innerHTML = `${input} is incorrect`
             document.getElementById("corrected").style.color = "#f7510a"
+            correctness = false
+          } else {
+            correctness = false
           }
         }
+        function getCookie(name) {
+          let cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+                }
+            }
+          }
+          return cookieValue;
+        }
         function updateContext() {
+          console.log(correctness)
           fetch("{% url 'updateGreVocabInput' %}", {
-            method: "GET",
-            headers: {"X-Requested-With": "XMLHttpRequest"}
+            method: "POST",
+            credentials: 'same-origin',
+            headers: {
+              'Accept': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest',
+              'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify({
+              'v_list': vLst,
+              'f_list': fLst,
+              'data': correctness,
+              'ans_greek': ansGreek,
+              'ans_full': ansFull,
+              'cache': cache
+            })
           })
           .then(res => res.json())
           .then(data => {
             const jsonDct = {}
             data.context.forEach(([key, val]) => jsonDct[key] = val)
+            ansFull = jsonDct['ans_full']
+            ansGreek = jsonDct['ans_greek']
+            cache = jsonDct['cache']
+            vLst = jsonDct['v_list']
+            fLst = jsonDct['f_list']
+            correctness = false
+            localStorage.setItem("vraiList", JSON.stringify(vLst))
+            localStorage.setItem("fauxList", JSON.stringify(fLst))
             members = jsonDct['ans_word_list'].split(',').map(e => { return e.toLowerCase().replace(/\([^()]*\)/g, '').trim() })
             document.getElementById("starter").innerHTML = jsonDct['ans_greek']
             document.getElementById("corrected").innerHTML = `${jsonDct['ans_greek']}:<br>${jsonDct['ans_word']}`
