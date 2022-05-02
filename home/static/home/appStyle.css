@@ -5,6 +5,7 @@ body {
   text-align: center;
   font-size: 30px;
   color: #444;
+  max-width: 1300px;
 }
 
 #div_0 {
@@ -60,7 +61,7 @@ table {
   width: 100%;
   overflow: auto;
   margin-top: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   border-spacing: 0;
   border-collapse: collapse;
   text-align: center;
