@@ -8,11 +8,7 @@
     <script type="text/javascript">
         if (localStorage.getItem("theme") == "dark-mode") { document.write("<link rel='stylesheet' id='styleSheet' href='{% static 'home/appStyleDark.css' %}'/>") }
     </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap')
-        #div_1 {}
-        #div_2 { display: none }
-    </style>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap')</style>
 </head>
 <body>
 <div id="div_0">
@@ -23,7 +19,7 @@
 <div id="div_1">
     Translate <span id="starter" style="color:#02c3e0;">{{ ans_greek }}</span><br>
     <input id="userInput" type="text" placeholder="English" maxLength="64" style="width: 300px; font-size: 25pt; margin-top: 15px; margin-bottom: 15px;" >
-    <button id="pogBtn" class="infoPut" onclick="app()">Submit</button><br>
+    <button id="pogBtn" class="infoPut" onclick="app()">Submit</button><
 </div>
 <div id="div_2">
     <p><span id="wrong" style="color:#f7510a">Incorrect!</span></p><span id="corrected">{{ ans_greek }}<br>{{ ans_word }}</span>

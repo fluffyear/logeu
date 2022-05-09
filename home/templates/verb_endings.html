@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Logeu: Verb Endings</title>
+    <link rel="stylesheet" id="styleSheet" href="{% static 'home/appStyle.css' %}" />
+    <script type="text/javascript">
+        if (localStorage.getItem("theme") == "dark-mode") { document.write("<link rel='stylesheet' id='styleSheet' href='{% static 'home/appStyleDark.css' %}'/>") }
+    </script>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap')</style>
+</head>
+<body>
+<div id="div_0">
+    <ul>
+      <li><a href="/home">Home</a>&emsp; | &emsp;<a href="/home/about">About</a></li>
+    </ul>
+</div>
+<div id="div_1">
+    Deconstruct <span id="starter" style="color:#02c3e0;">{{ ans_greek }}</span><br>
+    <span id="tier1">{% for i in tier1 %}<label class="container"><input type="radio" name="0" onclick="editCode({{forloop.counter0}}, this.name)"><span class="checkmark">{{ i }}</span></label>{% endfor %}</span><br>
+    <span id="tier2">{% for i in tier2 %}<label class="container"><input type="radio" name="1" onclick="editCode({{forloop.counter0}}, this.name)"><span class="checkmark">{{ i }}</span></label>{% endfor %}</span><br>
+    <span id="tier3">{% for i in tier3 %}<label class="container"><input type="radio" name="2" onclick="editCode({{forloop.counter0}}, this.name)"><span class="checkmark">{{ i }}</span></label>{% endfor %}</span><br>
+    <span id="tier4">{% for i in tier4 %}<label class="container"><input type="radio" name="3" onclick="editCode({{forloop.counter0}}, this.name)"><span class="checkmark">{{ i }}</span></label>{% endfor %}</span><br>
+    <button id="pogBtn" class="infoPut" onclick="app()" style="margin-top: 15px;">Submit</button>
+</div>
+<div id="div_2">
+    <span id="wrong" style="color:#f7510a">Incorrect!</span><br><span id="corrected">{{ ans_greek }} is the <span style="color:#02c3e0;">{{ ans_full }}</span></span>
+    <table id="table1" style="display: none;">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Singular</th>
+          <th>Plural</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-weight: 600">1st</td>
+          <td id="t1">{{ table.0 }}</td>
+          <td id="t4">{{ table.3 }}</td>
+        </tr>
+        <tr>
+          <td style="font-weight: 600">2nd</td>
+          <td id="t2">{{ table.1 }}</td>
+          <td id="t5">{{ table.4 }}</td>
+        </tr>
+        <tr>
+          <td style="font-weight: 600">3rd</td>
+          <td id="t3">{{ table.2 }}</td>
+          <td id="t6">{{ table.5 }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table id="table2" style="display: none;">
+      <thead>
+        <tr>
+          <th id="topLeft"></th>
+          <th>Masculine</th>
+          <th>Feminine</th>
+          <th>Neuter</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-weight: 600">Nom</td>
+          <td id="to1">{{ table.0 }}</td>
+          <td id="to2">{{ table.1 }}</td>
+          <td id="to3">{{ table.2 }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <br><input type="button" class="palin" value="πάλιν" onclick="updateContext()">
+</div>
+    <script type="text/javascript">
+        disTable({{ans_len}})
+        var ansCode = "{{ans_code}}"
+        var current = [null, null, null]
+        var last = ""
+        var corrLast = "{{ans_num}}"
+        var ansLen = "{{ans_len}}"
+        function disTable(num) {
+          if ((1 < num) && (num < 4)) {
+            document.getElementById("table2").style.display = "block"
+          } else if ((4 <= num) && (num <= 6)) {
+            document.getElementById("table1").style.display = "block"
+          }
+        }
+        function editCode(val, name) {
+          if (name === 3) {
+            last = val
+          } else {
+            current[name] = val
+          }
+        }
+        function app() {
+          var targeted = document.getElementById("wrong")
+          console.log(current.toString(), ansCode)
+          if ((current.toString() === ansCode) || ((current.toString().slice(0, 2) === ansCode.slice(0, 2)) && (ansLen == 1))) {
+            targeted.style.color = "#72d61a"
+            targeted.innerHTML = "Correct!"
+          }
+          document.getElementById("div_1").style.display = "none"
+          document.getElementById("div_2").style.display = "block"
+        }
+        function updateContext() {
+          fetch("{% url 'updateVerbEndings' %}", {
+            method: "GET",
+            headers: {
+              "X-Requested-With": "XMLHttpRequest"
+            }
+          })
+          .then(res => res.json())
+          .then(data => {
+            const jsonDct = {}
+            data.context.forEach(([key, val]) => jsonDct[key] = val)
+            ansCode = jsonDct['ans_code']
+            current = [null, null, null]
+            ast = ""
+            corrLast = jsonDct['ans_num']
+            ansLen = jsonDct['ans_len']
+            document.getElementById("starter").innerHTML = jsonDct['ans_greek']
+            document.getElementById("corrected").innerHTML = `${jsonDct['ans_greek']} is the <span style="color:#02c3e0;">${jsonDct['ans_full']}</span>`
+            document.getElementById("wrong").style.color = "#f7510a"
+            document.getElementById("wrong").innerHTML = "Incorrect!"
+            function newInput(num, array) {
+              var temp = ""
+              array.forEach(function (item, index) {
+                temp = temp.concat(`<label class="container"><input type="radio" name="${num}" onclick="editCode(${index}, this.name)"><span class="checkmark">${item}</span></label>`)
+              })
+              return temp
+            }
+            document.getElementById("tier1").innerHTML = newInput(0, jsonDct['tier1'])
+            document.getElementById("tier2").innerHTML = newInput(1, jsonDct['tier2'])
+            document.getElementById("tier3").innerHTML = newInput(2, jsonDct['tier3'])
+            document.getElementById("tier4").innerHTML = newInput(3, jsonDct['tier4'])
+            document.getElementById("table1").style.display = "none"
+            document.getElementById("table2").style.display = "none"
+            disTable(Number(jsonDct['ans_len']))
+            console.log(jsonDct['table'])
+            if (document.getElementById("table1").style.display === "block") {
+              document.getElementById("t1").innerHTML = jsonDct['table'][0]
+              document.getElementById("t2").innerHTML = jsonDct['table'][1]
+              document.getElementById("t3").innerHTML = jsonDct['table'][2]
+              document.getElementById("t4").innerHTML = jsonDct['table'][3]
+              document.getElementById("t5").innerHTML = jsonDct['table'][4]
+              document.getElementById("t6").innerHTML = jsonDct['table'][5]
+            } else if (document.getElementById("table2").style.display === "block") {
+              document.getElementById("to1").innerHTML = jsonDct['table'][0]
+              document.getElementById("to2").innerHTML = jsonDct['table'][1]
+              document.getElementById("to3").innerHTML = jsonDct['table'][2]
+            }
+            document.getElementById("div_1").style.display = "block"
+            document.getElementById("div_2").style.display = "none"
+          })
+        }
+    </script>
+</body>
+</html>

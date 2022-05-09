@@ -299,3 +299,41 @@ li a {
 .palin:hover {
   border: 3px solid #f57f0a;
 }
+
+.container {
+  display: inline-block;
+  position: relative;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: 45px;
+  font-size: 30px;
+  color: #f57f0a;
+  background-color: transparent;
+}
+
+.container input {
+  display: none;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkmark {
+  display: inline-block;
+  padding: 0px 20px;
+  height: 45px;
+  font-size: 30px;
+  color: #f57f0a;
+  border: 2px solid #f57f0a;
+  background-color: transparent;
+}
+
+.container:hover input ~ .checkmark {
+  border: 2px solid #f57f0a;
+  background-color: #ccc;
+}
+
+.container input:checked ~ .checkmark {
+  border: 2px solid #f57f0a;
+  background-color: #ccc;
+}

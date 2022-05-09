@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse, HttpResponseBadRequest
 import random
 from unicodedata import normalize as norm
-from home.RanP import funx, RandomNoun as RaNoun, as_vocab_func as asv, logeupmf as pmfs
+from home.RanP import funx, RandomNoun as RaNoun, as_vocab_func as asv, logeupmf as pmfs, vending as ven
 import json
 word_key = {"θ": "th", "ξ": "ks", "φ": "ph", "ψ": "ps", "Ἑ": "\'E", "ἱ": "\'i", "ὑ": "\'u", "ἡ": "\'n", "ῥ": "\'r",
             "ᾳ": "a!", "ῃ": "n!"}
@@ -248,6 +248,33 @@ def eng_vocab_input(request):
     return render(request, 'eng_vocab_input.html', context_eng_vocab_input())
 
 
+def context_verb_endings():
+    vending = ven.ran_luo()
+    context = {
+        "ans_eng": vending[1],
+        "ans_greek": vending[0],
+        "ans_num": vending[2],
+        "ans_code": vending[3],
+        "ans_len": vending[4],
+        "ans_full": vending[5],
+        "table": vending[6],
+        "tier1": ["Act", "Mid", "Pass"],
+        "tier2": ["Pres", "Fut", "Ipf", "Aor", "Per", "Plu"],
+        "tier3": ["Ind", "Sub", "Opt", "Imp", "Inf", "Part"]
+    }
+    if vending[4] > 3:
+        context["tier4"] = ["1sg", "2sg", "3sg", "1pl", "2pl", "3pl"]
+    elif vending[4] == 3:
+        context["tier4"] = ["Masc", "Fem", "Neut"]
+    elif vending[4] == 1:
+        context["tier4"] = []
+    return context
+
+
+def verb_endings(request):
+    return render(request, 'verb_endings.html', context_verb_endings())
+
+
 def update_noun(request):
     is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
     if is_ajax:
@@ -314,6 +341,15 @@ def update_gre_vocab(request):
     is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
     if is_ajax:
         context_data = list(context_gre_vocab().items())
+        return JsonResponse({'context': context_data})
+    else:
+        return HttpResponseBadRequest('Invalid request')
+
+
+def update_verb_endings(request):
+    is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+    if is_ajax:
+        context_data = list(context_verb_endings().items())
         return JsonResponse({'context': context_data})
     else:
         return HttpResponseBadRequest('Invalid request')

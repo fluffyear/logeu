@@ -1,10 +1,8 @@
 import random as rn
-from random import choices
 import os
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 with open(os.path.join(__location__, 'as_vocab.txt'), encoding='utf8') as f_hand:
     greek = True
-    dct = {}
     g_lst = []
     e_lst = []
     for line in f_hand:
@@ -34,7 +32,7 @@ def gre_selection(dist=None):  # this
     if dist is None:
         num = rn.randint(0, len(key)-1)
     else:
-        num = choices(list(range(0, len(key)-1)), dist)
+        num = rn.choices(list(range(0, len(key)-1)), dist)
     ans = key[num]
     verb = ans[0] == 'I'
     ans_tup = (choose(ans), dct[ans])
@@ -111,10 +109,10 @@ def gre_word(dist=None, exc=None):  # dist is a probability distribution, exc is
     key = list(dct.keys())
     none = [None, 'None']
     if (exc not in none) and (dist not in none):
-        num = choices(range(0, len(key)), dist)[0]
+        num = rn.choices(range(0, len(key)), dist)[0]
         count = 0
         while num == exc:
-            num = choices(range(0, len(key)), weights=dist)[0]
+            num = rn.choices(range(0, len(key)), weights=dist)[0]
             count += 1
             if count > 100:
                 raise Exception("Infinite Loop Error")
