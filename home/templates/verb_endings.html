@@ -17,7 +17,7 @@
     </ul>
 </div>
 <div id="div_1">
-    Deconstruct <span id="starter" style="color:#02c3e0;">{{ ans_greek }}</span><br>
+    Parse <span id="starter" style="color:#02c3e0;">{{ ans_greek }}</span><br>
     <span id="tier1">{% for i in tier1 %}<label class="container"><input type="radio" name="0" onclick="editCode({{forloop.counter0}}, this.name)"><span class="checkmark">{{ i }}</span></label>{% endfor %}</span><br>
     <span id="tier2">{% for i in tier2 %}<label class="container"><input type="radio" name="1" onclick="editCode({{forloop.counter0}}, this.name)"><span class="checkmark">{{ i }}</span></label>{% endfor %}</span><br>
     <span id="tier3">{% for i in tier3 %}<label class="container"><input type="radio" name="2" onclick="editCode({{forloop.counter0}}, this.name)"><span class="checkmark">{{ i }}</span></label>{% endfor %}</span><br>
@@ -56,9 +56,9 @@
       <thead>
         <tr>
           <th id="topLeft"></th>
-          <th>Masculine</th>
-          <th>Feminine</th>
-          <th>Neuter</th>
+          <th>Masc.</th>
+          <th>Fem.</th>
+          <th>Neut.</th>
         </tr>
       </thead>
       <tbody>
@@ -81,9 +81,9 @@
         var ansLen = "{{ans_len}}"
         function disTable(num) {
           if ((1 < num) && (num < 4)) {
-            document.getElementById("table2").style.display = "block"
+            document.getElementById("table2").style.display = "table"
           } else if ((4 <= num) && (num <= 6)) {
-            document.getElementById("table1").style.display = "block"
+            document.getElementById("table1").style.display = "table"
           }
         }
         function editCode(val, name) {
@@ -138,14 +138,14 @@
             document.getElementById("table2").style.display = "none"
             disTable(Number(jsonDct['ans_len']))
             console.log(jsonDct['table'])
-            if (document.getElementById("table1").style.display === "block") {
+            if (document.getElementById("table1").style.display === "table") {
               document.getElementById("t1").innerHTML = jsonDct['table'][0]
               document.getElementById("t2").innerHTML = jsonDct['table'][1]
               document.getElementById("t3").innerHTML = jsonDct['table'][2]
               document.getElementById("t4").innerHTML = jsonDct['table'][3]
               document.getElementById("t5").innerHTML = jsonDct['table'][4]
               document.getElementById("t6").innerHTML = jsonDct['table'][5]
-            } else if (document.getElementById("table2").style.display === "block") {
+            } else if (document.getElementById("table2").style.display === "table") {
               document.getElementById("to1").innerHTML = jsonDct['table'][0]
               document.getElementById("to2").innerHTML = jsonDct['table'][1]
               document.getElementById("to3").innerHTML = jsonDct['table'][2]
