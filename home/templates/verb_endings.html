@@ -111,6 +111,7 @@
           }
         }
         function app() {
+          console.log(current)
           var targeted = document.getElementById("wrong")
           if ((current.toString() === ansCode) || (current.toString().slice(-7) === ansCode) || ((current.toString().slice(0, 2) === ansCode.slice(0, 2)) && (ansLen == 1))) {
             targeted.style.color = "#72d61a"
@@ -145,6 +146,7 @@
               document.getElementById("t" + numb).style.backgroundColor = "transparent"
             }
             ansCode = jsonDct['ans_code']
+            console.log(ansCode)
             current = [null, null, null]
             last = ""
             corrLast = jsonDct['ans_num']

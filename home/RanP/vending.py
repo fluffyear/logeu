@@ -140,8 +140,17 @@ with open(os.path.join(__location__, 'vprefixes.txt'), encoding='utf8') as f_han
             temp_list = []
         else:
             temp_list.append(line.rstrip(" \n"))
-    print(dct1)
-    print(dct2)
+with open(os.path.join(__location__, 'tithnmi.txt'), encoding='utf8') as f_hand:
+    names = list(order)
+    temp_list = []
+    t_word_dct = {}
+    for line in f_hand:
+        if line in {"", "\n", " "}:
+            temp_name = names.pop(0)
+            t_word_dct[temp_name] = temp_list
+            temp_list = []
+        else:
+            temp_list.append(line.rstrip(" \n"))
 
 
 def ran():
@@ -151,8 +160,9 @@ def ran():
 
 
 def ran_luo():
+    dct = rn.choice([word_dct, t_word_dct])
     cho = rn.choices(order, probs)[0]
-    ind = rn.randint(0, len(dct1[cho]) - 1)
+    ind = rn.randint(0, len(dct[cho]) - 1)
     ans = ""
     for c in cho.split(" "):
         ans += str(code[c]) + ","
@@ -160,10 +170,9 @@ def ran_luo():
     full = ""
     for c in cho.split(" "):
         full += f"{code1[c]} "
-    word = word_dct[cho][ind]
+    word = dct[cho][ind]
     nots = []
-    print([word_dct[cho][i] for i in range(0, len(dct1[cho]))])
-    for tag, lst in list(word_dct.items()):
+    for tag, lst in list(dct.items()):
         for c, i in enumerate(lst):
             if i == word and tag != cho:
                 t = tag.split(" ")
@@ -192,5 +201,5 @@ def ran_luo():
         v5 += item
         if counter != len(t):
             v5 += " "
-    return word, cho, ind, ans, len(dct1[cho]), v5, \
-        [word_dct[cho][i] for i in range(0, len(dct1[cho]))], nots
+    return word, cho, ind, ans, len(dct[cho]), v5, \
+        [dct[cho][i] for i in range(0, len(dct[cho]))], nots
