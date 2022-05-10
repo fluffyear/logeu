@@ -251,7 +251,7 @@ def eng_vocab_input(request):
 def context_verb_endings():
     vending = ven.ran_luo()
     temp = vending[3]
-    ans_code = f"{temp[2]},{temp[4]},{temp[0]},{temp[6]}"
+    ans_code = f"{temp[0]},{temp[2]},{temp[4]},{temp[6]}"
     context = {
         "ans_eng": vending[1],
         "ans_greek": vending[0],
