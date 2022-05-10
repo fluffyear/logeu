@@ -262,7 +262,13 @@ def context_verb_endings():
         "tier2": ["Pres", "Fut", "Ipf", "Aor", "Per", "Plu"],
         "tier3": ["Ind", "Sub", "Opt", "Imp", "Inf", "Part"]
     }
-    if vending[4] > 3:
+    if vending[4] == 4:
+        table = vending[6]
+        table.insert(0, "-")
+        table.insert(3, "-")
+        context['table'] = table
+        context["tier4"] = ["1sg", "2sg", "3sg", "1pl", "2pl", "3pl"]
+    elif vending[4] > 3:
         context["tier4"] = ["1sg", "2sg", "3sg", "1pl", "2pl", "3pl"]
     elif vending[4] == 3:
         context["tier4"] = ["Masc", "Fem", "Neut"]

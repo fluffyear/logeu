@@ -13,7 +13,7 @@ order = [
     'act fut opt',
     'act fut inf',
     'act fut par',
-    'act aor inf',
+    'act aor ind',
     'act aor sub',
     'act aor opt',
     'act aor imp',
@@ -109,9 +109,11 @@ with open(os.path.join(__location__, 'vendings.txt'), encoding='utf8') as f_hand
     names = list(order)
     temp_list = []
     dct1 = {}
+    probs = []
     for line in f_hand:
         if line in {"", "\n", " "}:
             dct1[names.pop(0)] = temp_list
+            probs.append(len(temp_list))
             temp_list = []
         else:
             temp_list.append(line.rstrip(" \n"))
@@ -134,7 +136,7 @@ def ran():
 
 
 def ran_luo():
-    cho = rn.choice(list(dct1.keys()))
+    cho = rn.choices(list(dct1.keys()), probs)[0]
     ind = rn.randint(0, len(dct1[cho]) - 1)
     ans = ""
     for c in cho.split(" "):
@@ -143,6 +145,5 @@ def ran_luo():
     full = ""
     for c in cho.split(" "):
         full += f"{code1[c]} "
-    print(len(dct1[cho]))
     return f"{dct2[cho][ind]}{dct1[cho][ind]}", cho, ind, ans, len(dct1[cho]), full, \
         [f"{dct2[cho][i]}{dct1[cho][i]}" for i in range(0, len(dct1[cho]))]
