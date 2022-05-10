@@ -105,7 +105,11 @@ code1 = {
     "plu": "Pluperfect",
 }
 re = {0: "λυ", 1: "λύ"}
-map6 = {1: "1sg", 2: "2sg", 3: "3sg", 4: "1pl", 5: "2pl", 6: "3pl"}
+map1 = {1: "1sg", 2: "2sg", 3: "3sg", 4: "1pl", 5: "2pl", 6: "3pl"}
+map2 = {1: "2sg", 2: "3sg", 3: "2pl", 4: "3pl"}
+map3 = {1: "masc", 2: "fem", 3: "neut"}
+map4 = {1: ""}
+map_map = {6: map1, 4: map2, 3: map3, 1: map4}
 with open(os.path.join(__location__, 'vendings.txt'), encoding='utf8') as f_hand:
     names = list(order)
     temp_list = []
@@ -147,7 +151,7 @@ def ran():
 
 
 def ran_luo():
-    cho = rn.choices(list(dct1.keys()), probs)[0]
+    cho = rn.choices(order, probs)[0]
     ind = rn.randint(0, len(dct1[cho]) - 1)
     ans = ""
     for c in cho.split(" "):
@@ -158,9 +162,35 @@ def ran_luo():
         full += f"{code1[c]} "
     word = word_dct[cho][ind]
     nots = []
+    print([word_dct[cho][i] for i in range(0, len(dct1[cho]))])
     for tag, lst in list(word_dct.items()):
         for c, i in enumerate(lst):
             if i == word and tag != cho:
-                nots.append(f"{tag} {c}")
-    return word, cho, ind, ans, len(dct1[cho]), full, \
-        [word_dct[cho][ind] for i in range(0, len(dct1[cho]))], nots
+                t = tag.split(" ")
+                held = t[0]
+                t[0] = t[1]
+                t[1] = held
+                held = t[1]
+                t[1] = t[2]
+                t[2] = held
+                t1 = ""
+                for counter, item in enumerate(t, start=1):
+                    t1 += item
+                    if counter != len(t):
+                        t1 += " "
+                t2 = map_map[len(lst)][c+1]
+                nots.append(f"{t1} {t2}")
+    t = full.split(" ")
+    held = t[0]
+    t[0] = t[1]
+    t[1] = held
+    held = t[1]
+    t[1] = t[2]
+    t[2] = held
+    v5 = ""
+    for counter, item in enumerate(t, start=1):
+        v5 += item
+        if counter != len(t):
+            v5 += " "
+    return word, cho, ind, ans, len(dct1[cho]), v5, \
+        [word_dct[cho][i] for i in range(0, len(dct1[cho]))], nots
