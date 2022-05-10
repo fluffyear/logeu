@@ -105,14 +105,18 @@ code1 = {
     "plu": "Pluperfect",
 }
 re = {0: "λυ", 1: "λύ"}
+map6 = {1: "1sg", 2: "2sg", 3: "3sg", 4: "1pl", 5: "2pl", 6: "3pl"}
 with open(os.path.join(__location__, 'vendings.txt'), encoding='utf8') as f_hand:
     names = list(order)
     temp_list = []
     dct1 = {}
+    word_dct = {}
     probs = []
     for line in f_hand:
         if line in {"", "\n", " "}:
-            dct1[names.pop(0)] = temp_list
+            temp_name = names.pop(0)
+            dct1[temp_name] = temp_list
+            word_dct[temp_name] = temp_list
             probs.append(len(temp_list))
             temp_list = []
         else:
@@ -123,10 +127,17 @@ with open(os.path.join(__location__, 'vprefixes.txt'), encoding='utf8') as f_han
     dct2 = {}
     for line in f_hand:
         if line in {"", "\n", " "}:
-            dct2[names.pop(0)] = temp_list
+            temp_name = names.pop(0)
+            dct2[temp_name] = temp_list
+            for count, val in enumerate(temp_list):
+                before = word_dct[temp_name][count]
+                word_dct[temp_name][count] = val
+                word_dct[temp_name][count] += before
             temp_list = []
         else:
             temp_list.append(line.rstrip(" \n"))
+    print(dct1)
+    print(dct2)
 
 
 def ran():
@@ -145,5 +156,11 @@ def ran_luo():
     full = ""
     for c in cho.split(" "):
         full += f"{code1[c]} "
-    return f"{dct2[cho][ind]}{dct1[cho][ind]}", cho, ind, ans, len(dct1[cho]), full, \
-        [f"{dct2[cho][i]}{dct1[cho][i]}" for i in range(0, len(dct1[cho]))]
+    word = word_dct[cho][ind]
+    nots = []
+    for tag, lst in list(word_dct.items()):
+        for c, i in enumerate(lst):
+            if i == word and tag != cho:
+                nots.append(f"{tag} {c}")
+    return word, cho, ind, ans, len(dct1[cho]), full, \
+        [word_dct[cho][ind] for i in range(0, len(dct1[cho]))], nots

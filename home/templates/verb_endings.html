@@ -18,6 +18,7 @@
 </div>
 <div id="div_1">
     Parse <span id="starter" style="color:#02c3e0;">{{ ans_greek }}</span><br>
+    <span id="nots" style="display: none;">[not ({% for i in nots %}{{ i }}, {% endfor %})]</span><br>
     <span id="tier1">{% for i in tier1 %}<label class="container"><input type="radio" name="0" onclick="editCode({{forloop.counter0}}, this.name)"><span class="checkmark">{{ i }}</span></label>{% endfor %}</span><br>
     <span id="tier2">{% for i in tier2 %}<label class="container"><input type="radio" name="1" onclick="editCode({{forloop.counter0}}, this.name)"><span class="checkmark">{{ i }}</span></label>{% endfor %}</span><br>
     <span id="tier3">{% for i in tier3 %}<label class="container"><input type="radio" name="2" onclick="editCode({{forloop.counter0}}, this.name)"><span class="checkmark">{{ i }}</span></label>{% endfor %}</span><br>
@@ -78,6 +79,8 @@
         var last = ""
         var corrLast = "{{ans_num}}"
         var ansLen = "{{ans_len}}"
+        var nots = {{py_nots}}
+        if (nots.length > 0) { document.getElementById("nots").style.display = "block" }
         setTable(ansLen)
         function setTable(num) {
           if (num == 1) {
@@ -133,6 +136,9 @@
             last = ""
             corrLast = jsonDct['ans_num']
             ansLen = jsonDct['ans_len']
+            nots = jsonDct['py_nots']
+            document.getElementById("nots").style.display = "none"
+            if (nots.length > 0) { document.getElementById("nots").style.display = "block" }
             document.getElementById("table0").style.display = "none"
             document.getElementById("table").style.display = "table"
             setTable(ansLen)

@@ -258,6 +258,7 @@ def context_verb_endings():
         "ans_len": vending[4],
         "ans_full": vending[5],
         "table": vending[6],
+        "py_nots": vending[7],
         "tier1": ["Act", "Mid", "Pass"],
         "tier2": ["Pres", "Fut", "Ipf", "Aor", "Per", "Plu"],
         "tier3": ["Ind", "Sub", "Opt", "Imp", "Inf", "Part"]
