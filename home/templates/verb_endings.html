@@ -141,8 +141,9 @@
           document.getElementById("div_1").style.display = "none"
           document.getElementById("div_2").style.display = "block"
         }
+        // iPhone|iPad|iPod| //
         function updateContext() {
-          if (/iPhone|iPad|iPod|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+          if (/IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             fetch("{% url 'updateVerbEndings' %}", {
               method: "GET",
               headers: {
