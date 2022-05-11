@@ -66,6 +66,9 @@ order = [
     'pas aor imp',
     'pas aor inf',
     'pas aor par',
+    'pas per ind',
+    'pas per sub',
+    'pas per opt',
     'pas per inf',
     'pas per par',
     'pas plu ind'
@@ -151,6 +154,7 @@ with open(os.path.join(__location__, 'tithnmi.txt'), encoding='utf8') as f_hand:
             temp_list = []
         else:
             temp_list.append(line.rstrip(" \n"))
+lzt_map = {"tithnmi": t_word_dct, "luw": word_dct}
 
 
 def ran():
@@ -159,8 +163,18 @@ def ran():
     return cho[ind], cho, ind
 
 
-def ran_luo():
-    dct = rn.choice([word_dct, t_word_dct])
+def ran_luo(lzt=None):
+    if lzt is not None:
+        lzt_t = [i for i in lzt if i != "false"]
+        if len(lzt_t) in {0, 2}:
+            dct = rn.choice([word_dct, t_word_dct])
+        else:
+            if lzt[1] == "true":
+                dct = lzt_map["luw"]
+            else:
+                dct = lzt_map["tithnmi"]
+    else:
+        dct = rn.choice([word_dct, t_word_dct])
     cho = rn.choices(order, probs)[0]
     ind = rn.randint(0, len(dct[cho]) - 1)
     ans = ""

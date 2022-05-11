@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Logeu: Verb Endings</title>
+    <link rel="stylesheet" id="styleSheet" href="{% static 'home/appStyle.css' %}" />
+    <script type="text/javascript">
+        if (localStorage.getItem("theme") == "dark-mode") { document.write("<link rel='stylesheet' id='styleSheet' href='{% static 'home/appStyleDark.css' %}'/>") }
+    </script>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Catamaran&display=swap')</style>
+</head>
+<body>
+<div id="div_0">
+    <ul>
+      <li><a href="/home">Home</a>&emsp; | &emsp;<a href="/home/about">About</a>&emsp; | &emsp;<a href="/home/verb_endings" style="color: #02c3e0;">Back</a></li>
+    </ul>
+</div>
+<div id="div_1">
+    <br><label class="switch"><input id="luw" type="checkbox" onclick="changeSource(this.id)"><span class="slider"></span></label>
+    λύω<br>
+    <label class="switch"><input id="tithnmi" type="checkbox" onclick="changeSource(this.id)"><span class="slider"></span></label>
+    τίθημι
+</div>
+
+    <script type="text/javascript">
+        if (localStorage.getItem("luw") == 'true') { document.getElementById("luw").checked = "true" }
+        if (localStorage.getItem("tithnmi") == 'true') { document.getElementById("tithnmi").checked = "true" }
+        function changeSource(id) {
+            if (document.getElementById(id).checked) {
+                localStorage.setItem(id, true)
+            } else {
+                localStorage.setItem(id, false)
+            }
+        }
+    </script>
+</body>
+</html>

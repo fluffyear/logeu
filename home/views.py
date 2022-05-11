@@ -52,6 +52,10 @@ def about(request):
     return render(request, 'about.html')
 
 
+def verb_endings_settings(request):
+    return render(request, 'verb_endings_settings.html')
+
+
 def context_verb():
     count = 1
     context = {}
@@ -248,8 +252,11 @@ def eng_vocab_input(request):
     return render(request, 'eng_vocab_input.html', context_eng_vocab_input())
 
 
-def context_verb_endings():
-    vending = ven.ran_luo()
+def context_verb_endings(lst=None):
+    if lst is not None:
+        vending = ven.ran_luo(lst)
+    else:
+        vending = ven.ran_luo()
     temp = vending[3]
     ans_code = f"{temp[0]},{temp[2]},{temp[4]},{temp[6]}"
     context = {
@@ -359,6 +366,16 @@ def update_verb_endings(request):
     is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
     if is_ajax:
         context_data = list(context_verb_endings().items())
+        return JsonResponse({'context': context_data})
+    else:
+        return HttpResponseBadRequest('Invalid request')
+
+
+def post_update_verb_endings(request):
+    is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+    if is_ajax:
+        dct = dict(json.load(request))
+        context_data = list(context_verb_endings([dct["tithnmi"], dct["luw"]]).items())
         return JsonResponse({'context': context_data})
     else:
         return HttpResponseBadRequest('Invalid request')

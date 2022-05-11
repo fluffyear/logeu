@@ -13,7 +13,7 @@
 <body>
 <div id="div_0">
     <ul>
-      <li><a href="/home">Home</a>&emsp; | &emsp;<a href="/home/about">About</a></li>
+      <li><a href="/home">Home</a>&emsp; | &emsp;<a href="/home/about">About</a>&emsp; | &emsp;<a href="/home/verb_endings_settings" style="color: #02c3e0;">Settings</a></li>
     </ul>
 </div>
 <div id="div_1">
@@ -80,7 +80,20 @@
         var corrLast = "{{ans_num}}"
         var ansLen = "{{ans_len}}"
         var nots = {{py_nots|safe}}
-        console.log(nots)
+        function getCookie(name) {
+          let cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+                }
+            }
+          }
+          return cookieValue;
+        }
         if (nots.length > 0) {
           document.getElementById("nots").style.display = "block"
           let aStr = ""
@@ -129,70 +142,148 @@
           document.getElementById("div_2").style.display = "block"
         }
         function updateContext() {
-          fetch("{% url 'updateVerbEndings' %}", {
-            method: "GET",
-            headers: {
-              "X-Requested-With": "XMLHttpRequest"
-            }
-          })
-          .then(res => res.json())
-          .then(data => {
-            const jsonDct = {}
-            data.context.forEach(([key, val]) => jsonDct[key] = val)
-            if (document.getElementById("table").style.display === "none") {
-              let numb = Number(corrLast) + 1
-              document.getElementById("to" + numb).style.backgroundColor = "transparent"
-            } else {
-              let numb = Number(corrLast) + 1
-              document.getElementById("t" + numb).style.backgroundColor = "transparent"
-            }
-            ansCode = jsonDct['ans_code']
-            console.log(ansCode)
-            current = [null, null, null]
-            last = ""
-            corrLast = jsonDct['ans_num']
-            ansLen = jsonDct['ans_len']
-            nots = jsonDct['py_nots']
-            console.log(nots)
-            document.getElementById("nots").style.display = "none"
-            if (nots.length > 0) {
-              document.getElementById("nots").style.display = "block"
-              let aStr = ""
-              nots.forEach(function (item, index) {
-                aStr = aStr.concat(item)
-                let comp = nots.length - 1
-                if (index !== comp) {
-                  aStr = aStr.concat(", ")
-                }
-              })
-              document.getElementById("nots").innerHTML = `(not ${aStr})`
-            }
-            document.getElementById("table0").style.display = "none"
-            document.getElementById("table").style.display = "table"
-            setTable(ansLen)
-            document.getElementById("starter").innerHTML = jsonDct['ans_greek']
-            document.getElementById("corrected").innerHTML = `${jsonDct['ans_greek']} is the <span style="color:#02c3e0;">${jsonDct['ans_full']}</span>`
-            document.getElementById("wrong").style.color = "#f7510a"
-            document.getElementById("wrong").innerHTML = "Incorrect!"
-            function newInput(num, arr) {
-              let temp = ""
-              arr.forEach(function (item, index) {
-                temp = temp.concat(`<label class="container"><input type="radio" name="${num}" onclick="editCode(${index}, this.name)"><span class="checkmark">${item}</span></label>`)
-              })
-              return temp
-            }
-            let nums0 = [1, 2, 3, 4]
-            document.getElementById("tier1").innerHTML = newInput(1, jsonDct['tier1'])
-            document.getElementById("tier2").innerHTML = newInput(2, jsonDct['tier2'])
-            document.getElementById("tier3").innerHTML = newInput(3, jsonDct['tier3'])
-            document.getElementById("tier4").innerHTML = newInput(4, jsonDct['tier4'])
-            let nums1 = [0, 1, 2, 3, 4, 5]
-            nums1.forEach(function (i) {
-              document.getElementById("t".concat(i+1)).innerHTML = jsonDct['table'][i]
+          if (/iPhone|iPad|iPod|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            fetch("{% url 'updateVerbEndings' %}", {
+              method: "GET",
+              headers: {
+                "X-Requested-With": "XMLHttpRequest"
+              }
             })
-            document.getElementById("div_1").style.display = "block"
-            document.getElementById("div_2").style.display = "none"
-          })
+            .then(res => res.json())
+            .then(data => {
+              const jsonDct = {}
+              data.context.forEach(([key, val]) => jsonDct[key] = val)
+              if (document.getElementById("table").style.display === "none") {
+                let numb = Number(corrLast) + 1
+                document.getElementById("to" + numb).style.backgroundColor = "transparent"
+              } else {
+                let numb = Number(corrLast) + 1
+                document.getElementById("t" + numb).style.backgroundColor = "transparent"
+              }
+              ansCode = jsonDct['ans_code']
+              console.log(ansCode)
+              current = [null, null, null]
+              last = ""
+              corrLast = jsonDct['ans_num']
+              ansLen = jsonDct['ans_len']
+              nots = jsonDct['py_nots']
+              console.log(nots)
+              document.getElementById("nots").style.display = "none"
+              if (nots.length > 0) {
+                document.getElementById("nots").style.display = "block"
+                let aStr = ""
+                nots.forEach(function (item, index) {
+                  aStr = aStr.concat(item)
+                  let comp = nots.length - 1
+                  if (index !== comp) {
+                    aStr = aStr.concat(", ")
+                  }
+                })
+                document.getElementById("nots").innerHTML = `(not ${aStr})`
+              }
+              document.getElementById("table0").style.display = "none"
+              document.getElementById("table").style.display = "table"
+              setTable(ansLen)
+              document.getElementById("starter").innerHTML = jsonDct['ans_greek']
+              document.getElementById("corrected").innerHTML = `${jsonDct['ans_greek']} is the <span style="color:#02c3e0;">${jsonDct['ans_full']}</span>`
+              document.getElementById("wrong").style.color = "#f7510a"
+              document.getElementById("wrong").innerHTML = "Incorrect!"
+              function newInput(num, arr) {
+                let temp = ""
+                arr.forEach(function (item, index) {
+                  temp = temp.concat(`<label class="container"><input type="radio" name="${num}" onclick="editCode(${index}, this.name)"><span class="checkmark">${item}</span></label>`)
+                })
+                return temp
+              }
+              let nums0 = [1, 2, 3, 4]
+              document.getElementById("tier1").innerHTML = newInput(1, jsonDct['tier1'])
+              document.getElementById("tier2").innerHTML = newInput(2, jsonDct['tier2'])
+              document.getElementById("tier3").innerHTML = newInput(3, jsonDct['tier3'])
+              document.getElementById("tier4").innerHTML = newInput(4, jsonDct['tier4'])
+              let nums1 = [0, 1, 2, 3, 4, 5]
+              nums1.forEach(function (i) {
+                document.getElementById("t".concat(i+1)).innerHTML = jsonDct['table'][i]
+              })
+              document.getElementById("div_1").style.display = "block"
+              document.getElementById("div_2").style.display = "none"
+            })
+          } else {
+            let tithnmi = localStorage.getItem("tithnmi")
+            let luw = localStorage.getItem("luw")
+            if (tithnmi === null) { tithnmi = "non" }
+            if (luw === null) { luw = "non" }
+            fetch("{% url 'updateVerbEndingsPOST' %}", {
+              method: "POST",
+              credentials: 'same-origin',
+              headers: {
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': getCookie('csrftoken')
+              },
+              body: JSON.stringify({
+                'tithnmi': tithnmi,
+                'luw': luw
+              })
+            })
+            .then(res => res.json())
+            .then(data => {
+              const jsonDct = {}
+              data.context.forEach(([key, val]) => jsonDct[key] = val)
+              if (document.getElementById("table").style.display === "none") {
+                let numb = Number(corrLast) + 1
+                document.getElementById("to" + numb).style.backgroundColor = "transparent"
+              } else {
+                let numb = Number(corrLast) + 1
+                document.getElementById("t" + numb).style.backgroundColor = "transparent"
+              }
+              ansCode = jsonDct['ans_code']
+              console.log(ansCode)
+              current = [null, null, null]
+              last = ""
+              corrLast = jsonDct['ans_num']
+              ansLen = jsonDct['ans_len']
+              nots = jsonDct['py_nots']
+              console.log(nots)
+              document.getElementById("nots").style.display = "none"
+              if (nots.length > 0) {
+                document.getElementById("nots").style.display = "block"
+                let aStr = ""
+                nots.forEach(function (item, index) {
+                  aStr = aStr.concat(item)
+                  let comp = nots.length - 1
+                  if (index !== comp) {
+                    aStr = aStr.concat(", ")
+                  }
+                })
+                document.getElementById("nots").innerHTML = `(not ${aStr})`
+              }
+              document.getElementById("table0").style.display = "none"
+              document.getElementById("table").style.display = "table"
+              setTable(ansLen)
+              document.getElementById("starter").innerHTML = jsonDct['ans_greek']
+              document.getElementById("corrected").innerHTML = `${jsonDct['ans_greek']} is the <span style="color:#02c3e0;">${jsonDct['ans_full']}</span>`
+              document.getElementById("wrong").style.color = "#f7510a"
+              document.getElementById("wrong").innerHTML = "Incorrect!"
+              function newInput(num, arr) {
+                let temp = ""
+                arr.forEach(function (item, index) {
+                  temp = temp.concat(`<label class="container"><input type="radio" name="${num}" onclick="editCode(${index}, this.name)"><span class="checkmark">${item}</span></label>`)
+                })
+                return temp
+              }
+              let nums0 = [1, 2, 3, 4]
+              document.getElementById("tier1").innerHTML = newInput(1, jsonDct['tier1'])
+              document.getElementById("tier2").innerHTML = newInput(2, jsonDct['tier2'])
+              document.getElementById("tier3").innerHTML = newInput(3, jsonDct['tier3'])
+              document.getElementById("tier4").innerHTML = newInput(4, jsonDct['tier4'])
+              let nums1 = [0, 1, 2, 3, 4, 5]
+              nums1.forEach(function (i) {
+                document.getElementById("t".concat(i+1)).innerHTML = jsonDct['table'][i]
+              })
+              document.getElementById("div_1").style.display = "block"
+              document.getElementById("div_2").style.display = "none"
+            })
+          }
         }
     </script>
 </body>

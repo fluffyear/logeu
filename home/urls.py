@@ -6,6 +6,7 @@ urlpatterns = [
     path('about/', views.about),
     path('nouns/', views.nouns),
     path('verbs/', views.verbs),
+    path('verb_endings_settings/', views.verb_endings_settings),
     path('vocab_greek/', views.gre_vocab),
     path('vocab_english/', views.eng_vocab),
     path('noun_input/', views.noun_input),
@@ -19,5 +20,6 @@ urlpatterns = [
     path('home/views.update_noun_input_context', views.update_noun_input, name="updateNounInput"),
     path('home/views.update_gre_vocab_input_context', views.update_gre_vocab_input, name="updateGreVocabInput"),
     path('home/views.update_eng_vocab_input_context', views.update_eng_vocab_input, name="updateEngVocabInput"),
-    path('home/views.update_verb_endings_context', views.update_verb_endings, name="updateVerbEndings")
+    path('home/views.update_verb_endings_context', views.update_verb_endings, name="updateVerbEndings"),
+    path('home/views.post_update_verb_endings_context', views.post_update_verb_endings, name="updateVerbEndingsPOST")
 ]
